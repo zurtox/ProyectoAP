@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #45455E;
+}
+
+.font-poppins{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.lightblue-button {
+    border: 0px;
+    background-color: #5e9ed7;
+    color: white;
+
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+
+    
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.lightblue-button:hover{
+    background-color: #347dbd;
+}
