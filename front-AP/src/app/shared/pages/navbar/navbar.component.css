@@ -1,14 +1,4 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    list-style: none;
-}
 
-
-
-/*----------------NAVBAR---------------*/
 .header{
     background-color: #45455e;
     display: flex;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'actor-box',
+  selector: 'shared-actor-box',
   standalone: true,
   imports: [],
   templateUrl: './actor-box.component.html',
