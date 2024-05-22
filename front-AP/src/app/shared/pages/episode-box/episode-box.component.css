@@ -1,0 +1,35 @@
+.episode-box{
+    display: flex;
+    background-color: #2e2e3db3;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    flex-direction: row;
+    cursor: pointer;
+    align-items: center;
+    justify-content: start;
+    width: 70vw;
+    height: 80px;
+    transition: all 0.2s;
+}
+
+.episode-box:hover{
+    transform: scale(1.02);
+
+}
+
+
+
+h2{
+    margin-left: 30px;
+    margin-right: 30px;
+    color: white;
+}
+h3{
+    margin: 10px;
+    color: white;
+}
+
+p{
+    margin: 10px;
+    color: white;
+}
