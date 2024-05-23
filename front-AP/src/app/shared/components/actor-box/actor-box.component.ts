@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'shared-actor-box',
@@ -8,6 +8,13 @@ import { Component } from '@angular/core';
   styleUrl: './actor-box.component.css'
 })
 export class ActorBoxComponent {
-  actorName: string = 'NOLAN';
-  actorRole: string = 'Director';
+  @Input()
+  name: string = ""
+
+  @Input()
+  role: string = ""
+
+  @Input()
+  image: string = ""
+
 }

@@ -1,0 +1,25 @@
+
+<div class="content-card">
+  <div class="image-container">
+    <img [src]="image">
+  </div>
+  <div class="info-container">
+    <h3>{{name}}</h3>
+    <p>{{type}}</p>
+    <div class="badges-container">
+      @for (item of categories; track $index) {
+        <shared-badge
+        [text]="item">
+        </shared-badge>
+      }
+
+    </div>
+  </div>
+  <div class="review-container">
+    <img src="assets/star.png" alt="">
+    <img src="assets/star.png" alt="">
+    <img src="assets/star.png" alt="">
+    <img src="assets/star.png" alt="">
+    <img src="assets/star.png" alt="">
+  </div>
+</div>

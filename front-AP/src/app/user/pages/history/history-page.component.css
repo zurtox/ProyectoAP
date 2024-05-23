@@ -1,0 +1,23 @@
+h2, h3, p {
+  color: white;
+  font-family: 'Droid Sans';
+}
+
+.header {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 80px;
+  gap: 16px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 20px;
+}

@@ -1,5 +1,4 @@
 <img class="background-image" src="assets/film-1.jpg">
-<shared-navbar-user></shared-navbar-user>
 <img src="film-1" alt="" class="background-image">
 <div class="glass-container"></div>
 <div class="main-container">
@@ -10,9 +9,9 @@
             </div>
             <button class="lightblue-button">Check Reviews</button>
             <a class="font-poppins">Review Content</a>
-            
+
         </div>
-    
+
         <div class="movie-info-container">
             <h3>Title</h3>
             <p>{{movieTitle}}</p>
@@ -22,7 +21,7 @@
             <p>{{movieDuration}}</p>
             <h3>Rating</h3>
         </div>
-    
+
         <div class="synopsis-container">
             <div class="save-options-buttons">
                 <a>
@@ -39,7 +38,7 @@
             <h3>Synopsis</h3>
             <p class="synopsis">{{movieSynopsis}}</p>
         </div>
-    
+
     </div>
 
     <div class="episodes-container">
@@ -47,14 +46,16 @@
             <h3>Episodes</h3>
         </div>
         <div class="episodes">
-            <episode-box></episode-box>
-            <episode-box></episode-box>
-            <episode-box></episode-box>
-            <episode-box></episode-box>
-            
+          @for (item of episodes; track $index) {
+            <shared-episode-box
+              [title]="episodes[0]"
+              [duration]="episodes[1]"
+              [number]="episodes[2]"></shared-episode-box>
+          }
+
         </div>
     </div>
-    
+
     <div class="trailer-container">
         <h3>Trailer</h3>
         <div class="trailer">
@@ -64,10 +65,10 @@
     <div class="footage-container">
         <h3>Footage</h3>
         <div class="footage-images">
-            
+
         </div>
     </div>
-    
+
     <div class="team-container">
         <h3>Team</h3>
         <div class="actors-container">
@@ -80,7 +81,7 @@
             <shared-actor-box></shared-actor-box>
             <shared-actor-box></shared-actor-box>
         </div>
-    
+
     </div>
 
     <div class="platforms-container">

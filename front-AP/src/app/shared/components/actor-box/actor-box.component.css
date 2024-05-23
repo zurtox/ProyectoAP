@@ -1,0 +1,39 @@
+.actor-box{
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 400px;
+  align-items: start;
+}
+
+.image-container{
+  border-radius: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: start;
+  width: 100%;
+  height: 90%;
+  overflow: hidden;
+}
+
+.image-container img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+h3{
+  margin-left: 5px;
+  font-size: 22px;
+  color: white;
+  margin-bottom: 5px;
+}
+
+p{
+  margin-left: 5px;
+  font-size: 18px;
+  color: rgb(194, 194, 194);
+  margin-bottom: 10px;
+}

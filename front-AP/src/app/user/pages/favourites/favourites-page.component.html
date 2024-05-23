@@ -1,1 +1,13 @@
-<p>favourites-page works!</p>
+<div class="main-container">
+  <h2>Favorites</h2>
+  <div class="cards-grid">
+    @for (item of iterator; track $index) {
+      <shared-content-card
+      [image]="movie[0]"
+      [name]="movie[1]"
+      [type]="movie[2]"
+      [categories]="categories">
+    </shared-content-card>
+    }
+  </div>
+</div>

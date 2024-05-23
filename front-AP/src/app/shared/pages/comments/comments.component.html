@@ -1,8 +1,13 @@
-<shared-navbar-user></shared-navbar-user>
 <img class="background-image" src="assets/film-1.jpg">
 <img src="film-1" alt="" class="background-image">
 <div class="glass-container"></div>
 <div class="main-container">
-    <shared-comment-box></shared-comment-box>
-    <shared-comment-box></shared-comment-box>
+  @for (item of iterator; track $index) {
+    <shared-comment-box
+      [header]="comments[0]"
+      [user]="comments[1]"
+      [date]="comments[2]"
+      [body]="comments[3]">
+      </shared-comment-box>
+  }
 </div>

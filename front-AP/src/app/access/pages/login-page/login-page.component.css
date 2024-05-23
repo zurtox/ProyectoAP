@@ -16,7 +16,7 @@
     font-size: 30px;
     color: white;
     font-weight: 600;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Droid', 'Poppins', sans-serif;
 }
 
 
@@ -24,7 +24,7 @@
     display: flex;
     border-radius: 15px;
     background-color: #365c7d;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);    
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     width: 950px;
     height: 670px;
 
@@ -66,7 +66,7 @@
     height: 100%;
 }
 
-.login-container{ 
+.login-container{
     justify-content: center;
     align-items: center;
     display: flex;

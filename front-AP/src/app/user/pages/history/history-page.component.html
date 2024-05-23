@@ -1,1 +1,19 @@
-<p>history-page works!</p>
+<div class="main-container">
+  <div class="header">
+    <h2>Recently Viewed</h2>
+    <shared-dropdown-menu
+      header="Categories"
+      [options]="dropdownCategories">
+    </shared-dropdown-menu>
+  </div>
+  <div class="cards-grid">
+    @for (item of iterator; track $index) {
+      <shared-content-card
+      [image]="movie[0]"
+      [name]="movie[1]"
+      [type]="movie[2]"
+      [categories]="categories">
+    </shared-content-card>
+    }
+  </div>
+</div>

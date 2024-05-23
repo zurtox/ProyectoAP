@@ -1,0 +1,17 @@
+p {
+  color: white;
+  font-family: 'Droid Sans';
+  font-weight: lighter;
+  font-size: 12px;
+}
+
+.badge {
+  background-color: #4CA9F9;
+  width: fit-content;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
