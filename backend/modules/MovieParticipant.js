@@ -1,4 +1,4 @@
-import supabase from '../src/config/supabaseClient.js';
+import supabase from '../config/supabaseClient.js';
 
 // Select all MovieParticipant entries
 export async function getAllMovieParticipants() {

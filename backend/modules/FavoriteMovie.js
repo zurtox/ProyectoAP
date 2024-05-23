@@ -1,4 +1,4 @@
-import supabase from '../src/config/supabaseClient.js';
+import supabase from '../config/supabaseClient.js';
 
 // Select all FavoriteMovie Movie by user
 export async function getAllFavoriteMovies(user) {

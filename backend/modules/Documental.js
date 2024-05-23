@@ -1,4 +1,4 @@
-import supabase from '../src/config/supabaseClient.js';
+import supabase from '../config/supabaseClient.js';
 
 // Select all Documental entries
 export async function getAllDocumentals() {

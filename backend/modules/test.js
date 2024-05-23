@@ -1,5 +1,5 @@
 import { activateContent, deactivateContent } from './Content.js';
-import supabase from '../src/config/supabaseClient.js';
+import supabase from '../config/supabaseClient.js';
 
 async function functionalTest() {
   const contentId = 1; // assuming the content ID is 1
