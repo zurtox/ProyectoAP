@@ -16,30 +16,7 @@ Tener el nombre y logo personalizado 5.12.
 
 ## Preguntas 
 
-Con usuarios: para el id se puede seleccionar que tipo es (pasaporte, id, etc)? en ese caso se tiene que hacer con una mascara? 
-
-Hay que agregar `gender` al User, lo hacemos a traves de un enum o una tabla para agregar valores?
-
-Quien puede editar las peliculas? todos los admins? o solo el creador de la pelicula?
-
-Como registramos admins? son pre definidos o hay que poder registrarlos? 
-
 En la parte 4.a. para el registro de persona a que se refiere con "comunidad a la que pertenecen"
-
-Los reviews tienen comentarios? a ellos tema 
-
-```
-Review: 
-    review: "La pelicula es muy mala"
-    ...
-
-Comentario:
-    comentario: "Estoy de acuerdo" 
-    ...
-
-```
-
-En el punto 5.6 limita las bases de datos, pero la profe no habia dicho que usaramos la que queramos? 
 
 ## Anotaciones 
 

@@ -1,56 +1,54 @@
-import { activateContent, deactivateContent } from './Content.js';
-import supabase from '../config/supabaseClient.js';
+import { 
+  getAllPersonHolders, 
+  getPersonHolderById, 
+  insertPersonHolder, 
+  updatePersonHolder, 
+  deletePersonHolder 
+} from './PersonHolder.js';
 
-async function functionalTest() {
-  const contentId = 1; // assuming the content ID is 1
-
-  // Step 1: Activate the Content
-  console.log('Activating the Content...');
-  let result = await activateContent(contentId);
-  console.log('Activate result:', result);
-
-  if (result.error) {
-    console.error('Error activating Content:', result.error);
-    return;
+async function testPersonHolderFunctions() {
+  console.log("Testing getAllPersonHolders...");
+  let { data, error } = await getAllPersonHolders();
+  if (error) {
+      console.error("Error fetching all PersonHolders:", error);
+  } else {
+      console.log("All PersonHolders:", data);
   }
 
-  // Step 2: Confirm the Content has been activated
-  console.log('Confirming the Content has been activated...');
-  let { data, error } = await supabase
-    .from('Content')
-    .select('active')
-    .eq('id', contentId);
-  console.log('Confirm activation result:', { data, error });
+  console.log("\nTesting insertPersonHolder...");
+  const newPerson = { firstName: "John", secondName: "Doe", firstLastName: "Smith", secondLastName: "Johnson" };
+  ({ data, error } = await insertPersonHolder(newPerson.firstName, newPerson.secondName, newPerson.firstLastName, newPerson.secondLastName));
+  if (error) {
+      console.error("Error inserting PersonHolder:", error);
+  } else {
+      console.log("Inserted PersonHolder:", data);
+      const newPersonId = data[0].id;
 
-  if (error || data[0].active !== true) {
-    console.error('Content was not activated.');
-    return;
+      console.log("\nTesting getPersonHolderById...");
+      ({ data, error } = await getPersonHolderById(newPersonId));
+      if (error) {
+          console.error("Error fetching PersonHolder by ID:", error);
+      } else {
+          console.log("PersonHolder by ID:", data);
+      }
+
+      console.log("\nTesting updatePersonHolder...");
+      const updatedPerson = { firstName: "Jane", secondName: "Doe", firstLastName: "Smith", secondLastName: "Johnson" };
+      ({ data, error } = await updatePersonHolder(newPersonId, updatedPerson.firstName, updatedPerson.secondName, updatedPerson.firstLastName, updatedPerson.secondLastName));
+      if (error) {
+          console.error("Error updating PersonHolder:", error);
+      } else {
+          console.log("Updated PersonHolder:", data);
+      }
+
+      console.log("\nTesting deletePersonHolder...");
+      ({ data, error } = await deletePersonHolder(newPersonId));
+      if (error) {
+          console.error("Error deleting PersonHolder:", error);
+      } else {
+          console.log("Deleted PersonHolder:", data);
+      }
   }
-
-  // Step 3: Deactivate the Content
-  console.log('Deactivating the Content...');
-  result = await deactivateContent(contentId);
-  console.log('Deactivate result:', result);
-
-  if (result.error) {
-    console.error('Error deactivating Content:', result.error);
-    return;
-  }
-
-  // Step 4: Confirm the Content has been deactivated
-  console.log('Confirming the Content has been deactivated...');
-  ({ data, error } = await supabase
-    .from('Content')
-    .select('active')
-    .eq('id', contentId));
-  console.log('Confirm deactivation result:', { data, error });
-
-  if (error || data[0].active !== false) {
-    console.error('Content was not deactivated.');
-    return;
-  }
-
-  console.log('Content activation and deactivation test completed successfully.');
 }
 
-functionalTest();
+testPersonHolderFunctions();

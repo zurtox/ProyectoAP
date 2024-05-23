@@ -18,18 +18,18 @@ export async function getUserById(id) {
 }
 
 // Insert User
-export async function insertUser(firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, administrator) {
+export async function insertUser(firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, gender, administrator) {
     const { data, error } = await supabase
         .from('User')
-        .insert([{ firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, administrator }]);
+        .insert([{ firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, gender, administrator }]);
     return { data, error };
 }
 
 // Update User by id
-export async function updateUser(id, firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, administrator) {
+export async function updateUser(id, firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, gender, administrator) {
     const { data, error } = await supabase
         .from('User')
-        .update({ firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, administrator })
+        .update({ firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, gender, administrator })
         .eq('id', id);
     return { data, error };
 }
