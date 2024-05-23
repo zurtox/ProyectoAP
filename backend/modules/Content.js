@@ -18,18 +18,18 @@ export async function getContentById(id) {
 }
 
 // Insert content
-export async function insertContent({ title, publishYear, category, trailer, synopsis, price }) {
+export async function insertContent({ title, publishYear, category, trailer, synopsis, price, lastChangeBy }) {
     const { data, error } = await supabase
         .from('Content')
-        .insert([{ title, publishYear, category, trailer, synopsis, price }]);
+        .insert([{ title, publishYear, category, trailer, synopsis, price, lastChangeBy }]);
     return { data, error };
 }
 
 // Update content by id
-export async function updateContent(id, { title, publishYear, category, trailer, synopsis, price }) {
+export async function updateContent(id, { title, publishYear, category, trailer, synopsis, price, lastChangeBy }) {
     const { data, error } = await supabase
         .from('Content')
-        .update({ title, publishYear, category, trailer, synopsis, price })
+        .update({ title, publishYear, category, trailer, synopsis, price, lastChangeBy })
         .eq('id', id);
     return { data, error };
 }
