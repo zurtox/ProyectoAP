@@ -102,20 +102,18 @@ export async function getUserById(id) {
     return { data, error };
 }
 
-// Insert User
-export async function insertUser(firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, gender, administrator) {
-    const { data, error } = await supabase
-        .from('User')
-        .insert([{ firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, gender, administrator }]);
-    return { data, error };
-}
-
 // Update User by id
-export async function updateUser(id, firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, gender, administrator) {
+export async function updateUser(id, firstName, secondName, firstLastName, secondLastName, personalId, birthDate, email, phone, username, password, photo, nationality, comunity, gender) {
     const { data, error } = await supabase
         .from('User')
-        .update({ firstName, secondName, firstLastName, secondLastName, personalId, birthDate, mail, phone, username, password, photo, nationality, comunity, gender, administrator })
+        .update({ firstName, secondName, firstLastName, secondLastName, personalId, birthDate, phone, username, photo, nationality, comunity, gender })
         .eq('id', id);
+
+    const { data1, error1 } = await supabase.auth.updateUser({
+        email,
+        password
+    })
+
     return { data, error };
 }
 

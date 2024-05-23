@@ -8,16 +8,8 @@ pass: "password"
 
 ## Que falta
 
-log in usuario func
-
-recordar contra func
-
-Implementar el algoritmo de encriptacion
-
 En la parte 4.d:
-
 - Campos de auditoria para la última actualización de un registro.
-- Todo sobre la bitacora `Record`
 
 Implementar la parte de `jobs` 4.h
 
@@ -29,7 +21,7 @@ En la parte 4.a. para el registro de persona a que se refiere con "comunidad a l
 
 ## Anotaciones
 
-En el punto 4.f.k. el trailer es una `photo`
+En el punto 4.f.k. el trailer es un `text`
 
 En el usuario se determina administrador con un booleano `administrator`
 

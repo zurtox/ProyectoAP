@@ -1,11 +1,21 @@
-import { login, actualUser, logOutUser, recoverPassword } from './User.js';
+import { updateUser, login } from './User.js';
 
-async function testSignUp() {
+async function runUpdateUser() {
+    const id = 1;
+    const firstName = 'Omar';
+    const email = 'omarzunigpii@gmail.com';
 
-    const recover = await recoverPassword("omarzunigpi@gmail.com");
+    const log = await login("omarzunigpi@gmail.com", "password");
 
-    console.log(recover);
+    console.log(log.data[0].email)
 
+    const res = await updateUser(
+        id,
+        firstName,
+        email
+    );
+
+    console.log(res)
 }
 
-testSignUp();
+runUpdateUser();
