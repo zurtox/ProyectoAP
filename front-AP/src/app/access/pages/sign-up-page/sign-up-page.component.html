@@ -1,1 +1,63 @@
-<p>sign-up-page works!</p>
+<div class="card-container">
+    <h2 class="font-poppins">Register</h2>
+    <div class="main-container">
+        <div class="pfp-container">
+            <div class="image-box">
+                <img src="assets/film-1.jpg">
+            </div>
+            <input type="file" id="pfp" accept="imag/png, image/jpeg, image/jpg">
+            <label class="font-poppins" for="pfp">Select File</label>
+        </div>
+        <form class="info-container">
+            <div class="inputs-container">
+                <div class="left-side">
+                    <div class="input-container">
+                        <input id="username" required>
+                        <label for="username">Username</label>
+                    </div>
+        
+                    <div class="input-container">
+                        <input id="name" required>
+                        <label for="name">First Name</label>
+                    </div>
+                    
+                    <div class="input-container">
+                        <input id="lastname" required>
+                        <label for="lastname">Last Name</label>
+                    </div>
+        
+                    <div class="input-container">
+                        <input id="email" required>
+                        <label for="email">E-mail</label>
+                    </div>
+                </div>
+        
+                <div class="right-side">
+                    <div class="input-container">
+                        <input id="identificationCard" required>
+                        <label for="identificationCard">ID</label>
+                    </div>
+                
+                    <div class="input-container">
+                        <input id="age" required>
+                        <label for="age">Age</label>
+                    </div>
+        
+                    <div class="input-container">
+                        <input class="date-input" type="date" id="birthday" placeholder="none">
+                        <label for="birthday">Birthday</label>
+                    </div>
+        
+                    <div class="input-container">
+                        <input id="country" required>
+                        <label for="country">Country</label>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-container">
+                <p class="font-poppins">You already have an account? <a class="font-poppins" href="/">Login</a></p>
+                <button class="lightblue-button cancel-btn" type="submit">Sing Up</button>
+            </div>
+        </form>
+    </div>
+</div>

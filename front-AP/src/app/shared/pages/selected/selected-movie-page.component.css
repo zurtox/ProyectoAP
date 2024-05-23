@@ -140,7 +140,8 @@ p{
 
 
 .trailer-container{
-    margin: 60px;
+    margin-top: 120px;
+    margin-bottom: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -152,13 +153,16 @@ p{
 }
 
 .footage-container{
-    margin-left: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
 }
 
 .team-container{
     display: flex;
     flex-direction: column;
-    margin-left: 150px;
+    align-items: center;
 }
 
 .team-container h3{
@@ -166,9 +170,22 @@ p{
 }
 
 .actors-container{
-    width: 95%;
+    width: 80%;
     display: flex;
     overflow: auto;
     margin-bottom: 50px;
 }
 
+.platforms-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.platforms{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    
+}
