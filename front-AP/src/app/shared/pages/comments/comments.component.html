@@ -3,11 +3,11 @@
 <div class="glass-container"></div>
 <div class="main-container">
   @for (item of iterator; track $index) {
-    <shared-comment-box
+    <shared-comment-box class="comment-box"
       [header]="comments[0]"
       [user]="comments[1]"
       [date]="comments[2]"
       [body]="comments[3]">
-      </shared-comment-box>
+    </shared-comment-box>
   }
 </div>

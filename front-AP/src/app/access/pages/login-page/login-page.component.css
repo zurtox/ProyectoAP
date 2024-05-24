@@ -1,5 +1,7 @@
 @media screen and (max-width: 1000px) {
+    
     .main-container{
+        border-radius: 0px!important;
         align-items: center!important;
         justify-content: center!important;
         flex-direction: column;
@@ -25,9 +27,9 @@
 
     .login-button{
         align-self: center!important;
+        align-items: center!important;
 
     }
-
 
     .input-container button{
 
