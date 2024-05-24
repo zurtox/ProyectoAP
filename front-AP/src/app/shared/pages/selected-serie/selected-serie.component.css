@@ -58,6 +58,9 @@
         display: flex;
         flex-direction: row;
     }
+
+    
+      
     
     h3{
         margin-bottom: 10px!important;
@@ -243,6 +246,11 @@ p{
     font-weight: 500;
     font-style: normal;
     margin-bottom: 25px;
+}
+
+/*-----STARS-----*/
+.stars-container > img {
+    width: 30px;
 }
 
 /*-----SYNOPSIS-----*/

@@ -237,6 +237,11 @@ p{
     margin-bottom: 25px;
 }
 
+/*-----STARS-----*/
+.stars-container > img {
+    width: 30px;
+}
+
 /*-----SYNOPSIS-----*/
 .synopsis-container{
     width: 45%;
