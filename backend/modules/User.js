@@ -39,7 +39,7 @@ export async function signUp({email, password, firstName, secondName, firstLastN
 }
 
 // Sign In
-export async function login({email, password}) {
+export async function logIn({email, password}) {
     const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -69,9 +69,39 @@ export async function login({email, password}) {
 
 // Get actual user
 export async function actualUser() {
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: { user } } = await supabase.auth.getUser();
 
-    return user;
+    const { data: data1, error: error1 } = await supabase
+        .from('User')
+        .select('*')
+        .eq('user_auth', user.id);
+
+    if (error1) {
+        return { data: null, error: error1 };
+    }
+    const updatedData1 = data1.map(item => ({ ...item, email: user.email }));
+
+    return { data: updatedData1, error: null };
+}
+
+// Get actual user id
+export async function actualUserId() {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (user == null) {
+        return { data: null, error: "User data is missing" };
+    }
+
+    const { data: data1, error: error1 } = await supabase
+        .from('User')
+        .select('id')
+        .eq('user_auth', user.id);
+
+    if (error1) {
+        return { data: null, error: error1 };
+    }
+
+    return { data: data1, error: null };
 }
 
 // LogOut User
@@ -155,4 +185,11 @@ export async function countOtherUsers() {
 // Get all Prefiero no decirlo Users
 export async function countNotDefinedUsers() {
     return await countUsersByGender('Prefiero no decirlo');
+}
+
+// Get age distribution
+export async function getAgeDistribution() {
+    const { data, error } = await supabase.rpc('get_user_age_distribution');
+  
+    return { data, error };
 }

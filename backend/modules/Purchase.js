@@ -1,4 +1,5 @@
 import supabase from '../config/supabaseClient.js';
+import { actualUserId } from './User.js';
 
 // Select all Purchase entries
 export async function getAllPurchases() {
@@ -42,3 +43,55 @@ export async function deletePurchase(id) {
         .eq('id', id);
     return { data, error };
 }
+
+// Get by months
+export async function getPurchasesLast3Months() {
+    const id = await actualUserId();
+    if (id.error) return id;
+    const currentDate = new Date();
+    const threeMonthsAgo = new Date(currentDate);
+    threeMonthsAgo.setMonth(currentDate.getMonth() - 3);
+    const formatDate = (date) => date.toISOString().split('T')[0];
+
+    const { data, error } = await supabase
+        .from('Purchase')
+        .select('*')
+        .gte('purchaseDate', formatDate(threeMonthsAgo))
+        .eq('user', id.data[0].id);
+
+    return {data, error};
+}
+
+export async function getPurchasesLast6Months() {
+    const id = await actualUserId();
+    if (id.error) return id;
+    const currentDate = new Date();
+    const threeMonthsAgo = new Date(currentDate);
+    threeMonthsAgo.setMonth(currentDate.getMonth() - 6);
+    const formatDate = (date) => date.toISOString().split('T')[0];
+  
+    const { data, error } = await supabase
+      .from('Purchase')
+      .select('*')
+      .gte('purchaseDate', formatDate(threeMonthsAgo))
+      .eq('user', id.data[0].id);
+  
+    return {data, error};
+} 
+
+export async function getPurchasesLastYear() {
+    const id = await actualUserId();
+    if (id.error) return id;
+    const currentDate = new Date();
+    const oneYearAgo = new Date(currentDate);
+    oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+    const formatDate = (date) => date.toISOString().split('T')[0];
+  
+    const { data, error } = await supabase
+        .from('Purchase')
+        .select('*')
+        .gte('purchaseDate', formatDate(oneYearAgo))
+        .eq('user', id.data[0].id);
+  
+    return {data, error};
+} 

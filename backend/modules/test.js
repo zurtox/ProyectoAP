@@ -1,20 +1,20 @@
 // main.js
-import { countFemaleUsers, countMaleUsers, countOtherUsers, countNotDefinedUsers } from './User.js';
+import { isFavorite } from './FavoriteMovie.js';
+
+import { logIn, getAgeDistribution } from './User.js';
 
 async function runUpdateUser() {
-    try {
-        const femaleCount = await countFemaleUsers();
-        const maleCount = await countMaleUsers();
-        const otherCount = await countOtherUsers();
-        const notDefinedCount = await countNotDefinedUsers();
+    const u = await logIn({email:"omarzunigpii@gmail.com", password:"password"});
 
-        console.log(`Number of female users: ${femaleCount.count}`);
-        console.log(`Number of male users: ${maleCount.count}`);
-        console.log(`Number of other users: ${otherCount.count}`);
-        console.log(`Number of not defined users: ${notDefinedCount.count}`);
-    } catch (error) {
-        console.error('Error running update user:', error);
+    if (u.error) {
+        console.log("Log In error")
+        console.log(u.error)
+        return;
     }
-}
+
+    const u2 = await isFavorite({content: 2});
+
+    console.log(u2);
+} 
 
 runUpdateUser();
