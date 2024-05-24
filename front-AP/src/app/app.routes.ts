@@ -8,11 +8,18 @@ import { SignUpPageComponent } from './access/pages/sign-up-page/sign-up-page.co
 import { CartPageComponent } from './user/pages/cart/cart-page.component';
 import { HistoryPageComponent } from './user/pages/history/history-page.component';
 import { FavouritesPageComponent } from './user/pages/favourites/favourites-page.component';
+import { LandingPageComponent } from './shared/pages/landing-page/landing-page.component';
+import { SearchPageComponent } from './shared/pages/search-page/search-page.component';
 
 export const routes: Routes = [
     {
         path: '',
         component: LoginPageComponent
+    },
+    {
+      path: 'landing',
+      component: LandingPageComponent
+
     },
     {
         path: 'register',
@@ -45,6 +52,10 @@ export const routes: Routes = [
     {
       path: 'favorites',
       component: FavouritesPageComponent
+    },
+    {
+      path: 'search',
+      component: SearchPageComponent
     }
 
 ];

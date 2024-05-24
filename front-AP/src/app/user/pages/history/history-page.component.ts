@@ -24,9 +24,8 @@ export class HistoryPageComponent {
   iterator: any [] = Array(20).fill(0)
 
   dropdownCategories: string [] = [
-    "Action",
-    "Animation",
-    "Horror",
-    "Romance"
+    "12 months",
+    "6 months",
+    "3 months",
   ]
 }

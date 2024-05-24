@@ -1,0 +1,34 @@
+<div class="main-container">
+  <div class="resize-container">
+    <div class="search-container">
+      <shared-search-box
+        placeholder="Search...">
+      </shared-search-box>
+      <div class="options-container">
+        <shared-dropdown-menu
+          header=Categories
+          [options]="categories"
+          >
+        </shared-dropdown-menu>
+        <shared-dropdown-menu
+          header=Content
+          [options]="options"></shared-dropdown-menu>
+      </div>
+    </div>
+    <h2>
+      <span class="highlight">
+        Relevant
+      </span>
+       Results
+    </h2>
+    <div class="movie-list">
+      @for (item of iterator; track $index) {
+        <shared-movie-box
+          [buy]="true"
+          [favorite]="true">
+        </shared-movie-box>
+      }
+    </div>
+  </div>
+
+</div>

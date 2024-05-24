@@ -2,7 +2,7 @@
   <div class="header">
     <h2>Recently Viewed</h2>
     <shared-dropdown-menu
-      header="Categories"
+      header="Range"
       [options]="dropdownCategories">
     </shared-dropdown-menu>
   </div>
@@ -12,7 +12,10 @@
       [image]="movie[0]"
       [name]="movie[1]"
       [type]="movie[2]"
-      [categories]="categories">
+      [categories]="categories"
+      [remove]="true"
+      [favorite]="true"
+      >
     </shared-content-card>
     }
   </div>
