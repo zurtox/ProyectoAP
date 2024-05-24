@@ -1,4 +1,39 @@
+@media screen and (max-width: 1000px) {
+    .main-container{
+        align-items: center!important;
+        justify-content: center!important;
+        flex-direction: column;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0px!important;
+    }
 
+    .login-container{
+        align-items: center!important;
+        justify-content: center!important;
+    }
+
+    .left-side{
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .right-side{
+        display: none!important;
+    }
+
+    .login-button{
+        align-self: center!important;
+
+    }
+
+
+    .input-container button{
+
+        width: 100%;
+    }
+}
 
 
 .logo-container{
@@ -105,6 +140,10 @@ input{
     font-weight: 300;
     pointer-events: none;
     transition: all 0.5s;
+}
+
+.input-container button{
+    width: 100%;
 }
 
 input:focus ~ label{
