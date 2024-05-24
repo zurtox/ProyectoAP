@@ -126,3 +126,33 @@ export async function deleteUser(id) {
         .eq('id', id);
     return { data, error };
 }
+
+// Helper function to count users by gender
+async function countUsersByGender(gender) {
+    const { count, error } = await supabase
+        .from('User')
+        .select('*', { count: 'exact', head: true })
+        .eq('gender', gender);
+
+    return { count, error };
+}
+
+// Get all Mujer Users
+export async function countFemaleUsers() {
+    return await countUsersByGender('Mujer');
+}
+
+// Get all Hombre Users
+export async function countMaleUsers() {
+    return await countUsersByGender('Hombre');
+}
+
+// Get all Otro Users
+export async function countOtherUsers() {
+    return await countUsersByGender('Otro');
+}
+
+// Get all Prefiero no decirlo Users
+export async function countNotDefinedUsers() {
+    return await countUsersByGender('Prefiero no decirlo');
+}

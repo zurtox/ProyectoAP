@@ -1,21 +1,20 @@
-import { updateUser, login } from './User.js';
+// main.js
+import { countFemaleUsers, countMaleUsers, countOtherUsers, countNotDefinedUsers } from './User.js';
 
 async function runUpdateUser() {
-    const id = 1;
-    const firstName = 'Omar';
-    const email = 'omarzunigpii@gmail.com';
+    try {
+        const femaleCount = await countFemaleUsers();
+        const maleCount = await countMaleUsers();
+        const otherCount = await countOtherUsers();
+        const notDefinedCount = await countNotDefinedUsers();
 
-    const log = await login("omarzunigpi@gmail.com", "password");
-
-    console.log(log.data[0].email)
-
-    const res = await updateUser(
-        id,
-        firstName,
-        email
-    );
-
-    console.log(res)
+        console.log(`Number of female users: ${femaleCount.count}`);
+        console.log(`Number of male users: ${maleCount.count}`);
+        console.log(`Number of other users: ${otherCount.count}`);
+        console.log(`Number of not defined users: ${notDefinedCount.count}`);
+    } catch (error) {
+        console.error('Error running update user:', error);
+    }
 }
 
 runUpdateUser();
