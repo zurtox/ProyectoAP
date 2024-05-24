@@ -7,6 +7,9 @@ h2, h3, p {
   width: 100%;
   justify-content: space-between;
   display: flex;
+  h2 {
+    color: #5e9ed7;
+  }
 }
 
 .main-container {
@@ -14,10 +17,32 @@ h2, h3, p {
   flex-direction: column;
   padding: 20px 80px;
   gap: 16px;
+  margin-top: 32px;
 }
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  }
+}
+
+@media (max-width: 450px) {
+  .main-container {
+    align-items: center;
+  }
+  .header {
+    width: 300px;
+  }
 }

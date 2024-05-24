@@ -23,5 +23,13 @@ export class ContentCardComponent {
   @Input()
   categories: string [] = []
 
+  @Input()
+  favorite: boolean = false;
+
+  @Input()
+  remove: boolean = false;
+
+  @Input()
+  buy: boolean = false;
   // https://i.ebayimg.com/images/g/9HcAAOSwuiVgpIKd/s-l1600.webp
 }

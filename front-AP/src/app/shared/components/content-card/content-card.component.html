@@ -1,18 +1,33 @@
-
 <div class="content-card">
   <div class="image-container">
     <img [src]="image">
+    <div class="overlay">
+      <div class="icons">
+        @if (remove) {
+          <i class="material-icons remove">close</i>
+        }
+        @if (favorite) {
+          <i class="material-icons">favorite</i>
+        }
+        @if (buy) {
+          <i class="material-icons">shopping_cart</i>
+        }
+      </div>
+      <div class="review-sm">
+        <div class="star-sm">
+          <p>4</p>
+          <img src="assets/star.png" alt="">
+        </div>
+      </div>
+    </div>
   </div>
   <div class="info-container">
     <h3>{{name}}</h3>
     <p>{{type}}</p>
     <div class="badges-container">
       @for (item of categories; track $index) {
-        <shared-badge
-        [text]="item">
-        </shared-badge>
+        <shared-badge [text]="item"></shared-badge>
       }
-
     </div>
   </div>
   <div class="review-container">
