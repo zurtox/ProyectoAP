@@ -1,6 +1,6 @@
 import supabase from '../config/supabaseClient.js';
 
-export async function signUp(email, password, firstName, secondName, firstLastName, secondLastName, personalId, birthDate, phone, username, photo, nationality, comunity, gender, administrator) {
+export async function signUp({email, password, firstName, secondName, firstLastName, secondLastName, personalId, birthDate, phone, username, photo, nationality, comunity, gender, administrator}) {
     let { data, error } = await supabase.auth.signUp({
         email,
         password
@@ -27,6 +27,7 @@ export async function signUp(email, password, firstName, secondName, firstLastNa
                 photo, 
                 nationality, 
                 comunity, 
+                gender,
                 administrator, 
                 user_auth: data.user.id 
             }]);
@@ -38,7 +39,7 @@ export async function signUp(email, password, firstName, secondName, firstLastNa
 }
 
 // Sign In
-export async function login(email, password) {
+export async function login({email, password}) {
     const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -103,7 +104,7 @@ export async function getUserById(id) {
 }
 
 // Update User by id
-export async function updateUser(id, firstName, secondName, firstLastName, secondLastName, personalId, birthDate, email, phone, username, password, photo, nationality, comunity, gender) {
+export async function updateUser(id, {firstName, secondName, firstLastName, secondLastName, personalId, birthDate, email, phone, username, password, photo, nationality, comunity, gender}) {
     const { data, error } = await supabase
         .from('User')
         .update({ firstName, secondName, firstLastName, secondLastName, personalId, birthDate, phone, username, photo, nationality, comunity, gender })

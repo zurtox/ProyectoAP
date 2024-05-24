@@ -18,7 +18,7 @@ export async function getSeasonById(id) {
 }
 
 // Insert Season
-export async function insertSeason(number, serie, documental) {
+export async function insertSeason({ number, serie, documental }) {
     const { data, error } = await supabase
         .from('Season')
         .insert([{ number, serie, documental }]);
@@ -26,13 +26,14 @@ export async function insertSeason(number, serie, documental) {
 }
 
 // Update Season by id
-export async function updateSeason(id, number, serie, documental) {
+export async function updateSeason( id, {number, serie, documental }) {
     const { data, error } = await supabase
         .from('Season')
         .update({ number, serie, documental })
         .eq('id', id);
     return { data, error };
 }
+
 
 // Delete Season by id
 export async function deleteSeason(id) {

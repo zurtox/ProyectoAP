@@ -10,7 +10,7 @@ export async function getAllRecentlyVieweds(user) {
 }
 
 // Insert RecentlyViewed
-export async function insertRecentlyViewed(user, content) {
+export async function insertRecentlyViewed({user, content}) {
     const { data, error } = await supabase
         .from('RecentlyViewed')
         .insert([{ user, content }]);
@@ -18,7 +18,7 @@ export async function insertRecentlyViewed(user, content) {
 }
 
 // Delete RecentlyViewed by id
-export async function deleteRecentlyViewed(user, content) {
+export async function deleteRecentlyViewed({user, content}) {
     const { data, error } = await supabase
         .from('RecentlyViewed')
         .delete()

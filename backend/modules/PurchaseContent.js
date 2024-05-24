@@ -18,7 +18,7 @@ export async function getPurchaseContentById(id) {
 }
 
 // Insert PurchaseContent
-export async function insertPurchaseContent(purchase, content) {
+export async function insertPurchaseContent({purchase, content}) {
     const { data, error } = await supabase
         .from('PurchaseContent')
         .insert([{ purchase, content }]);
@@ -26,7 +26,7 @@ export async function insertPurchaseContent(purchase, content) {
 }
 
 // Update PurchaseContent by id
-export async function updatePurchaseContent(id, purchase, content) {
+export async function updatePurchaseContent(id, {purchase, content}) {
     const { data, error } = await supabase
         .from('PurchaseContent')
         .update({ purchase, content })

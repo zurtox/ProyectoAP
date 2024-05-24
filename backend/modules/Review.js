@@ -18,7 +18,7 @@ export async function getReviewById(id) {
 }
 
 // Insert Review
-export async function insertReview(user, content, review, rating) {
+export async function insertReview({user, content, review, rating}) {
     const { data, error } = await supabase
         .from('Review')
         .insert([{ user, content, review, rating }]);
@@ -26,7 +26,7 @@ export async function insertReview(user, content, review, rating) {
 }
 
 // Update Review by id
-export async function updateReview(id, user, content, review, rating) {
+export async function updateReview(id, {user, content, review, rating}) {
     const { data, error } = await supabase
         .from('Review')
         .update({ user, content, review, rating })

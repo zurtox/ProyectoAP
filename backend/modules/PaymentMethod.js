@@ -18,7 +18,7 @@ export async function getPaymentMethodById(id) {
 }
 
 // Insert PaymentMethod
-export async function insertPaymentMethod(name) {
+export async function insertPaymentMethod({name}) {
     const { data, error } = await supabase
         .from('PaymentMethod')
         .insert([{ name }]);
@@ -26,7 +26,7 @@ export async function insertPaymentMethod(name) {
 }
 
 // Update PaymentMethod by id
-export async function updatePaymentMethod(id, name) {
+export async function updatePaymentMethod(id, {name}) {
     const { data, error } = await supabase
         .from('PaymentMethod')
         .update({ name })

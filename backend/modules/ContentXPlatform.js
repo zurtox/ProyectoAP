@@ -18,7 +18,7 @@ export async function getContentXPlatformById(id) {
 }
 
 // Insert ContentXPlatform
-export async function insertContentXPlatform(content, platform) {
+export async function insertContentXPlatform({content, platform}) {
     const { data, error } = await supabase
         .from('ContentXPlatform')
         .insert([{ content, platform }]);
@@ -26,7 +26,7 @@ export async function insertContentXPlatform(content, platform) {
 }
 
 // Update ContentXPlatform by id
-export async function updateContentXPlatform(id, content, platform) {
+export async function updateContentXPlatform(id, {content, platform}) {
     const { data, error } = await supabase
         .from('ContentXPlatform')
         .update({ content, platform })

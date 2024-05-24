@@ -18,7 +18,7 @@ export async function getCommunityById(id) {
 }
 
 // Insert community
-export async function insertCommunity(name) {
+export async function insertCommunity({name}) {
     const { data, error } = await supabase
         .from('Community')
         .insert([{ name }]);
@@ -26,7 +26,7 @@ export async function insertCommunity(name) {
 }
 
 // Update community by id
-export async function updateCommunity(id, name) {
+export async function updateCommunity(id, {name}) {
     const { data, error } = await supabase
         .from('Community')
         .update({ name })

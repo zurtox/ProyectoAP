@@ -18,7 +18,7 @@ export async function getCategoryById(id) {
 }
 
 // Insert category
-export async function insertCategory(name) {
+export async function insertCategory({name}) {
     const { data, error } = await supabase
         .from('Category')
         .insert([{ name }]);
@@ -26,7 +26,7 @@ export async function insertCategory(name) {
 }
 
 // Update category by id
-export async function updateCategory(id, name) {
+export async function updateCategory(id, {name}) {
     const { data, error } = await supabase
         .from('Category')
         .update({ name })

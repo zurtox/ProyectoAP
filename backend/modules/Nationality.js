@@ -18,7 +18,7 @@ export async function getNationalityById(id) {
 }
 
 // Insert Nationality
-export async function insertNationality(name) {
+export async function insertNationality({name}) {
     const { data, error } = await supabase
         .from('Nationality')
         .insert([{ name }]);
@@ -26,7 +26,7 @@ export async function insertNationality(name) {
 }
 
 // Update Nationality by id
-export async function updateNationality(id, name) {
+export async function updateNationality(id, {name}) {
     const { data, error } = await supabase
         .from('Nationality')
         .update({ name })

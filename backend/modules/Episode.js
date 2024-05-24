@@ -18,7 +18,7 @@ export async function getEpisodeById(id) {
 }
 
 // Insert Episode
-export async function insertEpisode(number, title, duration, season) {
+export async function insertEpisode({number, title, duration, season}) {
     const { data, error } = await supabase
         .from('Episode')
         .insert([{ number, title, duration, season }]);
@@ -26,7 +26,7 @@ export async function insertEpisode(number, title, duration, season) {
 }
 
 // Update Episode by id
-export async function updateEpisode(id, number, title, duration, season) {
+export async function updateEpisode(id, {number, title, duration, season}) {
     const { data, error } = await supabase
         .from('Episode')
         .update({ number, title, duration, season })

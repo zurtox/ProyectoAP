@@ -18,7 +18,7 @@ export async function getDocumentalById(id) {
 }
 
 // Insert Documental
-export async function insertDocumental(content) {
+export async function insertDocumental({content}) {
     const { data, error } = await supabase
         .from('Documental')
         .insert([{ content }]);
@@ -26,7 +26,7 @@ export async function insertDocumental(content) {
 }
 
 // Update Documental by id
-export async function updateDocumental(id, content) {
+export async function updateDocumental(id, {content}) {
     const { data, error } = await supabase
         .from('Documental')
         .update({ content })

@@ -18,7 +18,7 @@ export async function getMovieParticipantById(id) {
 }
 
 // Insert MovieParticipant
-export async function insertMovieParticipant(person, content, role) {
+export async function insertMovieParticipant({person, content, role}) {
     const { data, error } = await supabase
         .from('MovieParticipant')
         .insert([{ person, content, role }]);
@@ -26,7 +26,7 @@ export async function insertMovieParticipant(person, content, role) {
 }
 
 // Update MovieParticipant by id
-export async function updateMovieParticipant(id, person, content, role) {
+export async function updateMovieParticipant(id, {person, content, role}) {
     const { data, error } = await supabase
         .from('MovieParticipant')
         .update({ person, content, role })

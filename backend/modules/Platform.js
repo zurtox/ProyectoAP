@@ -18,7 +18,7 @@ export async function getPlatformById(id) {
 }
 
 // Insert Platform
-export async function insertPlatform(name) {
+export async function insertPlatform({name}) {
     const { data, error } = await supabase
         .from('Platform')
         .insert([{ name }]);
@@ -26,7 +26,7 @@ export async function insertPlatform(name) {
 }
 
 // Update Platform by id
-export async function updatePlatform(id, name) {
+export async function updatePlatform(id, {name}) {
     const { data, error } = await supabase
         .from('Platform')
         .update({ name })

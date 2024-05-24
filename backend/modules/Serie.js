@@ -18,7 +18,7 @@ export async function getSerieById(id) {
 }
 
 // Insert Serie
-export async function insertSerie(content) {
+export async function insertSerie({content}) {
     const { data, error } = await supabase
         .from('Serie')
         .insert([{ content }]);
@@ -26,7 +26,7 @@ export async function insertSerie(content) {
 }
 
 // Update Serie by id
-export async function updateSerie(id, content) {
+export async function updateSerie(id, {content}) {
     const { data, error } = await supabase
         .from('Serie')
         .update({ content })

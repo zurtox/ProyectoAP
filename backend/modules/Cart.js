@@ -10,7 +10,7 @@ export async function getAllCartContents(user) {
 }
 
 // Insert CartContent
-export async function insertCartContent(user, content) {
+export async function insertCartContent({user, content}) {
     const { data, error } = await supabase
         .from('Cart')
         .insert([{ user, content }]);
@@ -18,7 +18,7 @@ export async function insertCartContent(user, content) {
 }
 
 // Delete CartContent by id
-export async function deleteCartContent(user, content) {
+export async function deleteCartContent({user, content}) {
     const { data, error } = await supabase
         .from('Cart')
         .delete()

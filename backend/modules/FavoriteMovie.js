@@ -10,7 +10,7 @@ export async function getAllFavoriteMovies(user) {
 }
 
 // Insert FavoriteMovie
-export async function insertFavoriteMovie(user, content) {
+export async function insertFavoriteMovie({user, content}) {
     const { data, error } = await supabase
         .from('FavoriteMovie')
         .insert([{ user, content }]);
@@ -18,7 +18,7 @@ export async function insertFavoriteMovie(user, content) {
 }
 
 // Delete FavoriteMovie by id
-export async function deleteFavoriteMovie(user, content) {
+export async function deleteFavoriteMovie({user, content}) {
     const { data, error } = await supabase
         .from('FavoriteMovie')
         .delete()

@@ -18,7 +18,7 @@ export async function getPersonxHolderById(id) {
 }
 
 // Insert PersonxHolder
-export async function insertPersonxHolder(person, personHolder, relationshipType) {
+export async function insertPersonxHolder({person, personHolder, relationshipType}) {
     const { data, error } = await supabase
         .from('PersonxPersonHolder')
         .insert([{ person, personHolder, relationshipType }]);
@@ -26,7 +26,7 @@ export async function insertPersonxHolder(person, personHolder, relationshipType
 }
 
 // Update PersonxHolder by id
-export async function updatePersonxHolder(id, person, personHolder, relationshipType) {
+export async function updatePersonxHolder(id, {person, personHolder, relationshipType}) {
     const { data, error } = await supabase
         .from('PersonxPersonHolder')
         .update({ person, personHolder, relationshipType })

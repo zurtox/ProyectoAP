@@ -18,7 +18,7 @@ export async function getPersonById(id) {
 }
 
 // Insert Person
-export async function insertPerson(firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner) {
+export async function insertPerson({firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner}) {
     const { data, error } = await supabase
         .from('Person')
         .insert({ firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner });
@@ -26,7 +26,7 @@ export async function insertPerson(firstName, secondName, firstLastName, secondL
 }
 
 // Update Person by id
-export async function updatePerson(id, firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner) {
+export async function updatePerson(id, {firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner}) {
     const { data, error } = await supabase
         .from('Person')
         .update({ firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner })

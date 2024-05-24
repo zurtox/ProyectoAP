@@ -18,7 +18,7 @@ export async function getPhotoById(id) {
 }
 
 // Insert Photo
-export async function insertPhoto(name) {
+export async function insertPhoto({name}) {
     const { data, error } = await supabase
         .from('Photo')
         .insert([{ name }]);
@@ -26,7 +26,7 @@ export async function insertPhoto(name) {
 }
 
 // Update Photo by id
-export async function updatePhoto(id, name) {
+export async function updatePhoto(id, {name}) {
     const { data, error } = await supabase
         .from('Photo')
         .update({ name })

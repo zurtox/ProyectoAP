@@ -18,7 +18,7 @@ export async function getPurchaseById(id) {
 }
 
 // Insert Purchase
-export async function insertPurchase(user, paymentMethod, purchaseDate) {
+export async function insertPurchase({user, paymentMethod, purchaseDate}) {
     const { data, error } = await supabase
         .from('Purchase')
         .insert([{ user, paymentMethod, purchaseDate }]);
@@ -26,7 +26,7 @@ export async function insertPurchase(user, paymentMethod, purchaseDate) {
 }
 
 // Update Purchase by id
-export async function updatePurchase(id, user, paymentMethod, purchaseDate) {
+export async function updatePurchase(id, {user, paymentMethod, purchaseDate}) {
     const { data, error } = await supabase
         .from('Purchase')
         .update({ user, paymentMethod, purchaseDate })

@@ -18,7 +18,7 @@ export async function getPersonHolderById(id) {
 }
 
 // Insert PersonHolder
-export async function insertPersonHolder(firstName, secondName, firstLastName, secondLastName) {
+export async function insertPersonHolder({firstName, secondName, firstLastName, secondLastName}) {
     const { data, error } = await supabase
         .from('PersonHolder')
         .insert([{ firstName, secondName, firstLastName, secondLastName }]);
@@ -26,7 +26,7 @@ export async function insertPersonHolder(firstName, secondName, firstLastName, s
 }
 
 // Update PersonHolder by id
-export async function updatePersonHolder(id, firstName, secondName, firstLastName, secondLastName) {
+export async function updatePersonHolder(id, {firstName, secondName, firstLastName, secondLastName}) {
     const { data, error } = await supabase
         .from('PersonHolder')
         .update({ firstName, secondName, firstLastName, secondLastName })
