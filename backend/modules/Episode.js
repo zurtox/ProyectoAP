@@ -42,3 +42,11 @@ export async function deleteEpisode(id) {
         .eq('id', id);
     return { data, error };
 }
+
+export async function deleteEpisodeSeason(id) {
+    const { data, error } = await supabase
+        .from('Episode')
+        .delete()
+        .eq('season', id);
+    return { data, error };
+}

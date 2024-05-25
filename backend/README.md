@@ -6,6 +6,14 @@ OmarZuni
 correo: "omarzunigpi@gmail.com" 
 pass: "password"
 
+## Revisar 
+
+`deleteContent(id)` en backend/modules/Content.js 
+- Revisar que borre todas las referencias que usan content id como fk
+- Revisar que funcione en todos los casos 
+
+VOY POR EPISODE
+
 ## Que falta
 
 En la parte 4.d:

@@ -1,5 +1,4 @@
 import supabase from '../config/supabaseClient.js';
-
 import { actualUserId } from './User.js';
 
 // Select all FavoriteMovie Movie by user
@@ -35,7 +34,7 @@ export async function updateFavorite({content}) {
         .eq('user', user)
         .eq('content', content);
 
-    if (existingData.length > 0) {
+    if (existingData && existingData.length > 0) {
         const { dataDelete, errorDelete } = await supabase
             .from('FavoriteMovie')
             .delete()

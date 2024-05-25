@@ -4,7 +4,7 @@ import supabase from '../config/supabaseClient.js';
 export async function getAllCommunities() {
     const { data, error } = await supabase
         .from('Community')
-        .select('*');
+        .select('id, name');
     return { data, error };
 }
 
@@ -12,7 +12,7 @@ export async function getAllCommunities() {
 export async function getCommunityById(id) {
     const { data, error } = await supabase
         .from('Community')
-        .select('*')
+        .select('id, name')
         .eq('id', id);
     return { data, error };
 }
@@ -21,7 +21,8 @@ export async function getCommunityById(id) {
 export async function insertCommunity({name}) {
     const { data, error } = await supabase
         .from('Community')
-        .insert([{ name }]);
+        .insert([{ name }])
+        .select('id');
     return { data, error };
 }
 

@@ -1,10 +1,11 @@
 import supabase from '../config/supabaseClient.js';
+import { actualUserId } from './User.js';
 
 // Select all content
 export async function getAllContent() {
     const { data, error } = await supabase
         .from('Content')
-        .select('*');
+        .select('id, title, category, trailer, synopsis, price, publishYear, active');
     return { data, error };
 }
 
@@ -12,34 +13,97 @@ export async function getAllContent() {
 export async function getContentById(id) {
     const { data, error } = await supabase
         .from('Content')
-        .select('*')
+        .select('id, title, category, trailer, synopsis, price, publishYear, active')
         .eq('id', id);
     return { data, error };
 }
 
 // Insert content
-export async function insertContent({ title, publishYear, category, trailer, synopsis, price, lastChangeBy }) {
+export async function insertContent({ title, publishYear, category, trailer, synopsis, price }) {
+    const userF = await actualUserId(); 
+
+    if (userF.data == null) {
+        return { data: null, error: userF.error };
+    }
+
+    const user = userF.data[0].id;
+
     const { data, error } = await supabase
         .from('Content')
-        .insert([{ title, publishYear, category, trailer, synopsis, price, lastChangeBy }]);
+        .insert([{ title, publishYear, category, trailer, synopsis, price, lastChangeBy: user }])
+        .select('id');
+
     return { data, error };
 }
 
 // Update content by id
-export async function updateContent(id, { title, publishYear, category, trailer, synopsis, price, lastChangeBy }) {
+export async function updateContent(id, { title, publishYear, category, trailer, synopsis, price }) {
+    const userF = await actualUserId(); 
+
+    if (userF.data == null) {
+        return { data: null, error: userF.error };
+    }
+
+    const user = userF.data[0].id;
+    
     const { data, error } = await supabase
         .from('Content')
-        .update({ title, publishYear, category, trailer, synopsis, price, lastChangeBy })
-        .eq('id', id);
+        .update({ title, publishYear, category, trailer, synopsis, price, lastChangeBy: user })
+        .eq('id', id)
+        .select('id');
+
     return { data, error };
 }
 
 // Delete content by id
 export async function deleteContent(id) {
+
+    const { data: contentData, error: contentError } = await supabase
+        .from('Record')
+        .delete()
+        .eq('content', id);
+
+    const { data: contentData1, error: contentError1 } = await supabase
+        .from('Cart')
+        .delete()
+        .eq('content', id);
+
+    const { data: contentData2, error: contentError2 } = await supabase
+        .from('ContentXPlatform')
+        .delete()
+        .eq('content', id);
+
+    const { data: contentData3, error: contentError3 } = await supabase
+        .from('FavoriteMovie')
+        .delete()
+        .eq('content', id);
+
+    const { data: contentData4, error: contentError4 } = await supabase
+        .from('MovieParticipant')
+        .delete()
+        .eq('content', id);
+
+    const { data: contentData5, error: contentError5 } = await supabase
+        .from('PurchaseContent')
+        .delete()
+        .eq('content', id);
+
+    const { data: contentData6, error: contentError6 } = await supabase
+        .from('RecentlyViewed')
+        .delete()
+        .eq('content', id);
+
+    const { data: contentData7, error: contentError7 } = await supabase
+        .from('Review')
+        .delete()
+        .eq('content', id);
+
     const { data, error } = await supabase
         .from('Content')
         .delete()
-        .eq('id', id);
+        .eq('id', id)
+        .select('id');
+
     return { data, error };
 }
 

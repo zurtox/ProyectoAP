@@ -4,7 +4,7 @@ import supabase from '../config/supabaseClient.js';
 export async function getAllCategories() {
     const { data, error } = await supabase
         .from('Category')
-        .select('*');
+        .select('id, name');
     return { data, error };
 }
 
@@ -12,7 +12,7 @@ export async function getAllCategories() {
 export async function getCategoryById(id) {
     const { data, error } = await supabase
         .from('Category')
-        .select('*')
+        .select('id, name')
         .eq('id', id);
     return { data, error };
 }
@@ -21,7 +21,8 @@ export async function getCategoryById(id) {
 export async function insertCategory({name}) {
     const { data, error } = await supabase
         .from('Category')
-        .insert([{ name }]);
+        .insert([{ name }])
+        .select('id');
     return { data, error };
 }
 
