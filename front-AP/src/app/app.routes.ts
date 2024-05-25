@@ -10,6 +10,7 @@ import { FavouritesPageComponent } from './user/pages/favourites/favourites-page
 import { LandingPageComponent } from './shared/pages/landing-page/landing-page.component';
 import { SearchPageComponent } from './shared/pages/search-page/search-page.component';
 import { ProfilePageComponent } from './user/pages/profile/profile-page.component';
+import { ReviewComponent } from './user/pages/review/review.component';
 
 export const routes: Routes = [
     {
@@ -57,8 +58,10 @@ export const routes: Routes = [
       path: 'profile',
       component: ProfilePageComponent
     },
-    
-
+    {
+      path: 'review',
+      component: ReviewComponent
+    }
 
 ];
 

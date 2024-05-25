@@ -1,0 +1,135 @@
+@media screen and (max-width: 650px) {
+    .container{
+        width: 90%!important;  
+        
+    }
+    input{
+        width: 100%!important;
+    
+    }
+
+    
+
+    textarea{
+        width: 100%!important;
+    }
+}
+
+
+.background-image{
+    background-image: url('https://images.unsplash.com/photo-1622838320000-4b3b3b3b3b3b');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
+
+.glass-container{
+    position: fixed;
+    z-index: -1;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(69,69,94,1) 0%, rgba(69,69,94,1) 1%, rgba(69,69,94,0.742734593837535) 100%);
+    backdrop-filter: blur(15px);
+    
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+}
+
+.container{
+    margin-bottom: 50px;
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+    
+}
+
+.stars-container{
+    margin-top: 100px;
+}
+
+.stars{
+    align-self: center;
+}
+
+.title{
+    align-items: start;
+    color: white;
+    font-size: 25px;
+    margin-bottom: 20px;
+    
+}
+
+.stars >img{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 45px;
+}
+
+
+.text-box{
+    background-color: #4ca8f923;
+    border-radius: 10px;
+    border: 0px;
+    transition: all 0.5s;
+}
+
+.text-input{
+    padding-left: 10px;
+    border-radius: 10px;
+    resize: none;
+    font-size: 18px;
+    border: 0px;
+    transition: all 0.5s;
+    outline: 0px;
+}
+
+
+.text-input:focus{
+    outline: 2px solid #4ca8f9;
+}
+
+
+.header-container input{
+    height: 50px;
+}
+
+
+
+
+.review-body{
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.review-body textarea{
+    
+    padding-top: 10px;
+    margin-right: 15px;
+    background: white;
+    width: 480px;
+    height: 100px;
+}
+
+.review-body button{
+    height: 50px;
+    margin-right: 10px;
+}
+
+.body-container textarea{
+    resize: none;
+    border: 0px;
+    background-color: #ffffff00;
+}
