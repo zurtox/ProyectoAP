@@ -4,7 +4,7 @@ import supabase from '../config/supabaseClient.js';
 export async function getAllPlatforms() {
     const { data, error } = await supabase
         .from('Platform')
-        .select('*');
+        .select('id, name');
     return { data, error };
 }
 
@@ -12,7 +12,7 @@ export async function getAllPlatforms() {
 export async function getPlatformById(id) {
     const { data, error } = await supabase
         .from('Platform')
-        .select('*')
+        .select('id, name')
         .eq('id', id);
     return { data, error };
 }

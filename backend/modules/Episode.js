@@ -1,19 +1,20 @@
 import supabase from '../config/supabaseClient.js';
 
-// Select all Episode entries
-export async function getAllEpisodes() {
-    const { data, error } = await supabase
-        .from('Episode')
-        .select('*');
-    return { data, error };
-}
-
-// Select Episode by id
+// Get episode by ID
 export async function getEpisodeById(id) {
     const { data, error } = await supabase
         .from('Episode')
-        .select('*')
+        .select('id, number, title, duration, season')
         .eq('id', id);
+    return { data, error };
+}
+
+// Get all episodes by season
+export async function getEpisodesBySeason(id) {
+    const { data, error } = await supabase
+        .from('Episode')
+        .select('id, number, title, duration, season')
+        .eq('season', id);
     return { data, error };
 }
 
@@ -21,7 +22,9 @@ export async function getEpisodeById(id) {
 export async function insertEpisode({number, title, duration, season}) {
     const { data, error } = await supabase
         .from('Episode')
-        .insert([{ number, title, duration, season }]);
+        .insert([{ number, title, duration, season }])
+        .select('id');
+    
     return { data, error };
 }
 
@@ -30,7 +33,8 @@ export async function updateEpisode(id, {number, title, duration, season}) {
     const { data, error } = await supabase
         .from('Episode')
         .update({ number, title, duration, season })
-        .eq('id', id);
+        .eq('id', id)
+        .select('id');
     return { data, error };
 }
 
@@ -39,7 +43,8 @@ export async function deleteEpisode(id) {
     const { data, error } = await supabase
         .from('Episode')
         .delete()
-        .eq('id', id);
+        .eq('id', id)
+        .select('id');
     return { data, error };
 }
 

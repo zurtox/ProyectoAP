@@ -1,5 +1,8 @@
 import supabase from '../config/supabaseClient.js';
 import { actualUserId } from './User.js';
+import { insertPurchaseContent } from './PurchaseContent.js';
+import { deleteAllCartContent, getAllCartContents } from './Cart.js';
+import { getContentById } from './Content.js';
 
 // Select all Purchase entries
 export async function getAllPurchases() {
@@ -18,29 +21,68 @@ export async function getPurchaseById(id) {
     return { data, error };
 }
 
-// Insert Purchase
-export async function insertPurchase({user, paymentMethod, purchaseDate}) {
-    const { data, error } = await supabase
+/*
+    Esta funcion realiza una compra en base al carrito (BD)
+    Todo lo del carrito pasa a ser comprado 'PurchaseContent'
+    Borra el carrito actual 
+*/
+export async function insertPurchase({paymentMethod}) {
+    const userF = await actualUserId(); 
+
+    if (userF.data == null) {
+        return { data: null, error: userF.error };
+    }
+
+    const user = userF.data[0].id;
+
+    const { data, error } = await supabase // Agregar Purchase
         .from('Purchase')
-        .insert([{ user, paymentMethod, purchaseDate }]);
+        .insert([{ user, paymentMethod }])
+        .select('id');
+
+    if (data === null || data.length === 0) {
+        return { data: [], error };
+    }
+
+    const cart = await getAllCartContents(); 
+
+    for (const c of cart.data) {
+        insertPurchaseContent({purchase: data[0].id, content: c.content});
+    }
+
+    // Elimina el carrito 
+
+    await deleteAllCartContent();
+
     return { data, error };
 }
 
-// Update Purchase by id
-export async function updatePurchase(id, {user, paymentMethod, purchaseDate}) {
+// Gets the purchase content 
+export async function getPurchaseContent(id) {
     const { data, error } = await supabase
-        .from('Purchase')
-        .update({ user, paymentMethod, purchaseDate })
-        .eq('id', id);
-    return { data, error };
+        .from('PurchaseContent')
+        .select('*')
+        .eq('purchase', id);
+
+    if (data === null || data.length === 0) {
+        return { data: [], error };
+    }
+    
+    let contentData = [];
+
+    for (const item of data) {
+        const content = await getContentById(item.content);
+        contentData.push(content.data[0]);
+    }
+
+    return { data: contentData, error };
 }
 
-// Delete Purchase by id
-export async function deletePurchase(id) {
+// Gets the total price of the purchase
+export async function getPurchaseTotalCost(id) {
     const { data, error } = await supabase
-        .from('Purchase')
-        .delete()
-        .eq('id', id);
+        .rpc('get_total_cost_of_purchase', { purchase_id: id });
+
     return { data, error };
 }
 

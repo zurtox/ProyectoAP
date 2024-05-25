@@ -4,7 +4,7 @@ import supabase from '../config/supabaseClient.js';
 export async function getAllPersonHolders() {
     const { data, error } = await supabase
         .from('PersonHolder')
-        .select('*');
+        .select('id, firstName, secondName, firstLastName, secondLastName');
     return { data, error };
 }
 
@@ -12,7 +12,7 @@ export async function getAllPersonHolders() {
 export async function getPersonHolderById(id) {
     const { data, error } = await supabase
         .from('PersonHolder')
-        .select('*')
+        .select('id, firstName, secondName, firstLastName, secondLastName')
         .eq('id', id);
     return { data, error };
 }

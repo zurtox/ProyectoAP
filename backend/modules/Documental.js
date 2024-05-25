@@ -8,9 +8,18 @@ export async function getAllDocumentals() {
         .from('Documental')
         .select('id, content');
 
-    const { data: contentData, error: contentError } = await getContentById(data[0].content);
+    if (data === null || data.length === 0) {
+        return { data: [], error };
+    }
 
-    return { data: contentData, documental: data, contentError };
+    let contentData = [];
+
+    for (const item of data) {
+        const content = await getContentById(item.content);
+        contentData.push(content.data[0]);
+    }
+
+    return { data: contentData, documental: data, error };
 }
 
 // Select Documental by id
@@ -20,9 +29,13 @@ export async function getDocumentalById(id) {
         .select('id, content')
         .eq('id', id);
 
+    if (data === null || data.length === 0) {
+        return { data: [], error };
+    }
+
     const { data: contentData, error: contentError } = await getContentById(data[0].content);
 
-    return { data: contentData, documental: data, contentError };
+    return { data: contentData, documental: data, error: contentError };
 }
 
 // Insert Documental
@@ -45,6 +58,10 @@ export async function updateDocumental(id, { title, publishYear, category, trail
         .from('Documental')
         .select('content')
         .eq('id', id);
+
+    if (data === null || data.length === 0) {
+        return { data: [], error };
+    }
 
     const contentId = data[0].content;
 

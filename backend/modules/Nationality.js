@@ -4,7 +4,7 @@ import supabase from '../config/supabaseClient.js';
 export async function getAllNationalities() {
     const { data, error } = await supabase
         .from('Nationality')
-        .select('*');
+        .select('id, name');
     return { data, error };
 }
 
@@ -12,7 +12,7 @@ export async function getAllNationalities() {
 export async function getNationalityById(id) {
     const { data, error } = await supabase
         .from('Nationality')
-        .select('*')
+        .select('id, name')
         .eq('id', id);
     return { data, error };
 }
@@ -21,7 +21,8 @@ export async function getNationalityById(id) {
 export async function insertNationality({name}) {
     const { data, error } = await supabase
         .from('Nationality')
-        .insert([{ name }]);
+        .insert([{ name }])
+        .select('id');
     return { data, error };
 }
 
@@ -30,7 +31,8 @@ export async function updateNationality(id, {name}) {
     const { data, error } = await supabase
         .from('Nationality')
         .update({ name })
-        .eq('id', id);
+        .eq('id', id)
+        .select('id');
     return { data, error };
 }
 
@@ -39,6 +41,7 @@ export async function deleteNationality(id) {
     const { data, error } = await supabase
         .from('Nationality')
         .delete()
-        .eq('id', id);
+        .eq('id', id)
+        .select('id');
     return { data, error };
 }

@@ -1,5 +1,7 @@
 # Proyecto AP
 
+Todo esto solo considera back-end
+
 ## Usuarios 
 
 OmarZuni
@@ -12,7 +14,7 @@ pass: "password"
 - Revisar que borre todas las referencias que usan content id como fk
 - Revisar que funcione en todos los casos 
 
-VOY POR EPISODE
+En teoria ya estan todos los modulos revisados.
 
 ## Que falta
 
@@ -20,8 +22,6 @@ En la parte 4.d:
 - Campos de auditoria para la última actualización de un registro.
 
 Implementar la parte de `jobs` 4.h
-
-Tener el nombre y logo personalizado 5.12.
 
 ## Preguntas
 
@@ -41,13 +41,4 @@ En el punto 4.e para inactivar contenido, se puede hacer con un booleano `active
 
 ### Módulo de Consultas
 
-Consultas para administradores:
-
-- punto a. Se puede hacer buscando en la tabla de Purchase
-
-Para usuarios:
-
-- punto a: Se puede hacer buscando en la tabla de `Movie`, `Serie`, y `Documental`
-- punto b: Se puede hacer con `Purchase` y `Purchase Content`
-- punto c: Se puede hacer con `RecentlyViewed`
-- punto d: como medimos la popularidad? con la cantidad de reviews? con la cantidad de compras? con la cantidad de vistas?
+Completo, en teoria ya esta todo implementado.

@@ -4,7 +4,7 @@ import supabase from '../config/supabaseClient.js';
 export async function getAllPhotos() {
     const { data, error } = await supabase
         .from('Photo')
-        .select('*');
+        .select('id, name');
     return { data, error };
 }
 
@@ -12,7 +12,7 @@ export async function getAllPhotos() {
 export async function getPhotoById(id) {
     const { data, error } = await supabase
         .from('Photo')
-        .select('*')
+        .select('id, name')
         .eq('id', id);
     return { data, error };
 }

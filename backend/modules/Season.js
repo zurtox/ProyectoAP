@@ -5,7 +5,7 @@ import { deleteEpisodeSeason } from './Episode.js';
 export async function getAllSeasons() {
     const { data, error } = await supabase
         .from('Season')
-        .select('*');
+        .select('id, serie, documental, number');
     return { data, error };
 }
 
@@ -13,15 +13,7 @@ export async function getAllSeasons() {
 export async function getSeasonById(id) {
     const { data, error } = await supabase
         .from('Season')
-        .select('*')
-        .eq('id', id);
-    return { data, error };
-}
-
-async function deleteSeason(id) {
-    const { data, error } = await supabase
-        .from('Season')
-        .delete()
+        .select('id, serie, documental, number')
         .eq('id', id);
     return { data, error };
 }
@@ -39,7 +31,23 @@ export async function deleteSeasonDocumental(id) {
 
         deleteSeason(item.id);
     });
-    console.log("End")
+
+    return { data, error };
+}
+
+export async function deleteSeasonSerie(id) {
+    const { data, error } = await supabase
+        .from('Season')
+        .select('id')
+        .eq('serie', id);
+
+
+    console.log("Seasons to delete:")
+    data.forEach(item => {
+        deleteEpisodeSeason(item.id);
+
+        deleteSeason(item.id);
+    });
 
     return { data, error };
 }
@@ -53,10 +61,10 @@ export async function insertSeason({ number, serie, documental }) {
 }
 
 // Update Season by id
-export async function updateSeason( id, {number, serie, documental }) {
+export async function updateSeason( id, { number }) {
     const { data, error } = await supabase
         .from('Season')
-        .update({ number, serie, documental })
+        .update({ number })
         .eq('id', id);
     return { data, error };
 }

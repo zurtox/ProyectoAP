@@ -153,7 +153,6 @@ export async function getTop250ContentDocumental() {
     return { data, error };
 }
 
-
 // Get 250 Content by Category
 export async function getTop250ContentByCategory(category) {
     const { data, error } = await supabase.rpc('get_top_content_by_category', { category_id: category });
@@ -219,5 +218,21 @@ export async function getAmountDocumental() {
 export async function getAmountSerie() {
     const { data, error } = await supabase.rpc('count_rows_in_table', {table_name: 'Serie'});
   
+    return { data, error };
+}
+
+// Is content bought by user? 
+export async function isContentBought(content_id) {
+    const userF = await actualUserId(); 
+
+    if (userF.data == null) {
+        return { data: null, error: userF.error };
+    }
+
+    const user = userF.data[0].id;
+
+    const { data, error } = await supabase
+    .rpc('is_content_bought_by_user', { user_id: user, content_id });
+
     return { data, error };
 }

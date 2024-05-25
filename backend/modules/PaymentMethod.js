@@ -4,7 +4,7 @@ import supabase from '../config/supabaseClient.js';
 export async function getAllPaymentMethods() {
     const { data, error } = await supabase
         .from('PaymentMethod')
-        .select('*');
+        .select('id, name');
     return { data, error };
 }
 
@@ -12,7 +12,7 @@ export async function getAllPaymentMethods() {
 export async function getPaymentMethodById(id) {
     const { data, error } = await supabase
         .from('PaymentMethod')
-        .select('*')
+        .select('id, name')
         .eq('id', id);
     return { data, error };
 }
@@ -21,7 +21,8 @@ export async function getPaymentMethodById(id) {
 export async function insertPaymentMethod({name}) {
     const { data, error } = await supabase
         .from('PaymentMethod')
-        .insert([{ name }]);
+        .insert([{ name }])
+        .select('id');
     return { data, error };
 }
 
@@ -30,7 +31,8 @@ export async function updatePaymentMethod(id, {name}) {
     const { data, error } = await supabase
         .from('PaymentMethod')
         .update({ name })
-        .eq('id', id);
+        .eq('id', id)
+        .select('id');
     return { data, error };
 }
 
@@ -39,6 +41,7 @@ export async function deletePaymentMethod(id) {
     const { data, error } = await supabase
         .from('PaymentMethod')
         .delete()
-        .eq('id', id);
+        .eq('id', id)
+        .select('id');
     return { data, error };
 }

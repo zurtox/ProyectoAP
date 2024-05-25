@@ -1,4 +1,5 @@
 import supabase from '../config/supabaseClient.js';
+import { actualUserId } from './User.js';
 
 // Select all Review entries
 export async function getAllReviews() {
@@ -18,7 +19,15 @@ export async function getReviewById(id) {
 }
 
 // Insert Review
-export async function insertReview({user, content, review, rating}) {
+export async function insertReview({content, review, rating}) {
+    const userF = await actualUserId(); 
+
+    if (userF.data == null) {
+        return { data: null, error: userF.error };
+    }
+
+    const user = userF.data[0].id;
+
     const { data, error } = await supabase
         .from('Review')
         .insert([{ user, content, review, rating }]);
@@ -26,7 +35,15 @@ export async function insertReview({user, content, review, rating}) {
 }
 
 // Update Review by id
-export async function updateReview(id, {user, content, review, rating}) {
+export async function updateReview(id, {content, review, rating}) {
+    const userF = await actualUserId(); 
+
+    if (userF.data == null) {
+        return { data: null, error: userF.error };
+    }
+
+    const user = userF.data[0].id;
+    
     const { data, error } = await supabase
         .from('Review')
         .update({ user, content, review, rating })

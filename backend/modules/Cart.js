@@ -62,3 +62,20 @@ export async function deleteCartContent({content}) {
         .eq('content', content);
     return { data, error };
 }
+
+// Delete all cart content by user
+export async function deleteAllCartContent() {
+    const userF = await actualUserId(); 
+
+    if (userF.data == null) {
+        return { data: null, error: userF.error };
+    }
+
+    const user = userF.data[0].id;
+
+    const { data, error } = await supabase
+        .from('Cart')
+        .delete()
+        .eq('user', user);
+    return { data, error };
+}
