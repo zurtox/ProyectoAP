@@ -10,6 +10,7 @@ import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component'
 })
 export class NavbarComponent {
   dropdownCategories: string [] = [
+    "Search",
     "Profile",
     "History",
     "Favorites",

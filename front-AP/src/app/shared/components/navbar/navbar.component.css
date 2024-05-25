@@ -1,3 +1,8 @@
+@media screen and (max-width: 1000px) {
+  .mid-container{
+    display: none;
+  }
+}
 
 .header{
   background-color: #45455e ;
