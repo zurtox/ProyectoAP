@@ -1,18 +1,108 @@
+@media screen and (max-width: 1000px) {
+
+    .card-container{
+        border-radius: 0px!important;
+        width: 100%!important;
+        height: auto!important;
+        position: fixed;
+        margin: 0!important;
+        padding-top: 60vh;
+        padding-bottom: 10vw;
+        position: absolute;
+    }
+
+    .main-container{
+        flex-direction: column!important;
+        width: 100% !important;
+        margin: 0px!important;
+        align-items: center!important;
+    }
+
+    .pfp-container{
+        width: 100%!important;
+        align-self: center!important;
+        margin: 0!important;
+    }
+
+    .info-container{
+        margin-left: 0px!important; 
+        margin-right: 0px!important;    
+        margin-top: 30px;
+        width: 100%!important;
+        align-items: center!important;
+        justify-content: center!important;
+    }
+
+    .inputs-container{
+        flex-direction: column!important;
+        align-items: center!important;
+        justify-content: center!important;
+        width: 100%!important;
+        margin: 0!important;
+    }
+
+    .input-container {
+        width: 100%!important;
+        margin-right: 0px!important;
+        margin-left: 0px!important;
+        align-items: center!important;
+        justify-content: center!important;
+    }
+
+    .left-side{
+        margin: 0!important;
+        align-items: center!important;
+        justify-content: center!important;
+    }
+
+    .right-side{
+        margin: 0!important;
+        align-items: center!important;
+        justify-content: center!important;
+    }
+
+    .input-container input{
+        width: 90%!important;
+        margin: 0!important;
+    }
+
+    .btn-container{
+        width: 100%!important;
+        margin-left: 0px!important;
+        margin-right: 0px!important;
+        flex-direction: column!important;
+        align-items: center!important;
+    }
+
+    .btn-container p{
+        margin: 0!important;
+        margin-bottom: 30px!important;
+    }
+
+    .btn-container button{
+        width: 50%!important;
+        margin: 0!important;
+    }
+
+
+}
+
 
 .card-container{
-    background-color: #365c7d;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); 
     display: flex;
-    border-radius: 15px;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background-color: #365c7d;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    width: 1000px;
+    height: 670px;
+
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 45vw;
-    height: 500px;
-    padding: 60px 100px 100px 100px;
-    align-items: center;
 }
 
 h2{
@@ -98,7 +188,7 @@ h2{
 }
 
 .inputs-container input{
-    width: 10vw;
+    width: 200px;
     height: 25px;
     padding: 10px 20px;
     border-radius: 10px;

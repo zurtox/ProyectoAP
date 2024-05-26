@@ -1,3 +1,9 @@
+@media screen and (max-width: 1000px) {
+    .comment-box{
+        border-radius: 0px!important;
+    }
+}
+
 .comment-box{
     display: flex;
     background-color: #4ca8f923;
@@ -7,7 +13,6 @@
     cursor: pointer;
     align-items: start;
     justify-content: center;
-    width: 40vw;
     height: auto;
     padding: 35px;
     transition: all 0.2s;
@@ -40,5 +45,13 @@
     line-height: 2;
     font-weight: 200;
     font-size: 16px;
+}
+
+.stars-container{
+    margin-bottom: 20px;
+}
+
+.stars-container > img {
+    width: 30px;
 }
 

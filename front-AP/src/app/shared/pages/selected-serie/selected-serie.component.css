@@ -1,8 +1,142 @@
+
+/*------------------Ventana Pequena------------------*/
+@media screen and (max-width: 1000px) {
+    /* Estilos para pantallas más pequeñas */
+    .main-container{
+        align-items: center!important;
+        justify-content: center!important;
+        margin: 0px!important;
+    }
+
+    .info-container{
+        display: flex;
+        flex-direction: column!important;
+        align-items: center!important;
+        margin-right: 0!important;
+        margin-left: 0!important;
+        margin-bottom: 40px;
+        
+    }
+    .movie-image-container{
+        width: 450px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center!important;
+        justify-content: center!important;
+    }
+    
+    .image-container{
+        border-radius: 15px;
+        margin-bottom: 30px;
+        display: flex;
+        width: 100%;
+        height: 80%;
+        overflow: hidden;
+    }
+    
+    .image-container img{
+        width: 2000px;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    .movie-info-container{
+        width: 80%!important;
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 40px;
+    }
+    
+    .movie-info-container h3{
+        width: 250px;
+    }
+
+    .label-info-container{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    
+      
+    
+    h3{
+        margin-bottom: 10px!important;
+    }
+    
+
+    
+    .synopsis-container{
+        width: 80%!important;
+        margin-left: 0px!important;
+    }
+    
+    .synopsis {
+        max-width: 900px;
+        max-height: 500px;
+        overflow: auto;
+        line-height: 1.5;
+    }
+
+
+  
+    .trailer-container{
+        width: 80%!important;
+        margin-top: 0px!important;
+        margin-bottom: 40px!important;
+    }
+
+    .trailer-container h3{
+        align-self: start!important;
+    }
+
+    .episodes-container{
+        width: 100%!important;
+        margin-top: 0px!important;
+        margin-bottom: 40px!important;
+    }
+
+    .youtube-video{
+        width: 80vw!important;
+        height: 45vw!important;
+    }
+
+    .team-container{
+        width: 80%;
+        margin-bottom: 40px!important;
+    }
+    
+    .team-container h3{
+        margin-bottom: 30px;
+        align-self: start;
+    }
+
+    .footage-container{
+        width: 80%!important;
+        margin-bottom: 40px!important;
+    }
+    
+    .footage-container h3{
+        align-self: start;
+    }
+
+    .actors-container{
+        width: 100%!important;
+    }
+
+    
+    
+}
+/*-------------------------------------------------------------------*/
+
 *{
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
 }
+
 
 .background-image{
     background-image: url('https://images.unsplash.com/photo-1622838320000-4b3b3b3b3b3b');
@@ -23,7 +157,7 @@
     height: 100%;
     background: linear-gradient(180deg, rgba(69,69,94,1) 0%, rgba(69,69,94,1) 1%, rgba(69,69,94,0.742734593837535) 100%);
     backdrop-filter: blur(15px);
-
+    
 }
 
 .main-container{
@@ -33,14 +167,17 @@
     overflow: auto;
 }
 
+
+/*-------------MOVIE INFO SECTION-------------*/
 .info-container{
     display: flex;
     justify-content: center;
-    margin-top: 50px;
-    margin-left: 100px;
+    align-self: center;
 }
+
+/*-----MOVIE-IMAGE-----*/
 .movie-image-container{
-    width: 20%;
+    width: 400px;
     margin-right: 30px;
     display: flex;
     flex-direction: column;
@@ -51,7 +188,7 @@
     border-radius: 15px;
     margin-bottom: 30px;
     display: flex;
-    width: 100%;
+    width: 400px;
     height: 80%;
     overflow: hidden;
 }
@@ -81,6 +218,7 @@
     color: #347dbd;;
 }
 
+/*-----MOVIE-INFO-----*/
 .movie-info-container{
     width: 15%;
     margin-top: 40px;
@@ -110,6 +248,12 @@ p{
     margin-bottom: 25px;
 }
 
+/*-----STARS-----*/
+.stars-container > img {
+    width: 30px;
+}
+
+/*-----SYNOPSIS-----*/
 .synopsis-container{
     width: 45%;
     margin-left: 10px;
@@ -125,10 +269,14 @@ p{
 }
 
 .save-options-buttons{
-    align-self: end;
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 
-.save-options-buttons img{
+
+/*-----ADD-TO-BUTTONS-----*/
+.save-options-buttons img{ 
     width: 40px;
     margin-right: 10px;
     cursor: pointer;
@@ -138,44 +286,7 @@ p{
     transform: scale(1.1);
 }
 
-
-.trailer-container{
-    margin: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.trailer-container h3{
-    margin-bottom: 30px;
-}
-
-.footage-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 50px;
-}
-
-.team-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.team-container h3{
-    margin-bottom: 30px;
-}
-
-.actors-container{
-    width: 80%;
-    display: flex;
-    overflow: auto;
-    margin-bottom: 50px;
-}
-
-
+/*-------------EPISODES SECTION-------------*/
 .episodes-container{
     border-radius: 10px;
     background-color: #2e2e3d6f;
@@ -190,6 +301,20 @@ p{
     overflow: auto;
 }
 
+.episodes-header{
+    align-self: center;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.episodes-header h3{
+    margin-right: 20px;
+}
+
+
 .episodes{
     display: flex;
     width: 100%;
@@ -199,7 +324,61 @@ p{
     margin-top: 50px;
 }
 
+/*-------------TRAILER SECTION-------------*/
+.trailer-container{
+    margin-top: 120px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.trailer-container h3{
+    margin-bottom: 30px;
+}
+
+.youtube-video{
+    width: 950px;
+    height: 550px;
+}
+
+
+/*-------------FOOTAGE SECTION-------------*/
+.footage-container{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footage-container h3{
+    margin-bottom: 30px;
+}
+
+
+/*-------------ACTORS SECTION-------------*/
+.team-container{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-container h3{
+    margin-bottom: 30px;
+}
+
+.actors-container{
+    width: 80%;
+    display: flex;
+    overflow: auto;
+    margin-bottom: 50px;
+}
+
+/*-------------PLATFORMS SECTION-------------*/ 
 .platforms-container{
     display: flex;
     justify-content: center;
@@ -211,5 +390,5 @@ p{
     flex-direction: row;
     justify-content: center;
     align-items: start;
-
+    
 }
