@@ -109,14 +109,6 @@ h2 {
   font-size: 38px;
 }
 
-.demo-chart {
-  height: 400px;
-}
-
-.chart {
-  width: 500px;
-}
-
 @media (min-width: 768px) {
   .main-container {
     padding: 20px 80px;
@@ -153,6 +145,3 @@ h2 {
   }
 }
 
-span {
-  color: white;
-}

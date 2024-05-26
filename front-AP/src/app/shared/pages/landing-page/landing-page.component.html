@@ -10,7 +10,10 @@
       @for (item of iterator; track $index) {
         <shared-movie-box
           [buy]="true"
-          [favorite]="true">
+          [favorite]="true"
+          [image]="image"
+          [description]="description"
+          [name]="name">
         </shared-movie-box>
       }
     </div>

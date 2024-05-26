@@ -9,6 +9,15 @@ import { Component, Input } from '@angular/core';
 })
 export class ActorBoxComponent {
   @Input()
+  favorite: boolean = false;
+
+  @Input()
+  remove: boolean = false;
+
+  @Input()
+  buy: boolean = false;
+
+  @Input()
   name: string = ""
 
   @Input()
@@ -16,5 +25,4 @@ export class ActorBoxComponent {
 
   @Input()
   image: string = ""
-
 }

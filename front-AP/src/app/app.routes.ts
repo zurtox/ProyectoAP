@@ -10,6 +10,9 @@ import { HistoryPageComponent } from './user/pages/history/history-page.componen
 import { FavouritesPageComponent } from './user/pages/favourites/favourites-page.component';
 import { LandingPageComponent } from './shared/pages/landing-page/landing-page.component';
 import { SearchPageComponent } from './shared/pages/search-page/search-page.component';
+import { AdminLandingPageComponent } from './admin/pages/admin-landing-page/admin-landing-page.component';
+import { ActorsPageComponent } from './admin/pages/actors-page/actors-page.component';
+import { StatisticsPageComponent } from './admin/pages/statistics/statistics-page.component';
 
 export const routes: Routes = [
     {
@@ -56,6 +59,18 @@ export const routes: Routes = [
     {
       path: 'search',
       component: SearchPageComponent
+    },
+    {
+      path: 'admin-landing',
+      component: AdminLandingPageComponent
+    },
+    {
+      path: 'actors',
+      component: ActorsPageComponent
+    },
+    {
+      path: 'statistics',
+      component: StatisticsPageComponent
     }
 
 ];

@@ -13,4 +13,7 @@ export class DropdownMenuComponent {
 
   @Input()
   options: string [] = []
+
+  @Input()
+  isLeft: boolean = false
 }

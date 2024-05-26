@@ -1,1 +1,32 @@
-<p>statistics-page works!</p>
+<div class="main-container">
+  <div class="resize-container">
+    <div class="search-container">
+      <shared-dropdown-menu
+      header=Type
+      [options]="types"
+      [isLeft]="true">
+    </shared-dropdown-menu>
+      <div class="options-container">
+        <shared-dropdown-menu
+          header=Categories
+          [options]="categories">
+        </shared-dropdown-menu>
+        <shared-dropdown-menu
+          header=Content
+          [options]="options">
+        </shared-dropdown-menu>
+      </div>
+    </div>
+    <h2>
+      <span class="highlight">
+        Statistics
+      </span>
+    </h2>
+  </div>
+  <apx-chart
+  class="chart"
+  [series]="chartOptions.series!"
+  [chart]="chartOptions.chart!"
+  [labels]="chartOptions.labels!"
+  [title]="chartOptions.title!"></apx-chart>
+</div>

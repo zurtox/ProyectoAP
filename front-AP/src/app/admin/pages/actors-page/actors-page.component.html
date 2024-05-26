@@ -5,28 +5,21 @@
         placeholder="Search...">
       </shared-search-box>
       <div class="options-container">
-        <shared-dropdown-menu
-          header=Categories
-          [options]="categories"
-          >
-        </shared-dropdown-menu>
-        <shared-dropdown-menu
-          header=Content
-          [options]="options">
-        </shared-dropdown-menu>
+          <i class="material-icons add">
+            data_saver_on
+          </i>
       </div>
     </div>
     <h2>
       <span class="highlight">
-        Relevant
+        All
       </span>
-       Results
+      Actors
     </h2>
     <div class="movie-list">
       @for (item of iterator; track $index) {
         <shared-movie-box
-          [buy]="true"
-          [favorite]="true"
+          [remove]="true"
           [image]="image"
           [description]="description"
           [name]="name">

@@ -1,39 +1,89 @@
-.actor-box{
-  margin-right: 10px;
-  display: flex;
-  flex-direction: column;
-  width: 250px;
-  height: 400px;
-  align-items: start;
-}
 
-.image-container{
-  border-radius: 15px;
-  margin-bottom: 15px;
+.movie-box {
+  position: relative;
   display: flex;
-  align-items: start;
-  width: 100%;
-  height: 90%;
-  overflow: hidden;
-}
-
-.image-container img{
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  display: block;
+  transition: all 0.3s;
+  border-radius: 10px;
+  cursor: pointer;
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+  }
 }
 
-h3{
-  margin-left: 5px;
-  font-size: 22px;
+
+.movie-box:hover{
+  transform: scale(1.05);
+}
+
+.movie-info{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 18px ;
   color: white;
-  margin-bottom: 5px;
+  bottom: 0;
 }
 
-p{
-  margin-left: 5px;
-  font-size: 18px;
-  color: rgb(194, 194, 194);
-  margin-bottom: 10px;
+.movie-title{
+  font-size: 20px;
+}
+.movie-year{
+  font-size: 17px;
+  color: rgb(169, 169, 169);
+}
+
+.gradient {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.571), transparent);
+  position: absolute;
+  border-radius: 10px;
+}
+
+.overlay {
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #00000079;
+}
+
+.movie-box:hover .overlay {
+  opacity: 1;
+}
+
+.icons {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding-top: 5px;
+  padding-left: 10px;
+  gap: 8px;
+}
+
+.material-icons {
+  color: white;
+  transition: 0.5s ease;
+}
+
+
+.material-icons:hover {
+  color: #4ca8f9;
+}
+
+.remove:hover {
+  color: red;
 }

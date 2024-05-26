@@ -1,6 +1,6 @@
 <div class="movie-box">
   <div class="gradient"></div>
-  <img src="assets/film-2.jpg" alt="">
+  <img [src]="image" alt="">
   <div class="overlay">
     <div class="icons">
       @if (remove) {
@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="movie-info">
-      <label class="movie-title">Avengers</label>
-      <label class="movie-year">2019</label>
+      <label class="movie-title">{{name}}</label>
+      <label class="movie-year">{{description}}</label>
   </div>
 </div>
