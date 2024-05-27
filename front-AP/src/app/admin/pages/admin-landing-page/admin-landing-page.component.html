@@ -12,21 +12,22 @@
         </shared-dropdown-menu>
         <shared-dropdown-menu
           header=Content
-          [options]="options">
-        </shared-dropdown-menu>
+          [options]="options"></shared-dropdown-menu>
+          <i class="material-icons add">
+            data_saver_on
+          </i>
       </div>
     </div>
     <h2>
       <span class="highlight">
-        Relevant
+        All
       </span>
-       Results
+      Movies & Series
     </h2>
     <div class="movie-list">
       @for (item of iterator; track $index) {
         <shared-movie-box
-          [buy]="true"
-          [favorite]="true"
+          [remove]="true"
           [image]="image"
           [description]="description"
           [name]="name">

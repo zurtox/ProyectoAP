@@ -1,13 +1,29 @@
 <div class="dropdown">
-  <button class="dropdown-button">
-    {{header}}
-    <i class="material-icons">
-      keyboard_arrow_down
-    </i>
-  </button>
-  <div class="dropdown-content">
-    @for (item of options; track $index) {
-      <a href="#">{{item}}</a>
-    }
-  </div>
+  @if (isLeft) {
+    <button class="dropdown-button-left">
+      {{header}}
+      <i class="material-icons">
+        keyboard_arrow_down
+      </i>
+    </button>
+    <div class="dropdown-content-left">
+      @for (item of options; track $index) {
+        <a href="#">{{item}}</a>
+      }
+    </div>
+  }
+  @else {
+    <button class="dropdown-button">
+      {{header}}
+      <i class="material-icons">
+        keyboard_arrow_down
+      </i>
+    </button>
+    <div class="dropdown-content">
+      @for (item of options; track $index) {
+        <a href="#">{{item}}</a>
+      }
+    </div>
+  }
 </div>
+

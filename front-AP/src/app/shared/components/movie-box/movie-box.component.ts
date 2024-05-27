@@ -16,4 +16,13 @@ export class MovieBoxComponent {
 
   @Input()
   buy: boolean = false;
+
+  @Input()
+  name: string = ""
+
+  @Input()
+  description: string = ""
+
+  @Input()
+  image: string = ""
 }
