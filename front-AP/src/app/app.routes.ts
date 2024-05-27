@@ -11,6 +11,7 @@ import { LandingPageComponent } from './shared/pages/landing-page/landing-page.c
 import { SearchPageComponent } from './shared/pages/search-page/search-page.component';
 import { ProfilePageComponent } from './user/pages/profile/profile-page.component';
 import { ReviewComponent } from './user/pages/review/review.component';
+import { SelectedTeamPageComponent } from './shared/pages/selected-team/selected-team-page.component';
 
 export const routes: Routes = [
     {
@@ -38,6 +39,12 @@ export const routes: Routes = [
         path: 'selected-serie',
         component: SelectedSerieComponent
     },
+
+    {
+      path: 'selected-team',
+      component: SelectedTeamPageComponent
+    },
+
     {
       path: 'cart',
       component: CartPageComponent

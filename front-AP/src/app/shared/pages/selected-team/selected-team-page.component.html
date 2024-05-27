@@ -1,1 +1,82 @@
-<p>selected-team-page works!</p>
+
+<div class="main-container">
+
+    <section class="top-section" style="display: flex; flex-direction: column; align-items: center;">
+        <div style=" width: 70%;display: flex; flex-direction: column; align-items: end;">
+            <div class="save-options-buttons">
+            </div>
+        </div>
+
+        <div class="info-container">
+            <div class="movie-image-container">
+                <div class="image-container">
+                    <img src="assets/film-1.jpg">
+                </div>
+                <h2 class="actor-name">{{actorName}}</h2>
+            </div>
+    
+            <div class="synopsis-container">
+                <h3>Biography</h3>
+                <p class="synopsis">{{actorBiography}}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="actor-information-container">
+        <div class="actor-information">
+            <h2 class="info-title">Born</h2>
+            <p class="info">24/04/2003</p>
+            <p class="info">Santiago, Puriscal, Costa Rica</p>
+
+            <h2 class="info-title">Citizenship</h2>
+            <p class="info">Costa Rican</p>
+
+            <h2 class="info-title">Height</h2>
+            <p class="info">1.83 m</p>
+
+            <h2 class="info-title">Father</h2>
+            <p class="info">El tata</p>
+
+        </div>
+
+        <div class="actor-information">
+            <h2 class="info-title">Siblings</h2>
+            <p class="info">None</p>
+
+            <h2 class="info-title">Couple</h2>
+            <p class="info">None</p>
+
+            <h2 class="info-title">Children</h2>
+            <p class="info">None</p>
+
+            <h2 class="info-title">Father</h2>
+            <p class="info">None</p>
+        </div>
+
+        <div class="actor-information">
+            <h2 class="info-title">Trivia Facts</h2>
+            <p class="info trivia-facts">Lorem ipsum dolor sit amet consectetur. Sedconsequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio.</p>
+        </div>
+
+        
+    </section>
+
+    
+
+    <section class="bottom-section team-container">
+        <h3>Participated in</h3>
+        <div class="actors-container">
+          @for (item of iterator; track $index) {
+            <shared-actor-box
+              [name]="actor[0]"
+              [role]="actor[1]"
+              [image]="actor[2]">
+            </shared-actor-box>
+          }
+        </div>
+
+    </section>
+</div>
+
+
+
