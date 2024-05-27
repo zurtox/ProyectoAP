@@ -14,11 +14,16 @@ export const getAllMovies = async (req, res) => {
     let contentData = [];
 
     for (const item of data) {
-        const content = await getContentById(item.content);
-        contentData.push(content.data[0]);
+        const { data, error } = await supabase
+        .from('Content')
+        .select('id, title, category, trailer, synopsis, price, publishYear, active')
+        .eq('id', item.content);
+        contentData.push(data[0]);
     }
 
-    res.send({ data: contentData, movie: data, error });
+    console.log(contentData)
+
+    res.send({ data: contentData, error });
 };
 
 // Select Movie by id

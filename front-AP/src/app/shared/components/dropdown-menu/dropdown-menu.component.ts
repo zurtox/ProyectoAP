@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'shared-dropdown-menu',
@@ -16,4 +16,21 @@ export class DropdownMenuComponent {
 
   @Input()
   isLeft: boolean = false
+
+  // selectedOptions: boolean[] = [];
+  @Output() selectedOptionsChange = new EventEmitter<number>();
+
+  ngOnInit(){
+    console.log("options:")
+    console.log(this.options)
+    console.log(this.options.length)
+    // this.selectedOptions = Array(this.options.length).fill(false)
+  }
+
+  toggleOption(index: number) {
+    // this.selectedOptions = Array(this.options.length).fill(false)
+    // this.selectedOptions[index] = !this.selectedOptions[index];
+    this.selectedOptionsChange.emit(index);
+    // console.log(this.selectedOptions)
+  }
 }

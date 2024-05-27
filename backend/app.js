@@ -2,11 +2,16 @@ import express from 'express'
 import cors from 'cors'
 const app = express();
 
-// Import Routes
-import router from './routes/cartRoutes.js'
+// const cors = require('cors');
 
+// Import Routes
+import {router as cartRouter} from './routes/cartRoutes.js';
+import {router as communityRouter} from './routes/communityRoutes.js';
+import {router as contentRouter} from './routes/contentRoutes.js';
+import {router as categoryRouter} from './routes/categoryRoutes.js';
 import contentXPlatformRoutes from './routes/contentXPlatformRoutes.js';
 import documentalRoutes from './routes/documentalRoutes.js';
+import movieRoutes from './routes/movieRoutes.js';
 import enumRoutes from './routes/enumRoutes.js';
 import episodeRoutes from './routes/episodeRoutes.js';
 import favoriteMovieRoutes from './routes/favoriteMovieRoutes.js';
@@ -33,9 +38,14 @@ app.use(cors());
 // Middleware para parsear el cuerpo de las solicitudes como JSON
 app.use(express.json());
 
-// Routes
-app.use('/nombreJS/nombreFuncion', router);
 
+// Routes
+// app.use('/nombreJS/nombreFuncion', router);
+app.use('/', cartRouter);
+app.use('/', communityRouter);
+app.use('/', categoryRouter);
+app.use('/', contentRouter);
+app.use('/', movieRoutes);
 app.use('/', movieParticipantRoutes);
 app.use('/', nationalityRoutes);
 app.use('/', paymentMethodRoutes);
@@ -58,7 +68,8 @@ app.use('/', enumRoutes);
 app.use('/', documentalRoutes);
 app.use('/', contentXPlatformRoutes);
 
-const PORT = 3000;
+
+const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

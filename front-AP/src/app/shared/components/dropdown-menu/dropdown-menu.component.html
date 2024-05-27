@@ -8,7 +8,7 @@
     </button>
     <div class="dropdown-content-left">
       @for (item of options; track $index) {
-        <a href="#">{{item}}</a>
+        <a (click)="toggleOption($index)">{{item}}</a>
       }
     </div>
   }
@@ -21,7 +21,7 @@
     </button>
     <div class="dropdown-content">
       @for (item of options; track $index) {
-        <a href="#">{{item}}</a>
+        <a (click)="toggleOption($index)">{{item}}</a>
       }
     </div>
   }

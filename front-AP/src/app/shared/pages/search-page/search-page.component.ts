@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { MovieBoxComponent } from '../../components/movie-box/movie-box.component';
 import { DropdownMenuComponent } from '../../components/dropdown-menu/dropdown-menu.component';
 import { SearchBoxComponent } from '../../components/search-box/search-box.component';
+import { ContentAPIService } from '../../../content-api.service';
+import { CategoryResponse } from '../../../interfaces/categoryResponse.interface';
+import { Content, ContentResponse } from '../../../interfaces/contentResponse.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-page',
@@ -16,12 +20,7 @@ import { SearchBoxComponent } from '../../components/search-box/search-box.compo
 })
 export class SearchPageComponent {
   iterator: any [] = Array(25).fill(0)
-  categories: string [] = [
-    "Comedy",
-    "Action",
-    "Horror",
-    "Romance"
-  ]
+  categoryNames: string [] = []
   options: string [] = [
     "Movie",
     "Serie",
@@ -30,4 +29,76 @@ export class SearchPageComponent {
   name: string = "Avengers"
   description: string = "2012"
   image: string = "https://i.ebayimg.com/images/g/YBwAAOSw9BRjQZyi/s-l1600.jpg"
+  categoryResponse!: CategoryResponse;
+  contentResponse!: ContentResponse;
+
+  constructor(private contentAPIService: ContentAPIService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.contentAPIService.getAllCategories().subscribe(
+      (response) => {
+        if(response) {
+          this.categoryResponse = response
+          this.categoryNames = this.categoryResponse.data.map(category => category.name)
+        }
+      }
+    )
+    this.getAllContent()
+  }
+
+  getAllContent(){
+    this.contentAPIService.getAllContent().subscribe(
+      (response) => {
+        if(response) {
+          this.contentResponse = response
+        }
+      }
+    )
+  }
+
+  changeCategory(index: number){
+    const categoryId = index+2
+    this.contentAPIService.getContentByCategory(categoryId.toString()).subscribe(
+      (response) => {
+        if(response) {
+          this.contentResponse = response
+        }
+      }
+    )
+  }
+
+  changeContent(index: number){
+    if(index == 0){
+      this.contentAPIService.getAllMovies().subscribe(
+        (response) => {
+          if(response) {
+            this.contentResponse = response
+          }
+        }
+      )
+    }else if(index == 1){
+      this.contentAPIService.getAllSeries().subscribe(
+        (response) => {
+          if(response) {
+            this.contentResponse = response
+          }
+        }
+      )
+    }else{
+      this.contentAPIService.getAllDocumentaries().subscribe(
+        (response) => {
+          if(response) {
+            this.contentResponse = response
+          }
+        }
+      )
+    }
+  }
+
+  viewContent(content: Content){
+    this.router.navigate(['/selected-movie', content.id])
+  }
+
 }

@@ -19,12 +19,14 @@
                 <button class="lightblue-button">Check Reviews</button>
                 <a class="font-poppins">Review Content</a>
             </div>
-    
+
             <div class="movie-info-container">
+                <input type="file" (change)="uploadPhoto($event)">
+
                 <div class="label-info-container">
                     <h3>Title</h3>
                     <p>{{movieTitle}}</p>
-    
+
                 </div>
                 <div class="label-info-container">
                     <h3>Release</h3>
@@ -45,7 +47,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="synopsis-container">
                 <h3>Synopsis</h3>
                 <p class="synopsis">{{movieSynopsis}}</p>
@@ -56,7 +58,7 @@
     <section class="trailer-container">
         <h3>Trailer</h3>
         <div class="trailer">
-            <iframe class="youtube-video" src="https://www.youtube.com/embed/bK6ldnjE3Y0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe class="youtube-video" [src]="trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </section>
 

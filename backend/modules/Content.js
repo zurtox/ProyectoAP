@@ -2,7 +2,7 @@ import supabase from '../config/supabaseClient.js';
 import { actualUserId } from './User.js';
 
 // Select all content
-export async function getAllContent() {
+export const getAllContent = async(req, res) => {
     const { data, error } = await supabase
         .from('Content')
         .select('id, title, category, trailer, synopsis, price, publishYear, active, photo');
@@ -10,12 +10,22 @@ export async function getAllContent() {
 }
 
 // Select content by id
-export async function getContentById(id) {
+export const getContentById = async(req, res) => {
+    const { id } = req.params 
     const { data, error } = await supabase
         .from('Content')
         .select('id, title, category, trailer, synopsis, price, publishYear, active, photo')
         .eq('id', id);
-    return { data, error };
+    res.send({ data, error });
+}
+
+export const getContentByCategory = async(req, res) => {
+    const { id } = req.params 
+    const { data, error } = await supabase
+        .from('Content')
+        .select('id, title, category, trailer, synopsis, price, publishYear, active')
+        .eq('category', id);
+    res.send({ data, error });
 }
 
 // Insert content
@@ -33,7 +43,7 @@ export async function insertContent({ title, publishYear, category, trailer, syn
         .insert([{ title, publishYear, category, trailer, synopsis, price, lastChangeBy: user, photo }])
         .select('id');
 
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Update content by id
@@ -52,12 +62,13 @@ export async function updateContent(id, { title, publishYear, category, trailer,
         .eq('id', id)
         .select('id');
 
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Delete content by id
-export async function deleteContent(id) {
+export const deleteContent = async(req, res) => {
 
+    // const id = req
     const { data: contentData, error: contentError } = await supabase
         .from('Record')
         .delete()
@@ -104,57 +115,57 @@ export async function deleteContent(id) {
         .eq('id', id)
         .select('id');
 
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Activate Content
-export async function activateContent(id) {
+export const activateContent = async(req, res) => {
     const { data, error } = await supabase
         .from('Content')
         .update({ active: true })
         .eq('id', id);
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Deactivate Content
-export async function deactivateContent(id) {
+export const deactivateContent = async(req, res) => {
     const { data, error } = await supabase
         .from('Content')
         .update({ active: false })
         .eq('id', id);
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get 250 Content'
-export async function getTop250ContentByViews() {
+export const getTop250ContentByViews = async(req, res) => {
     const { data, error } = await supabase.rpc('get_top_content_by_views');
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get 250 Content by Type Movie
-export async function getTop250ContentMovie() {
+export const getTop250ContentMovie = async(req, res) => {
     const { data, error } = await supabase.rpc('get_top_content_movie');
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get 250 Content by Type Serie
-export async function getTop250ContentSerie() {
+export const getTop250ContentSerie= async(req, res) => {
     const { data, error } = await supabase.rpc('get_top_content_serie');
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get 250 Content by Type Documental
-export async function getTop250ContentDocumental() {
+export const getTop250ContentDocumental= async(req, res) => {
     const { data, error } = await supabase.rpc('get_top_content_documental');
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get 250 Content by Category
-export async function getTop250ContentByCategory(category) {
+export const getTop250ContentByCategory = async(req, res) => {
     const { data, error } = await supabase.rpc('get_top_content_by_category', { category_id: category });
   
     if (error) {
@@ -166,63 +177,63 @@ export async function getTop250ContentByCategory(category) {
 }
   
 // Get 250 Content by Type Documental & Category
-export async function getTop250ContentDocumentalCategory(category) {
+export const getTop250ContentDocumentalCategory = async(req, res) => {
     const { data, error } = await supabase.rpc('get_top_content_documental_category', { category_id: category });
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get 250 Content by Type Movie & Category
-export async function getTop250ContentMovieCategory(category) {
+export const getTop250ContentMovieCategory = async(req, res) => {
     const { data, error } = await supabase.rpc('get_top_content_movie_category', { category_id: category });
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get 250 Content by Type Movie & Category
-export async function getTop250ContentSerieCategory(category) {
+export const getTop250ContentSerieCategory = async(req, res) => {
     const { data, error } = await supabase.rpc('get_top_content_serie_category', { category_id: category });
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get Stars by content id
-export async function getContentStarsId(id) {
+export const getContentStarsId = async(req, res) => {
     const { data, error } = await supabase.rpc('get_average_stars_by_content_id', { content_id: id });
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get Stars by content [All content]
-export async function getContentStars() {
+export const getContentStars = async(req, res) => {
     const { data, error } = await supabase.rpc('get_average_stars_by_content');
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get amount of Movies
-export async function getAmountMovies() {
+export const getAmountMovies = async(req, res) => {
     const { data, error } = await supabase.rpc('count_rows_in_table', {table_name: 'Movie'});
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get amount of Documental
-export async function getAmountDocumental() {
+export const getAmountDocumental = async(req, res) => {
     const { data, error } = await supabase.rpc('count_rows_in_table', {table_name: 'Documental'});
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Get amount of Serie
-export async function getAmountSerie() {
+export const getAmountSerie = async(req, res) => {
     const { data, error } = await supabase.rpc('count_rows_in_table', {table_name: 'Serie'});
   
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Is content bought by user? 
-export async function isContentBought(content_id) {
+export const isContentBought = async(req, res) => {
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
@@ -234,5 +245,5 @@ export async function isContentBought(content_id) {
     const { data, error } = await supabase
     .rpc('is_content_bought_by_user', { user_id: user, content_id });
 
-    return { data, error };
+    res.send({ data, error });
 }

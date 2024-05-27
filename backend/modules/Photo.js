@@ -27,8 +27,13 @@ export const getPhotoById = async (req, res) => {
 
 // Insert Photo
 export const insertPhoto = async (req, res) => {
-    const { name } = req.body;
-    const path = await uploadImage(name);
+    if (!req.files || !req.files.photo) {
+        return res.status(400).send({ data: null, error: "No file uploaded" });
+    }
+
+    const { photo } = req.files;
+    console.log(photo)
+    const path = await uploadImage(photo); // Assuming uploadImage handles the file object
 
     if (path == null) {
         return res.send({ data: null, error: "Error uploading image" });

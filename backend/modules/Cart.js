@@ -4,23 +4,12 @@ import { logIn } from './User.js';
 
 // Select all CartContent Movie by user
 
-// const getAllProfessor = async(req, res) => {
-//     try{
-//         const professors = await Professor.find().limit(req.query.limit).skip(req.query.skip);
-//         return res.status(200).json({professors});
-//     }catch(error){
-//         console.log(error);
-//         return res.status(500).json({error: 'Internal server error'})
-//     }
-// }
-
-
 export const getAllCartContents = async(req, res) => {
-    const u = await logIn({email:"omarzunigpii@gmail.com", password:"password"});
+    // const u = await logIn({email:"omarzunigpii@gmail.com", password:"password"});
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
-        return { data: null, error: userF.error };
+        res.send({ data: null, error: userF.error });
     }
 
     const user = userF.data[0].id;
@@ -33,20 +22,22 @@ export const getAllCartContents = async(req, res) => {
 }
 
 // Insert CartContent
-export async function insertCartContent({content}) {
+export const insertCartContent = async(req, res) => {
+    // const u = await logIn({email:"omarzunigpii@gmail.com", password:"password"});
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
-        return { data: null, error: userF.error };
+        res.send({ data: null, error: userF.error });
     }
 
     const user = userF.data[0].id;
+    const content = req.body.id
 
     const { data: existingData, error: existingError } = await supabase
         .from('Cart')
         .select('id')
         .eq('user', user)
-        .eq('content', content);
+        .eq('content', req.body);
 
     if (existingData && existingData.length > 0) {
         return { data: existingData, error: existingError };
@@ -56,11 +47,11 @@ export async function insertCartContent({content}) {
         .from('Cart')
         .insert([{ user, content }])
         .select('id');
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Delete CartContent by id
-export async function deleteCartContent({content}) {
+export const deleteCartContent = async(req, res) => {
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
@@ -68,17 +59,18 @@ export async function deleteCartContent({content}) {
     }
 
     const user = userF.data[0].id;
+    const {content} = req.params
 
     const { data, error } = await supabase
         .from('Cart')
         .delete()
         .eq('user', user)
         .eq('content', content);
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Delete all cart content by user
-export async function deleteAllCartContent() {
+export const deleteAllCartContent = async(req, res) => {
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
@@ -91,5 +83,5 @@ export async function deleteAllCartContent() {
         .from('Cart')
         .delete()
         .eq('user', user);
-    return { data, error };
+    res.send({ data, error });
 }

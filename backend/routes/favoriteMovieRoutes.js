@@ -3,7 +3,7 @@ import {
     getAllFavoriteMovies,
     updateFavorite,
     isFavorite
-} from '../modules/Enum.js';
+} from '../modules/FavoriteMovie.js';
 
 const router = express.Router();
 

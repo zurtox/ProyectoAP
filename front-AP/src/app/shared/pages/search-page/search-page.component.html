@@ -7,12 +7,14 @@
       <div class="options-container">
         <shared-dropdown-menu
           header=Categories
-          [options]="categories"
+          [options]="categoryNames"
+          (selectedOptionsChange)="changeCategory($event)"
           >
         </shared-dropdown-menu>
         <shared-dropdown-menu
           header=Content
-          [options]="options">
+          [options]="options"
+          (selectedOptionsChange)="changeContent($event)">
         </shared-dropdown-menu>
       </div>
     </div>
@@ -23,14 +25,17 @@
        Results
     </h2>
     <div class="movie-list">
-      @for (item of iterator; track $index) {
-        <shared-movie-box
-          [buy]="true"
-          [favorite]="true"
-          [image]="image"
-          [description]="description"
-          [name]="name">
-        </shared-movie-box>
+      @if(contentResponse){
+        @for (content of contentResponse.data; track $index) {
+          <shared-movie-box
+            [buy]="true"
+            [favorite]="true"
+            [image]="image"
+            [description]="content.publishYear.toString()"
+            [name]="content.title"
+            (click)="viewContent(content)">
+          </shared-movie-box>
+        }
       }
     </div>
   </div>

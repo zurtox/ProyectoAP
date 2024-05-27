@@ -34,7 +34,7 @@ export const routes: Routes = [
         component: CommentsComponent
     },
     {
-        path: 'selected-movie',
+        path: 'selected-movie/:id',
         component: SelectedMoviePageComponent
     },
     {

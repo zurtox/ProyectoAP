@@ -1,45 +1,50 @@
 import supabase from '../config/supabaseClient.js';
 
 // Select all communities
-export async function getAllCommunities() {
+export const getAllCommunities = async (req, res) => {
     const { data, error } = await supabase
         .from('Community')
         .select('id, name');
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Select community by id
-export async function getCommunityById(id) {
+export const getCommunityById = async (req, res) => {
+    const id = req.params.id
     const { data, error } = await supabase
         .from('Community')
         .select('id, name')
         .eq('id', id);
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Insert community
-export async function insertCommunity({name}) {
+export const insertCommunity = async (req, res) => {
+    const name = req.body.name
     const { data, error } = await supabase
         .from('Community')
         .insert([{ name }])
         .select('id');
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Update community by id
-export async function updateCommunity(id, {name}) {
+export const updateCommunity = async (req, res) => {
+    const name = req.body.name
+    const id = req.body.id
     const { data, error } = await supabase
         .from('Community')
         .update({ name })
         .eq('id', id);
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Delete community by id
-export async function deleteCommunity(id) {
+export const deleteCommunity = async (req, res) => {
+    const id = req.body.id
     const { data, error } = await supabase
         .from('Community')
         .delete()
         .eq('id', id);
-    return { data, error };
+    res.send({ data, error });
 }
