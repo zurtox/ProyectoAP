@@ -1,57 +1,64 @@
 import supabase from '../config/supabaseClient.js';
 
 // Get episode by ID
-export async function getEpisodeById(id) {
+export const getEpisodeById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Episode')
         .select('id, number, title, duration, season')
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Get all episodes by season
-export async function getEpisodesBySeason(id) {
+export const getEpisodesBySeason = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Episode')
         .select('id, number, title, duration, season')
         .eq('season', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Insert Episode
-export async function insertEpisode({number, title, duration, season}) {
+export const insertEpisode = async (req, res) => {
+    const { number, title, duration, season } = req.body;
     const { data, error } = await supabase
         .from('Episode')
         .insert([{ number, title, duration, season }])
         .select('id');
-    
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Update Episode by id
-export async function updateEpisode(id, {number, title, duration, season}) {
+export const updateEpisode = async (req, res) => {
+    const { id } = req.params;
+    const { number, title, duration, season } = req.body;
     const { data, error } = await supabase
         .from('Episode')
         .update({ number, title, duration, season })
         .eq('id', id)
         .select('id');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete Episode by id
-export async function deleteEpisode(id) {
+export const deleteEpisode = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Episode')
         .delete()
         .eq('id', id)
         .select('id');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-export async function deleteEpisodeSeason(id) {
+// Delete all episodes by season id
+export const deleteEpisodeSeason = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Episode')
         .delete()
         .eq('season', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};

@@ -1,44 +1,49 @@
 import supabase from '../config/supabaseClient.js';
 
 // Select all Person entries
-export async function getAllPersons() {
+export const getAllPersons = async (req, res) => {
     const { data, error } = await supabase
         .from('Person')
         .select('id, firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Select Person by id
-export async function getPersonById(id) {
+export const getPersonById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Person')
         .select('id, firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner')
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Insert Person
-export async function insertPerson({firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner}) {
+export const insertPerson = async (req, res) => {
+    const { firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner } = req.body;
     const { data, error } = await supabase
         .from('Person')
-        .insert({ firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner });
-    return { data, error };
-}
+        .insert([{ firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner }]);
+    res.send({ data, error });
+};
 
 // Update Person by id
-export async function updatePerson(id, {firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner}) {
+export const updatePerson = async (req, res) => {
+    const { id } = req.params;
+    const { firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner } = req.body;
     const { data, error } = await supabase
         .from('Person')
         .update({ firstName, secondName, firstLastName, secondLastName, photo, birthDate, birthPlace, nationality, biography, height, curiousFact, partner })
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete Person by id
-export async function deletePerson(id) {
+export const deletePerson = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Person')
         .delete()
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};

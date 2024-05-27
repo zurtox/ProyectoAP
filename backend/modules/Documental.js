@@ -1,15 +1,15 @@
 import supabase from '../config/supabaseClient.js';
-import { getContentById, insertContent, updateContent, deleteContent} from './Content.js';
+import { getContentById, insertContent, updateContent, deleteContent } from './Content.js';
 import { deleteSeasonDocumental } from './Season.js';
 
 // Select all Documental entries
-export async function getAllDocumentals() {
+export const getAllDocumentals = async (req, res) => {
     const { data, error } = await supabase
         .from('Documental')
         .select('id, content');
 
     if (data === null || data.length === 0) {
-        return { data: [], error };
+        return res.send({ data: [], error });
     }
 
     let contentData = [];
@@ -19,28 +19,34 @@ export async function getAllDocumentals() {
         contentData.push(content.data[0]);
     }
 
-    return { data: contentData, documental: data, error };
-}
+    res.send({ data: contentData, documental: data, error });
+};
 
 // Select Documental by id
-export async function getDocumentalById(id) {
+export const getDocumentalById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Documental')
         .select('id, content')
         .eq('id', id);
 
     if (data === null || data.length === 0) {
-        return { data: [], error };
+        return res.send({ data: [], error });
     }
 
     const { data: contentData, error: contentError } = await getContentById(data[0].content);
 
-    return { data: contentData, documental: data, error: contentError };
-}
+    res.send({ data: contentData, documental: data, error: contentError });
+};
 
 // Insert Documental
-export async function insertDocumental({ title, publishYear, category, trailer, synopsis, price }) {
-    const {data, error} = await insertContent({ title, publishYear, category, trailer, synopsis, price });
+export const insertDocumental = async (req, res) => {
+    const { title, publishYear, category, trailer, synopsis, price } = req.body;
+    const { data, error } = await insertContent({ title, publishYear, category, trailer, synopsis, price });
+
+    if (error) {
+        return res.send({ data: null, error });
+    }
 
     const contentId = data[0].id;
 
@@ -49,36 +55,39 @@ export async function insertDocumental({ title, publishYear, category, trailer, 
         .insert([{ content: contentId }])
         .select('id');
 
-    return { dataDocument, errorDocument };
-}
+    res.send({ data: dataDocument, error: errorDocument });
+};
 
 // Update Documental by id
-export async function updateDocumental(id, { title, publishYear, category, trailer, synopsis, price }) {
+export const updateDocumental = async (req, res) => {
+    const { id } = req.params;
+    const { title, publishYear, category, trailer, synopsis, price } = req.body;
     const { data, error } = await supabase
         .from('Documental')
         .select('content')
         .eq('id', id);
 
     if (data === null || data.length === 0) {
-        return { data: [], error };
+        return res.send({ data: [], error });
     }
 
     const contentId = data[0].content;
 
-    const { data: contentData, error: contentError} =  await updateContent(contentId, { title, publishYear, category, trailer, synopsis, price });
-    
-    return { contentData, contentError };
-}
+    const { data: contentData, error: contentError } = await updateContent(contentId, { title, publishYear, category, trailer, synopsis, price });
+
+    res.send({ contentData, error: contentError });
+};
 
 // Delete Documental by id
-export async function deleteDocumental(id) {
+export const deleteDocumental = async (req, res) => {
+    const { id } = req.params;
     const { data: itemsToDelete, error: selectError } = await supabase
         .from('Documental')
         .select('id, content')
         .eq('id', id);
 
-    if (itemsToDelete && itemsToDelete.length == 0) {
-        return { data: null, error: selectError };
+    if (itemsToDelete && itemsToDelete.length === 0) {
+        return res.send({ data: null, error: selectError });
     }
 
     await deleteSeasonDocumental(itemsToDelete[0].id);
@@ -89,13 +98,13 @@ export async function deleteDocumental(id) {
         .eq('id', id)
         .select('id');
 
-    if (itemsToDelete && itemsToDelete.length == 0) {
-        return { data: null, error: error };
+    if (data === null || data.length === 0) {
+        return res.send({ data: null, error });
     }
 
     const contentId = itemsToDelete[0].content;
 
     const { data: dataContent, error: errorContent } = await deleteContent(contentId);
 
-    return { data: dataContent, error: errorContent };
-}
+    res.send({ data: dataContent, error: errorContent });
+};

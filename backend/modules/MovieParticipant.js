@@ -2,38 +2,40 @@ import supabase from '../config/supabaseClient.js';
 import { getPersonById } from './Person.js';
 
 // Select all MovieParticipant entries
-export async function getAllMovieParticipants() {
+export const getAllMovieParticipants = async (req, res) => {
     const { data, error } = await supabase
         .from('MovieParticipant')
         .select('person, content, role');
 
     if (data === null || data.length === 0) {
-        return { data: [], error };
+        return res.send({ data: [], error });
     }
 
-    const {data: newData, error: newError} = await getPersonById(data[0].person);
+    const { data: newData, error: newError } = await getPersonById(data[0].person);
 
-    return { data, person: newData, error: newError };
-}
+    res.send({ data, person: newData, error: newError });
+};
 
 // Select MovieParticipant by id
-export async function getMovieParticipantById(id) {
+export const getMovieParticipantById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('MovieParticipant')
         .select('person, content, role')
         .eq('id', id);
 
     if (data === null || data.length === 0) {
-        return { data: [], error };
+        return res.send({ data: [], error });
     }
 
-    const {data: newData, error: newError} = await getPersonById(data[0].person);
+    const { data: newData, error: newError } = await getPersonById(data[0].person);
 
-    return { data, person: newData, error: newError };
-}
+    res.send({ data, person: newData, error: newError });
+};
 
 // Get Actor by content id
-export async function getActorByContentId(contentId) {
+export const getActorByContentId = async (req, res) => {
+    const { contentId } = req.params;
     const { data, error } = await supabase
         .from('MovieParticipant')
         .select('person, content, role')
@@ -41,16 +43,17 @@ export async function getActorByContentId(contentId) {
         .eq('role', 'Actor');
 
     if (data === null || data.length === 0) {
-        return { data: [], error };
+        return res.send({ data: [], error });
     }
 
-    const {data: newData, error: newError} = await getPersonById(data[0].person);
+    const { data: newData, error: newError } = await getPersonById(data[0].person);
 
-    return { data, person: newData, error: newError };
-}
+    res.send({ data, person: newData, error: newError });
+};
 
 // Get Director by content id
-export async function getDirectorByContentId(contentId) {
+export const getDirectorByContentId = async (req, res) => {
+    const { contentId } = req.params;
     const { data, error } = await supabase
         .from('MovieParticipant')
         .select('person, content, role')
@@ -58,16 +61,17 @@ export async function getDirectorByContentId(contentId) {
         .eq('role', 'Director');
 
     if (data === null || data.length === 0) {
-        return { data: [], error };
+        return res.send({ data: [], error });
     }
 
-    const {data: newData, error: newError} = await getPersonById(data[0].person);
+    const { data: newData, error: newError } = await getPersonById(data[0].person);
 
-    return { data, person: newData, error: newError };
-}
+    res.send({ data, person: newData, error: newError });
+};
 
 // Get Writer by content id
-export async function getWriterByContentId(contentId) {
+export const getWriterByContentId = async (req, res) => {
+    const { contentId } = req.params;
     const { data, error } = await supabase
         .from('MovieParticipant')
         .select('person, content, role')
@@ -75,29 +79,31 @@ export async function getWriterByContentId(contentId) {
         .eq('role', 'Writer');
 
     if (data === null || data.length === 0) {
-        return { data: [], error };
+        return res.send({ data: [], error });
     }
 
-    const {data: newData, error: newError} = await getPersonById(data[0].person);
+    const { data: newData, error: newError } = await getPersonById(data[0].person);
 
-    return { data, person: newData, error: newError };
-}
+    res.send({ data, person: newData, error: newError });
+};
 
 // Insert MovieParticipant
-export async function insertMovieParticipant({person, content, role}) {
+export const insertMovieParticipant = async (req, res) => {
+    const { person, content, role } = req.body;
     const { data, error } = await supabase
         .from('MovieParticipant')
         .insert([{ person, content, role }])
         .select('id');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete MovieParticipant by id
-export async function deleteMovieParticipant(id) {
+export const deleteMovieParticipant = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('MovieParticipant')
         .delete()
         .eq('id', id)
         .select('id');
-    return { data, error };
-}
+    res.send({ data, error });
+};

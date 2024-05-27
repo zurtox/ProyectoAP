@@ -1,47 +1,52 @@
 import supabase from '../config/supabaseClient.js';
 
-// Select all Nationality entries
-export async function getAllNationalities() {
+// Select all PaymentMethod entries
+export const getAllPaymentMethods = async (req, res) => {
     const { data, error } = await supabase
-        .from('Nationality')
+        .from('PaymentMethod')
         .select('id, name');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Select Nationality by id
-export async function getNationalityById(id) {
+// Select PaymentMethod by id
+export const getPaymentMethodById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
-        .from('Nationality')
+        .from('PaymentMethod')
         .select('id, name')
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Insert Nationality
-export async function insertNationality({name}) {
+// Insert PaymentMethod
+export const insertPaymentMethod = async (req, res) => {
+    const { name } = req.body;
     const { data, error } = await supabase
-        .from('Nationality')
+        .from('PaymentMethod')
         .insert([{ name }])
         .select('id');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Update Nationality by id
-export async function updateNationality(id, {name}) {
+// Update PaymentMethod by id
+export const updatePaymentMethod = async (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
     const { data, error } = await supabase
-        .from('Nationality')
+        .from('PaymentMethod')
         .update({ name })
         .eq('id', id)
         .select('id');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Delete Nationality by id
-export async function deleteNationality(id) {
+// Delete PaymentMethod by id
+export const deletePaymentMethod = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
-        .from('Nationality')
+        .from('PaymentMethod')
         .delete()
         .eq('id', id)
         .select('id');
-    return { data, error };
-}
+    res.send({ data, error });
+};

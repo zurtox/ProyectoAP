@@ -1,44 +1,49 @@
 import supabase from '../config/supabaseClient.js';
 
 // Select all Platform entries
-export async function getAllPlatforms() {
+export const getAllPlatforms = async (req, res) => {
     const { data, error } = await supabase
         .from('Platform')
         .select('id, name');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Select Platform by id
-export async function getPlatformById(id) {
+export const getPlatformById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Platform')
         .select('id, name')
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Insert Platform
-export async function insertPlatform({name}) {
+export const insertPlatform = async (req, res) => {
+    const { name } = req.body;
     const { data, error } = await supabase
         .from('Platform')
         .insert([{ name }]);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Update Platform by id
-export async function updatePlatform(id, {name}) {
+export const updatePlatform = async (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
     const { data, error } = await supabase
         .from('Platform')
         .update({ name })
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete Platform by id
-export async function deletePlatform(id) {
+export const deletePlatform = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Platform')
         .delete()
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};

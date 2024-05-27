@@ -1,44 +1,49 @@
 import supabase from '../config/supabaseClient.js';
 
 // Select all PersonHolder entries
-export async function getAllPersonHolders() {
+export const getAllPersonHolders = async (req, res) => {
     const { data, error } = await supabase
         .from('PersonHolder')
         .select('id, firstName, secondName, firstLastName, secondLastName');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Select PersonHolder by id
-export async function getPersonHolderById(id) {
+export const getPersonHolderById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('PersonHolder')
         .select('id, firstName, secondName, firstLastName, secondLastName')
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Insert PersonHolder
-export async function insertPersonHolder({firstName, secondName, firstLastName, secondLastName}) {
+export const insertPersonHolder = async (req, res) => {
+    const { firstName, secondName, firstLastName, secondLastName } = req.body;
     const { data, error } = await supabase
         .from('PersonHolder')
         .insert([{ firstName, secondName, firstLastName, secondLastName }]);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Update PersonHolder by id
-export async function updatePersonHolder(id, {firstName, secondName, firstLastName, secondLastName}) {
+export const updatePersonHolder = async (req, res) => {
+    const { id } = req.params;
+    const { firstName, secondName, firstLastName, secondLastName } = req.body;
     const { data, error } = await supabase
         .from('PersonHolder')
         .update({ firstName, secondName, firstLastName, secondLastName })
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete PersonHolder by id
-export async function deletePersonHolder(id) {
+export const deletePersonHolder = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('PersonHolder')
         .delete()
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};

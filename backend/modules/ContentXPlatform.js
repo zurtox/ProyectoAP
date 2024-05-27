@@ -1,16 +1,18 @@
 import supabase from '../config/supabaseClient.js';
 
 // Gets content platforms
-export async function getContentXPlatformById(id) {
+export const getContentXPlatformById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('ContentXPlatform')
         .select('platform')
         .eq('content', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Insert ContentXPlatform
-export async function insertContentXPlatform({content, platform}) {
+export const insertContentXPlatform = async (req, res) => {
+    const { content, platform } = req.body;
     const { data: existingData, error: existingError } = await supabase
         .from('ContentXPlatform')
         .select('id')
@@ -18,21 +20,22 @@ export async function insertContentXPlatform({content, platform}) {
         .eq('platform', platform);
     
     if (existingData && existingData.length > 0) {
-        return { data: null, error: 'Platform already assigned' };
+        return res.send({ data: null, error: 'Platform already assigned' });
     }
 
     const { data, error } = await supabase
         .from('ContentXPlatform')
         .insert([{ content, platform }]);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete ContentXPlatform by id
-export async function deleteContentXPlatform({content, platform}) {
+export const deleteContentXPlatform = async (req, res) => {
+    const { content, platform } = req.body;
     const { data, error } = await supabase
         .from('ContentXPlatform')
         .delete()
         .eq('content', content)
         .eq('platform', platform);
-    return { data, error };
-}
+    res.send({ data, error });
+};

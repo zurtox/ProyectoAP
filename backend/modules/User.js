@@ -1,56 +1,46 @@
 import supabase from '../config/supabaseClient.js';
 
-export async function signUp({email, password, firstName, secondName, firstLastName, secondLastName, personalId, birthDate, phone, username, photo, nationality, comunity, gender, administrator}) {
-    let { data, error } = await supabase.auth.signUp({
-        email,
-        password
-    });
+// Sign Up User
+export const signUp = async (req, res) => {
+    const {
+        email, password, firstName, secondName, firstLastName, secondLastName,
+        personalId, birthDate, phone, username, photo, nationality, comunity,
+        gender, administrator
+    } = req.body;
+
+    let { data, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
-        return { data: null, error: error.message };
+        return res.send({ data: null, error: error.message });
     }
 
     if (data) {
-
-        console.log(data.user.id )
         const { data: insertData, error: insertError } = await supabase
             .from('User')
             .insert([{ 
-                firstName, 
-                secondName, 
-                firstLastName, 
-                secondLastName, 
-                personalId, 
-                birthDate, 
-                phone, 
-                username, 
-                photo, 
-                nationality, 
-                comunity, 
-                gender,
-                administrator, 
-                user_auth: data.user.id 
+                firstName, secondName, firstLastName, secondLastName, personalId, 
+                birthDate, phone, username, photo, nationality, comunity, gender, 
+                administrator, user_auth: data.user.id 
             }]);
 
-        return { data: insertData, error: insertError };
+        return res.send({ data: insertData, error: insertError });
     }
-    
-    return { data: null, error: 'Sign-up failed without specific error' };
-}
 
-// Sign In
-export async function logIn({email, password}) {
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-    });
+    res.send({ data: null, error: 'Sign-up failed without specific error' });
+};
+
+// Log In User
+export const logIn = async (req, res) => {
+    const { email, password } = req.body;
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
-        return { data: null, error };
+        return res.send({ data: null, error });
     }
 
     if (!data.user) {
-        return { data: null, error: new Error("User data is missing") };
+        return res.send({ data: null, error: new Error("User data is missing") });
     }
 
     const { data: data1, error: error1 } = await supabase
@@ -59,16 +49,16 @@ export async function logIn({email, password}) {
         .eq('user_auth', data.user.id);
 
     if (error1) {
-        return { data: null, error: error1 };
+        return res.send({ data: null, error: error1 });
     }
 
     const updatedData1 = data1.map(item => ({ ...item, email: data.user.email }));
 
-    return { data: updatedData1, error: null };
-}
+    res.send({ data: updatedData1, error: null });
+};
 
-// Get actual user
-export async function actualUser() {
+// Get Actual User
+export const actualUser = async (req, res) => {
     const { data: { user } } = await supabase.auth.getUser();
 
     const { data: data1, error: error1 } = await supabase
@@ -77,19 +67,20 @@ export async function actualUser() {
         .eq('user_auth', user.id);
 
     if (error1) {
-        return { data: null, error: error1 };
+        return res.send({ data: null, error: error1 });
     }
+
     const updatedData1 = data1.map(item => ({ ...item, email: user.email }));
 
-    return { data: updatedData1, error: null };
-}
+    res.send({ data: updatedData1, error: null });
+};
 
-// Get actual user id
-export async function actualUserId() {
+// Get Actual User ID
+export const actualUserId = async (req, res) => {
     const { data: { user } } = await supabase.auth.getUser();
 
-    if (user == null) {
-        return { data: null, error: "User data is missing" };
+    if (!user) {
+        return res.send({ data: null, error: "User data is missing" });
     }
 
     const { data: data1, error: error1 } = await supabase
@@ -98,98 +89,115 @@ export async function actualUserId() {
         .eq('user_auth', user.id);
 
     if (error1) {
-        return { data: null, error: error1 };
+        return res.send({ data: null, error: error1 });
     }
 
-    return { data: data1, error: null };
-}
+    res.send({ data: data1, error: null });
+};
 
-// LogOut User
-export async function logOutUser() {
-    let { error } = await supabase.auth.signOut()
-    return error;
-}
+// Log Out User
+export const logOutUser = async (req, res) => {
+    let { error } = await supabase.auth.signOut();
+    res.send({ error });
+};
 
 // Recover Password
-export async function recoverPassword(email) {
-    let { data, error } = await supabase.auth.resetPasswordForEmail(email)
-    return { data, error };
-}
+export const recoverPassword = async (req, res) => {
+    const { email } = req.body;
+    let { data, error } = await supabase.auth.resetPasswordForEmail(email);
+    res.send({ data, error });
+};
 
-// Select all User entries
-export async function getAllUsers() {
+// Select All Users
+export const getAllUsers = async (req, res) => {
     const { data, error } = await supabase
         .from('User')
         .select();
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Select User by id
-export async function getUserById(id) {
+// Select User By ID
+export const getUserById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('User')
         .select('*')
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Update User by id
-export async function updateUser(id, {firstName, secondName, firstLastName, secondLastName, personalId, birthDate, email, phone, username, password, photo, nationality, comunity, gender}) {
+// Update User By ID
+export const updateUser = async (req, res) => {
+    const { id } = req.params;
+    const {
+        firstName, secondName, firstLastName, secondLastName, personalId, birthDate,
+        email, phone, username, password, photo, nationality, comunity, gender
+    } = req.body;
+
     const { data, error } = await supabase
         .from('User')
         .update({ firstName, secondName, firstLastName, secondLastName, personalId, birthDate, phone, username, photo, nationality, comunity, gender })
         .eq('id', id);
 
-    const { data1, error1 } = await supabase.auth.updateUser({
-        email,
-        password
-    })
+    if (email || password) {
+        const { data: authData, error: authError } = await supabase.auth.updateUser({
+            email,
+            password
+        });
 
-    return { data, error };
-}
+        if (authError) {
+            return res.send({ data: null, error: authError });
+        }
+    }
 
-// Delete User by id
-export async function deleteUser(id) {
+    res.send({ data, error });
+};
+
+// Delete User By ID
+export const deleteUser = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('User')
         .delete()
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Helper function to count users by gender
-async function countUsersByGender(gender) {
+// Count Users By Gender (Helper Function)
+const countUsersByGender = async (gender) => {
     const { count, error } = await supabase
         .from('User')
         .select('*', { count: 'exact', head: true })
         .eq('gender', gender);
-
     return { count, error };
-}
+};
 
-// Get all Mujer Users
-export async function countFemaleUsers() {
-    return await countUsersByGender('Mujer');
-}
+// Count Female Users
+export const countFemaleUsers = async (req, res) => {
+    const { count, error } = await countUsersByGender('Mujer');
+    res.send({ count, error });
+};
 
-// Get all Hombre Users
-export async function countMaleUsers() {
-    return await countUsersByGender('Hombre');
-}
+// Count Male Users
+export const countMaleUsers = async (req, res) => {
+    const { count, error } = await countUsersByGender('Hombre');
+    res.send({ count, error });
+};
 
-// Get all Otro Users
-export async function countOtherUsers() {
-    return await countUsersByGender('Otro');
-}
+// Count Other Users
+export const countOtherUsers = async (req, res) => {
+    const { count, error } = await countUsersByGender('Otro');
+    res.send({ count, error });
+};
 
-// Get all Prefiero no decirlo Users
-export async function countNotDefinedUsers() {
-    return await countUsersByGender('Prefiero no decirlo');
-}
+// Count Not Defined Users
+export const countNotDefinedUsers = async (req, res) => {
+    const { count, error } = await countUsersByGender('Prefiero no decirlo');
+    res.send({ count, error });
+};
 
-// Get age distribution
-export async function getAgeDistribution() {
+// Get Age Distribution
+export const getAgeDistribution = async (req, res) => {
     const { data, error } = await supabase.rpc('get_user_age_distribution');
-  
-    return { data, error };
-}
+    res.send({ data, error });
+};

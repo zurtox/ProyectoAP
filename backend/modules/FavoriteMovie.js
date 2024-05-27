@@ -1,12 +1,12 @@
 import supabase from '../config/supabaseClient.js';
 import { actualUserId } from './User.js';
 
-// Select all FavoriteMovie Movie by user
-export async function getAllFavoriteMovies() {
+// Select all FavoriteMovie entries by user
+export const getAllFavoriteMovies = async (req, res) => {
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
-        return { data: null, error: userF.error };
+        return res.send({ data: null, error: userF.error });
     }
 
     const user = userF.data[0].id;
@@ -15,15 +15,16 @@ export async function getAllFavoriteMovies() {
         .from('FavoriteMovie')
         .select('content')
         .eq('user', user);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Insert FavoriteMovie
-export async function updateFavorite({content}) {
+// Insert or Remove FavoriteMovie
+export const updateFavorite = async (req, res) => {
+    const { content } = req.body;
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
-        return { data: null, error: userF.error };
+        return res.send({ data: null, error: userF.error });
     }
 
     const user = userF.data[0].id;
@@ -35,28 +36,29 @@ export async function updateFavorite({content}) {
         .eq('content', content);
 
     if (existingData && existingData.length > 0) {
-        const { dataDelete, errorDelete } = await supabase
+        const { data: dataDelete, error: errorDelete } = await supabase
             .from('FavoriteMovie')
             .delete()
             .eq('user', user)
             .eq('content', content);
 
-        return { data: dataDelete, error: errorDelete };
+        return res.send({ data: dataDelete, error: errorDelete });
     }
 
     const { data, error } = await supabase
         .from('FavoriteMovie')
         .insert([{ user, content }]);
 
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Is content a use favorite? 
-export async function isFavorite({content}) {
+// Is content a user favorite?
+export const isFavorite = async (req, res) => {
+    const { content } = req.body;
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
-        return { data: null, error: userF.error };
+        return res.send({ data: null, error: userF.error });
     }
 
     const user = userF.data[0].id;
@@ -67,5 +69,5 @@ export async function isFavorite({content}) {
         .eq('user', user)
         .eq('content', content);
 
-    return data.length > 0;
-}
+    res.send({ isFavorite: data.length > 0, error });
+};

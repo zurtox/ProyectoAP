@@ -2,28 +2,30 @@ import supabase from '../config/supabaseClient.js';
 import { actualUserId } from './User.js';
 
 // Select all Review entries
-export async function getAllReviews() {
+export const getAllReviews = async (req, res) => {
     const { data, error } = await supabase
         .from('Review')
         .select('*');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Select Review by id
-export async function getReviewById(id) {
+export const getReviewById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Review')
         .select('*')
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Insert Review
-export async function insertReview({content, review, rating}) {
+export const insertReview = async (req, res) => {
+    const { content, review, rating } = req.body;
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
-        return { data: null, error: userF.error };
+        return res.send({ data: null, error: userF.error });
     }
 
     const user = userF.data[0].id;
@@ -31,15 +33,17 @@ export async function insertReview({content, review, rating}) {
     const { data, error } = await supabase
         .from('Review')
         .insert([{ user, content, review, rating }]);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Update Review by id
-export async function updateReview(id, {content, review, rating}) {
+export const updateReview = async (req, res) => {
+    const { id } = req.params;
+    const { content, review, rating } = req.body;
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
-        return { data: null, error: userF.error };
+        return res.send({ data: null, error: userF.error });
     }
 
     const user = userF.data[0].id;
@@ -48,14 +52,15 @@ export async function updateReview(id, {content, review, rating}) {
         .from('Review')
         .update({ user, content, review, rating })
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete Review by id
-export async function deleteReview(id) {
+export const deleteReview = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('Review')
         .delete()
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};

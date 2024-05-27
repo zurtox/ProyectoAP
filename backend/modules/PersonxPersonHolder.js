@@ -1,93 +1,86 @@
 import supabase from '../config/supabaseClient.js';
 
 // Select all PersonxHolder entries
-export async function getAllPersonxHolder() {
+export const getAllPersonxHolder = async (req, res) => {
     const { data, error } = await supabase
         .from('PersonxPersonHolder')
         .select('id, person, personHolder, relationshipType');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Select PersonxHolder by id
-export async function getPersonxHolderById(id) {
+export const getPersonxHolderById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('PersonxPersonHolder')
         .select('id, person, personHolder, relationshipType')
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Get PersonxHolder by person id
-export async function getPersonxHolderByPersonId(personId) {
+export const getPersonxHolderByPersonId = async (req, res) => {
+    const { personId } = req.params;
     const { data, error } = await supabase
         .from('PersonxPersonHolder')
         .select('id, person, personHolder, relationshipType')
         .eq('person', personId);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
-// Get PersonxHolder by personHolder id Parent
-export async function getPersonxHolderByPersonHolderId(personId) {
+// Get PersonxHolder by personHolder id and relationship type
+const getPersonxHolderByRelationshipType = async (req, res, relationshipType) => {
+    const { personId } = req.params;
     const { data, error } = await supabase
         .from('PersonxPersonHolder')
         .select('id, person, personHolder, relationshipType')
         .eq('person', personId)
-        .eq('relationshipType', 'Parent');
-    return { data, error };
-}
+        .eq('relationshipType', relationshipType);
+    res.send({ data, error });
+};
 
-// Get PersonxHolder by personHolder id Brother
-export async function getPersonxHolderByPersonHolderId(personId) {
-    const { data, error } = await supabase
-        .from('PersonxPersonHolder')
-        .select('id, person, personHolder, relationshipType')
-        .eq('person', personId)
-        .eq('relationshipType', 'Brother');
-    return { data, error };
-}
+export const getPersonxHolderByPersonHolderIdParent = async (req, res) => {
+    return getPersonxHolderByRelationshipType(req, res, 'Parent');
+};
 
-// Get PersonxHolder by personHolder id Children
-export async function getPersonxHolderByPersonHolderId(personId) {
-    const { data, error } = await supabase
-        .from('PersonxPersonHolder')
-        .select('id, person, personHolder, relationshipType')
-        .eq('person', personId)
-        .eq('relationshipType', 'Children');
-    return { data, error };
-}
+export const getPersonxHolderByPersonHolderIdBrother = async (req, res) => {
+    return getPersonxHolderByRelationshipType(req, res, 'Brother');
+};
 
-// Get PersonxHolder by personHolder id Partner
-export async function getPersonxHolderByPersonHolderId(personId) {
-    const { data, error } = await supabase
-        .from('PersonxPersonHolder')
-        .select('id, person, personHolder, relationshipType')
-        .eq('person', personId)
-        .eq('relationshipType', 'Partner');
-    return { data, error };
-}
+export const getPersonxHolderByPersonHolderIdChildren = async (req, res) => {
+    return getPersonxHolderByRelationshipType(req, res, 'Children');
+};
+
+export const getPersonxHolderByPersonHolderIdPartner = async (req, res) => {
+    return getPersonxHolderByRelationshipType(req, res, 'Partner');
+};
 
 // Insert PersonxHolder
-export async function insertPersonxHolder({person, personHolder, relationshipType}) {
+export const insertPersonxHolder = async (req, res) => {
+    const { person, personHolder, relationshipType } = req.body;
     const { data, error } = await supabase
         .from('PersonxPersonHolder')
         .insert([{ person, personHolder, relationshipType }]);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Update PersonxHolder by id
-export async function updatePersonxHolder(id, {person, personHolder, relationshipType}) {
+export const updatePersonxHolder = async (req, res) => {
+    const { id } = req.params;
+    const { person, personHolder, relationshipType } = req.body;
     const { data, error } = await supabase
         .from('PersonxPersonHolder')
         .update({ person, personHolder, relationshipType })
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete PersonxHolder by id
-export async function deletePersonxHolder(id) {
+export const deletePersonxHolder = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('PersonxPersonHolder')
         .delete()
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};

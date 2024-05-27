@@ -2,16 +2,18 @@ import supabase from '../config/supabaseClient.js';
 import { actualUserId } from './User.js';
 
 // Select all RecentlyViewed Movie by user
-export async function getAllRecentlyVieweds(user) {
+export const getAllRecentlyVieweds = async (req, res) => {
+    const { user } = req.params;
     const { data, error } = await supabase
         .from('RecentlyViewed')
         .select('*')
         .eq('user', user);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Insert RecentlyViewed
-export async function insertRecentlyViewed({user, content}) {
+export const insertRecentlyViewed = async (req, res) => {
+    const { user, content } = req.body;
     const lastViewed = new Date();
 
     const view = await supabase
@@ -26,29 +28,31 @@ export async function insertRecentlyViewed({user, content}) {
             .update({ lastViewed })
             .eq('id', view.data[0].id);
 
-        return { data, error };
+        return res.send({ data, error });
     }
 
     const { data, error } = await supabase
         .from('RecentlyViewed')
         .insert([{ user, content, lastViewed }]);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete RecentlyViewed by id
-export async function deleteRecentlyViewed({user, content}) {
+export const deleteRecentlyViewed = async (req, res) => {
+    const { user, content } = req.body;
     const { data, error } = await supabase
         .from('RecentlyViewed')
         .delete()
         .eq('user', user)
         .eq('content', content);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Recently Viewed 
-export async function getTopNRecentRows(n) {
+export const getTopNRecentRows = async (req, res) => {
+    const { n } = req.params;
     const id = await actualUserId();
-    if (id.error) return id;
+    if (id.error) return res.send(id);
 
     const { data, error } = await supabase
       .from('RecentlyViewed')
@@ -57,6 +61,5 @@ export async function getTopNRecentRows(n) {
       .limit(n)
       .eq('user', id.data[0].id);
   
-    return { data, error };
-}
-  
+    res.send({ data, error });
+};

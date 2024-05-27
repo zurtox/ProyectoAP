@@ -1,44 +1,49 @@
 import supabase from '../config/supabaseClient.js';
 
 // Select all PurchaseContent entries
-export async function getAllPurchaseContents() {
+export const getAllPurchaseContents = async (req, res) => {
     const { data, error } = await supabase
         .from('PurchaseContent')
         .select('*');
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Select PurchaseContent by id
-export async function getPurchaseContentById(id) {
+export const getPurchaseContentById = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('PurchaseContent')
         .select('*')
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Insert PurchaseContent
-export async function insertPurchaseContent({purchase, content}) {
+export const insertPurchaseContent = async (req, res) => {
+    const { purchase, content } = req.body;
     const { data, error } = await supabase
         .from('PurchaseContent')
         .insert([{ purchase, content }]);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Update PurchaseContent by id
-export async function updatePurchaseContent(id, {purchase, content}) {
+export const updatePurchaseContent = async (req, res) => {
+    const { id } = req.params;
+    const { purchase, content } = req.body;
     const { data, error } = await supabase
         .from('PurchaseContent')
         .update({ purchase, content })
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
 
 // Delete PurchaseContent by id
-export async function deletePurchaseContent(id) {
+export const deletePurchaseContent = async (req, res) => {
+    const { id } = req.params;
     const { data, error } = await supabase
         .from('PurchaseContent')
         .delete()
         .eq('id', id);
-    return { data, error };
-}
+    res.send({ data, error });
+};
