@@ -41,8 +41,8 @@ export const getSerieById = async (req, res) => {
 
 // Insert Serie
 export const insertSerie = async (req, res) => {
-    const { title, publishYear, category, trailer, synopsis, price } = req.body;
-    const { data, error } = await insertContent({ title, publishYear, category, trailer, synopsis, price });
+    const { title, publishYear, category, trailer, synopsis, price, photo } = req.body;
+    const { data, error } = await insertContent({ title, publishYear, category, trailer, synopsis, price, photo });
 
     if (error) {
         return res.send({ data: null, error });
@@ -61,7 +61,7 @@ export const insertSerie = async (req, res) => {
 // Update Serie by id
 export const updateSerie = async (req, res) => {
     const { id } = req.params;
-    const { title, publishYear, category, trailer, synopsis, price } = req.body;
+    const { title, publishYear, category, trailer, synopsis, price, photo } = req.body;
 
     const { data, error } = await supabase
         .from('Serie')
@@ -74,7 +74,7 @@ export const updateSerie = async (req, res) => {
 
     const contentId = data[0].content;
 
-    const { data: contentData, error: contentError } = await updateContent(contentId, { title, publishYear, category, trailer, synopsis, price });
+    const { data: contentData, error: contentError } = await updateContent(contentId, { title, publishYear, category, trailer, synopsis, price, photo });
 
     res.send({ data: contentData, error: contentError });
 };

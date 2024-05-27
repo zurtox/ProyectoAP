@@ -41,8 +41,8 @@ export const getDocumentalById = async (req, res) => {
 
 // Insert Documental
 export const insertDocumental = async (req, res) => {
-    const { title, publishYear, category, trailer, synopsis, price } = req.body;
-    const { data, error } = await insertContent({ title, publishYear, category, trailer, synopsis, price });
+    const { title, publishYear, category, trailer, synopsis, price, photo } = req.body;
+    const { data, error } = await insertContent({ title, publishYear, category, trailer, synopsis, price, photo });
 
     if (error) {
         return res.send({ data: null, error });
@@ -61,7 +61,7 @@ export const insertDocumental = async (req, res) => {
 // Update Documental by id
 export const updateDocumental = async (req, res) => {
     const { id } = req.params;
-    const { title, publishYear, category, trailer, synopsis, price } = req.body;
+    const { title, publishYear, category, trailer, synopsis, price, photo } = req.body;
     const { data, error } = await supabase
         .from('Documental')
         .select('content')
@@ -73,7 +73,7 @@ export const updateDocumental = async (req, res) => {
 
     const contentId = data[0].content;
 
-    const { data: contentData, error: contentError } = await updateContent(contentId, { title, publishYear, category, trailer, synopsis, price });
+    const { data: contentData, error: contentError } = await updateContent(contentId, { title, publishYear, category, trailer, synopsis, price, photo });
 
     res.send({ contentData, error: contentError });
 };

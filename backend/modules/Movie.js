@@ -40,8 +40,8 @@ export const getMovieById = async (req, res) => {
 
 // Insert Movie
 export const insertMovie = async (req, res) => {
-    const { title, publishYear, category, trailer, synopsis, price, duration } = req.body;
-    const { data, error } = await insertContent({ title, publishYear, category, trailer, synopsis, price });
+    const { title, publishYear, category, trailer, synopsis, price, duration, photo } = req.body;
+    const { data, error } = await insertContent({ title, publishYear, category, trailer, synopsis, price, photo });
 
     if (error) {
         return res.send({ data: null, error });

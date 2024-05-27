@@ -5,7 +5,7 @@ import { actualUserId } from './User.js';
 export async function getAllContent() {
     const { data, error } = await supabase
         .from('Content')
-        .select('id, title, category, trailer, synopsis, price, publishYear, active');
+        .select('id, title, category, trailer, synopsis, price, publishYear, active, photo');
     return { data, error };
 }
 
@@ -13,13 +13,13 @@ export async function getAllContent() {
 export async function getContentById(id) {
     const { data, error } = await supabase
         .from('Content')
-        .select('id, title, category, trailer, synopsis, price, publishYear, active')
+        .select('id, title, category, trailer, synopsis, price, publishYear, active, photo')
         .eq('id', id);
     return { data, error };
 }
 
 // Insert content
-export async function insertContent({ title, publishYear, category, trailer, synopsis, price }) {
+export async function insertContent({ title, publishYear, category, trailer, synopsis, price, photo }) {
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
@@ -30,14 +30,14 @@ export async function insertContent({ title, publishYear, category, trailer, syn
 
     const { data, error } = await supabase
         .from('Content')
-        .insert([{ title, publishYear, category, trailer, synopsis, price, lastChangeBy: user }])
+        .insert([{ title, publishYear, category, trailer, synopsis, price, lastChangeBy: user, photo }])
         .select('id');
 
     return { data, error };
 }
 
 // Update content by id
-export async function updateContent(id, { title, publishYear, category, trailer, synopsis, price }) {
+export async function updateContent(id, { title, publishYear, category, trailer, synopsis, price, photo }) {
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
@@ -48,7 +48,7 @@ export async function updateContent(id, { title, publishYear, category, trailer,
     
     const { data, error } = await supabase
         .from('Content')
-        .update({ title, publishYear, category, trailer, synopsis, price, lastChangeBy: user })
+        .update({ title, publishYear, category, trailer, synopsis, price, lastChangeBy: user, photo })
         .eq('id', id)
         .select('id');
 
