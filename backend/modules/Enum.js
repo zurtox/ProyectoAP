@@ -6,8 +6,10 @@ async function getEnumValues(enumName) {
 }
 
 // Get Enum gender
-export async function getGenders() {
-    return getEnumValues('Gender');
+export const getGenders = async(req, res) => {
+    const res1 =  await getEnumValues('Gender');
+    console.log(res1)
+    res.send(res1)
 }
 
 // Get Enum family roles

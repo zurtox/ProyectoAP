@@ -1,8 +1,22 @@
 import supabase from '../config/supabaseClient.js';
 import { actualUserId } from './User.js';
+import { logIn } from './User.js';
 
 // Select all CartContent Movie by user
-export async function getAllCartContents() {
+
+// const getAllProfessor = async(req, res) => {
+//     try{
+//         const professors = await Professor.find().limit(req.query.limit).skip(req.query.skip);
+//         return res.status(200).json({professors});
+//     }catch(error){
+//         console.log(error);
+//         return res.status(500).json({error: 'Internal server error'})
+//     }
+// }
+
+
+export const getAllCartContents = async(req, res) => {
+    const u = await logIn({email:"omarzunigpii@gmail.com", password:"password"});
     const userF = await actualUserId(); 
 
     if (userF.data == null) {
@@ -15,7 +29,7 @@ export async function getAllCartContents() {
         .from('Cart')
         .select('content')
         .eq('user', user);
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Insert CartContent
