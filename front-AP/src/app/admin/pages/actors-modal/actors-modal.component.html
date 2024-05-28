@@ -1,0 +1,15 @@
+<div class="modal">
+    <div class="main-container">
+        <h2>Actors</h2>
+        <div class="actors-container">
+            @for (item of actors; track $index) {
+                <admin-actor-checkbox (actorChecked)="validateCheckboxValue($event, $index)" [checkboxName]="item"></admin-actor-checkbox>
+            }
+        </div>
+        
+        <div class="btn-container">
+            <button (click)="closeModal()" class="lightblue-button btn-cancel">Cancel</button>
+            <button (click)="getChecked()" class="lightblue-button btn-save">Save</button>
+        </div>
+    </div>
+</div>

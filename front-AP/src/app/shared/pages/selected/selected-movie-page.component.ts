@@ -19,5 +19,12 @@ export class SelectedMoviePageComponent {
   actor: string [] = ["Director", "Nolan", "https://pics.filmaffinity.com/christopher_nolan-055100338198118-nm_large.jpg"]
   iterator: any [] = Array(8).fill(0)
 
+  netflix: string = "assets/platforms/netflix.png";
+  primevideo: string = "assets/platforms/primevideo.png";
+  max: string = "assets/platforms/max.jpg";
+  disney: string = "assets/platforms/disney.jpg";
+  starplus: string = "assets/platforms/starplus.png";
+
+
 }
 

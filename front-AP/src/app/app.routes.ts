@@ -15,6 +15,7 @@ import { StatisticsPageComponent } from './admin/pages/statistics/statistics-pag
 import { ProfilePageComponent } from './user/pages/profile/profile-page.component';
 import { ReviewComponent } from './user/pages/review/review.component';
 import { SelectedTeamPageComponent } from './shared/pages/selected-team/selected-team-page.component';
+import { AddContentPageComponent } from './admin/pages/add-content/add-content-page.component';
 
 export const routes: Routes = [
     {
@@ -83,6 +84,10 @@ export const routes: Routes = [
     {
       path: 'profile',
       component: ProfilePageComponent
+    },
+    {
+      path: 'add-content',
+      component: AddContentPageComponent
     }
 
 ];
