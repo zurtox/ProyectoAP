@@ -17,7 +17,7 @@ export const getAllSeries = async (req, res) => {
     for (const item of data) {
         const { data, error } = await supabase
         .from('Content')
-        .select('id, title, category, trailer, synopsis, price, publishYear, active')
+        .select('id, title, category, trailer, synopsis, price, publishYear, active, photo')
         .eq('id', item.content);
         contentData.push(data[0]);
     }

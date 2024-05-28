@@ -6,7 +6,7 @@ export const getAllContent = async(req, res) => {
     const { data, error } = await supabase
         .from('Content')
         .select('id, title, category, trailer, synopsis, price, publishYear, active, photo');
-    return { data, error };
+    res.send({ data, error });
 }
 
 // Select content by id
@@ -23,7 +23,7 @@ export const getContentByCategory = async(req, res) => {
     const { id } = req.params 
     const { data, error } = await supabase
         .from('Content')
-        .select('id, title, category, trailer, synopsis, price, publishYear, active')
+        .select('id, title, category, trailer, synopsis, price, publishYear, active, photo')
         .eq('category', id);
     res.send({ data, error });
 }

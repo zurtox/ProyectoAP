@@ -12,4 +12,5 @@ export interface Content {
   price:       number;
   publishYear: number;
   active:      boolean;
+  photo:       string;
 }

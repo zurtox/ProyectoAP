@@ -72,9 +72,12 @@ export class SelectedMoviePageComponent {
         this.contentAPIService.getContentById(this.id).subscribe(
           (response) => {
             if(response) {
+              console.log(response)
               this.movieTitle = response.data[0].title
               this.movieReleaseDate = response.data[0].publishYear
               // this.movieDuration = response.data[0].duration
+              this.filename = response.data[0].photo
+              console.log(this.filename); // Comprobar que se ha guardado la imagen correctamente
               this.movieSynopsis = response.data[0].synopsis
               const normalTrailer = response.data[0].trailer
               const trailerId = this.getTrailerId(normalTrailer)
