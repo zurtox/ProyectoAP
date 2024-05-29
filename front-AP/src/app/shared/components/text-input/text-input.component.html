@@ -1,0 +1,7 @@
+<div class="input-container">
+  <input [type]="text" [name]="text" [id]="text"
+    (ngModelChange)="onTextChange($event)"
+    [ngModel]="entry"
+    required>
+  <label [for]="text">{{text}}</label>
+</div>

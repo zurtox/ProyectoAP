@@ -1,0 +1,52 @@
+
+.input-container{
+  position: relative;
+  margin: 20px;
+}
+
+input{
+  width: 350px;
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  outline: none;
+}
+
+.input-container label{
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  pointer-events: none;
+  transition: all 0.5s;
+}
+
+.input-container button{
+  width: 100%;
+}
+
+input:focus ~ label{
+  top: 0;
+  left: 15px;
+  font-size: 15px;
+  padding: 0 3px;
+  background: #365c7d;
+}
+
+input:valid ~ label{
+  top: 0;
+  left: 15px;
+  font-size: 15px;
+  padding: 0 3px;
+  background: #365c7d;
+}
