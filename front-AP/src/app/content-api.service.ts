@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { CategoryResponse } from './interfaces/categoryResponse.interface';
 import { ContentResponse } from './interfaces/contentResponse.interface';
+import { UserToPost } from './interfaces/userToPost.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -64,5 +65,25 @@ export class ContentAPIService {
 
   uploadImage(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseURL}/photos`, formData);
+  }
+
+  signUp(newUser: UserToPost): Observable<any> {
+    return this.http.post<any>(`${this.baseURL}/signUp`, {
+      email: newUser.email,
+      password: newUser.password,
+      firstName: newUser.firstName,
+      firstLastname: newUser.firstLastName,
+      secondLastname: newUser.secondLastName,
+      secondName: newUser.secondName,
+      personalId: newUser.personalId,
+      birthDate: newUser.birthDate,
+      phone: newUser.phone,
+      photo: newUser.photo,
+      username: newUser.username,
+      nationality: newUser.nationality,
+      comunity: newUser.comunity,
+      gender: newUser.gender,
+      admin: false
+    });
   }
 }

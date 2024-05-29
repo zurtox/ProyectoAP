@@ -1,6 +1,92 @@
 import supabase from '../config/supabaseClient.js';
 
 // Sign Up User
+// export const signUp = async (req, res) => {
+//     const {
+//         email, password, firstName, secondName, firstLastName, secondLastName,
+//         personalId, birthDate, phone, username, photo, nationality, comunity,
+//         gender, administrator
+//     } = req.body;
+
+
+//     let { data, error } = await supabase.auth.signUp({ email, password });
+//     console.log(data, error);
+//     if (error) {
+//         return res.send({ data: null, error: error.message });
+//     }
+
+//     if (data) {
+//         const { data: insertData, error: insertError } = await supabase
+//             .from('User')
+//             .insert([{ 
+//                 firstName, secondName, firstLastName, secondLastName, personalId, 
+//                 birthDate, phone, username, photo, nationality, comunity, gender, 
+//                 administrator, user_auth: data.user.id 
+//             }]);
+
+//             console.log("Data console log");
+//             console.log(insertData);
+
+//             if (insertData && insertData.length == 0 ){
+//                 console.log("Llego aqui");
+//                 const { data, error } = await supabase.auth.admin.deleteUser(
+//                     data.user.id
+//                   );
+//                 console.log(data, error);
+//                 return res.send({ data: null, error: deleteError });
+//             }
+        
+//         return res.send({ data: insertData, error: insertError });
+
+        
+//     }
+
+//     res.send({ data: null, error: 'Sign-up failed without specific error' });
+// };
+
+// export const signUp = async (req, res) => {
+//     const {
+//         email, password, firstName, secondName, firstLastName, secondLastName,
+//         personalId, birthDate, phone, username, photo, nationality, comunity,
+//         gender, administrator
+//     } = req.body;
+
+//     // Sign up the user
+//     let { data, error } = await supabase.auth.signUp({ email, password });
+
+//     if (error) {
+//         return res.send({ data: null, error: error.message });
+//     }
+
+//     if (data) {
+//         const { user } = data;
+//         const { data: insertData, error: insertError } = await supabase
+//             .from('User')
+//             .insert([{ 
+//                 firstName, secondName, firstLastName, secondLastName, personalId, 
+//                 birthDate, phone, username, photo, nationality, comunity, gender, 
+//                 administrator, user_auth: user.id 
+//             }]);
+
+//         // If there is an error inserting into the 'User' table, remove the user from auth
+//         console.log("Data console log");
+//         console.log(insertData, insertError);
+//         if (insertError || insertData == null || insertData.length == 0) {
+//             console.log("Llego al if");
+//             const { data: deleteData, error: errorData } = await supabase.auth.admin.deleteUser(
+//                 user.id
+//               )
+//               console.log("llego aqui");
+//             console.log(deleteData, errorData, user.id);
+//             return res.send({ data: null, deleteData, errorData, error: insertError.message });
+//         }
+
+//         return res.send({ data: insertData, error: null });
+//     }
+
+//     res.send({ data: null, error: 'Sign-up failed without specific error' });
+// };
+
 export const signUp = async (req, res) => {
     const {
         email, password, firstName, secondName, firstLastName, secondLastName,
@@ -8,26 +94,47 @@ export const signUp = async (req, res) => {
         gender, administrator
     } = req.body;
 
+    const { data: insertData, error: insertError } = await supabase
+        .from('User')
+        .insert([{ 
+            firstName, secondName, firstLastName, secondLastName, personalId, 
+            birthDate, phone, username, photo, nationality, comunity, gender, 
+            administrator 
+            
+        }]) .select('id');
+        
+
+    if (insertError) {
+        return res.send({ data: null, error: insertError.message });
+    }
+
+    const userId = insertData[0].id; 
+
     let { data, error } = await supabase.auth.signUp({ email, password });
 
+    console.log(data, error);
+
     if (error) {
+        await supabase
+            .from('User')
+            .delete()
+            .eq('id', userId);
+
         return res.send({ data: null, error: error.message });
     }
 
-    if (data) {
-        const { data: insertData, error: insertError } = await supabase
-            .from('User')
-            .insert([{ 
-                firstName, secondName, firstLastName, secondLastName, personalId, 
-                birthDate, phone, username, photo, nationality, comunity, gender, 
-                administrator, user_auth: data.user.id 
-            }]);
+    const { data: updateData, error: updateError } = await supabase
+        .from('User')
+        .update({ user_auth: data.user.id })
+        .eq('id', userId).select('id');
 
-        return res.send({ data: insertData, error: insertError });
+    if (updateError) {
+        return res.send({ data: null, error: updateError.message });
     }
 
-    res.send({ data: null, error: 'Sign-up failed without specific error' });
+    return res.send({ data: updateData, error: null });
 };
+
 
 // Log In User
 export const logIn = async (req, res) => {

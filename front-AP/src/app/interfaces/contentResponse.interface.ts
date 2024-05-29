@@ -14,3 +14,4 @@ export interface Content {
   active:      boolean;
   photo:       string;
 }
+

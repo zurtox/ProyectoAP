@@ -39,6 +39,7 @@
         justify-content: center!important;
         width: 100%!important;
         margin: 0!important;
+        max-height: none!important;
     }
 
     .input-container {
@@ -178,6 +179,9 @@ h2{
 }
 
 .inputs-container{
+    
+    max-height: 350px;
+    overflow: auto;
     display: flex;
     flex-direction: row;
 }
