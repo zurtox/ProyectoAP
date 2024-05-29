@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.get('/getAllCategories', getAllCategories);
-router.get('/getCategoryById', getCategoryById)
+router.get('/getCategoryById/:id', getCategoryById)
 router.post('/insertCategory', insertCategory)
 router.put('/updateCategory', updateCategory)
 router.delete('/deleteCategory', deleteCategory)

@@ -13,13 +13,15 @@ export const getAllRecentlyVieweds = async (req, res) => {
 
 // Insert RecentlyViewed
 export const insertRecentlyViewed = async (req, res) => {
-    const { user, content } = req.body;
+    const { content } = req.body;
+    const id = await actualUserId();
+    if (id.error) return res.send(id);
     const lastViewed = new Date();
 
     const view = await supabase
         .from('RecentlyViewed')
         .select('id')
-        .eq('user', user)
+        .eq('user', id)
         .eq('content', content);
     
     if (view.data && view.data.length > 0) {
@@ -33,7 +35,8 @@ export const insertRecentlyViewed = async (req, res) => {
 
     const { data, error } = await supabase
         .from('RecentlyViewed')
-        .insert([{ user, content, lastViewed }]);
+        .insert([{ user: id, content, lastViewed }])
+        .select('id');
     res.send({ data, error });
 };
 

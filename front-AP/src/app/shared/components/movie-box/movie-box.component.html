@@ -1,21 +1,24 @@
 <div class="movie-box">
   <div class="gradient"></div>
-  <img [src]="image" alt="">
+  <img [src]="content.photo" alt="">
   <div class="overlay">
     <div class="icons">
       @if (remove) {
-        <i class="material-icons remove">close</i>
+        <i class="material-icons remove"
+        (click)="deleteContent()">close</i>
       }
       @if (favorite) {
-        <i class="material-icons">favorite</i>
+        <i class="material-icons"
+          (click)="addFavorite()">favorite</i>
       }
       @if (buy) {
-        <i class="material-icons">shopping_cart</i>
+        <i class="material-icons"
+          (click)="addCart()">shopping_cart</i>
       }
     </div>
   </div>
-  <div class="movie-info">
-      <label class="movie-title">{{name}}</label>
-      <label class="movie-year">{{description}}</label>
+  <div class="movie-info" (click)="viewContent()">
+      <label class="movie-title">{{content.title}}</label>
+      <label class="movie-year">{{content.publishYear}}</label>
   </div>
 </div>

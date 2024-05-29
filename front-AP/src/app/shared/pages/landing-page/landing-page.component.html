@@ -6,17 +6,19 @@
       </span>
        Movies
     </h2>
-    <div class="movie-list">
-      @for (item of iterator; track $index) {
-        <shared-movie-box
-          [buy]="true"
-          [favorite]="true"
-          [image]="image"
-          [description]="description"
-          [name]="name">
-        </shared-movie-box>
-      }
+
+      <div class="movie-list">
+        @for (content of contentList; track $index) {
+          @if(content){
+            <shared-movie-box
+            [buy]="true"
+            [favorite]="true"
+            [content]="content">
+          </shared-movie-box>
+          }
+        }
     </div>
+
   </div>
 
 </div>

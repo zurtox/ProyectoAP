@@ -1,16 +1,19 @@
 <div class="content-card">
   <div class="image-container">
-    <img [src]="image">
+    <img [src]="content.photo">
     <div class="overlay">
       <div class="icons">
         @if (remove) {
-          <i class="material-icons remove">close</i>
+          <i class="material-icons remove"
+          (click)="deleteContent()">close</i>
         }
         @if (favorite) {
-          <i class="material-icons">favorite</i>
+          <i class="material-icons"
+            (click)="addFavorite()">favorite</i>
         }
         @if (buy) {
-          <i class="material-icons">shopping_cart</i>
+          <i class="material-icons"
+            (click)="addCart()">shopping_cart</i>
         }
       </div>
       <div class="review-sm">
@@ -21,13 +24,13 @@
       </div>
     </div>
   </div>
-  <div class="info-container">
-    <h3>{{name}}</h3>
-    <p>{{type}}</p>
+  <div class="info-container" (click)="viewContent()">
+    <h3>{{content.title}}</h3>
+    @if(detail){
+      <p>${{detail}}</p>
+    }
     <div class="badges-container">
-      @for (item of categories; track $index) {
-        <shared-badge [text]="item"></shared-badge>
-      }
+        <shared-badge [text]="categoryName"></shared-badge>
     </div>
   </div>
   <div class="review-container">

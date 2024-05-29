@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MovieBoxComponent } from '../../components/movie-box/movie-box.component';
 import { DropdownMenuComponent } from '../../components/dropdown-menu/dropdown-menu.component';
 import { SearchBoxComponent } from '../../components/search-box/search-box.component';
-import { ContentAPIService } from '../../../content-api.service';
+import { ContentAPIService } from '../../../services/content-api.service';
 import { CategoryResponse } from '../../../interfaces/categoryResponse.interface';
 import { Content, ContentResponse } from '../../../interfaces/contentResponse.interface';
 import { Router } from '@angular/router';
@@ -95,10 +95,6 @@ export class SearchPageComponent {
         }
       )
     }
-  }
-
-  viewContent(content: Content){
-    this.router.navigate(['/selected-movie', content.id])
   }
 
 }

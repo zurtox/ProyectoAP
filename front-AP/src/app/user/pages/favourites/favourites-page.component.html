@@ -3,15 +3,15 @@
     <h2>Favorites</h2>
   </div>
   <div class="cards-grid">
-    @for (item of iterator; track $index) {
-      <shared-content-card
-      [image]="movie[0]"
-      [name]="movie[1]"
-      [type]="movie[2]"
-      [categories]="categories"
-      [remove]="true"
-      [buy]="true">
-    </shared-content-card>
+    @if(favoriteContents){
+      @for (content of favoriteContents; track $index) {
+        <shared-content-card
+        [content]="content"
+        [favorite]="true"
+        [buy]="true"
+        (isChanged)="refresh()">
+      </shared-content-card>
+      }
     }
   </div>
 </div>

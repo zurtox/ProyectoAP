@@ -2,20 +2,21 @@
     <div class="left-side">
         <h1 class="login-title">Login</h1>
         <div class="login-container">
-            <form action="login.php" method="POST">
-                <div class="input-container">
-                    <input type="username" name="username" id="username" required>
-                    <label for="username">Username</label>
-                </div>
-                <div class="input-container">
-                    <input type="password" name="password" id="password" required>
-                    <label for="password">Password</label>
-                </div>
+              <shared-text-input
+                text="Username"
+                [(entry)]="emailInput">
+              </shared-text-input>
+              <shared-text-input
+                text="Password"
+                [(entry)]="passwordInput">
+              </shared-text-input>
                 <a class="cp-text text-link">Change Password</a>
                 <div class="input-container">
-                    <button class="login-button" type="submit">Login</button>
+                    <button class="login-button"
+                      (click)="checkLogin()">
+                      Login
+                    </button>
                 </div>
-            </form>
             <div class="login-footer">
                 <p>Don't have an account? <a class="text-link" href="/register">Sign up</a></p>
             </div>

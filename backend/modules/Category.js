@@ -10,7 +10,7 @@ export const getAllCategories = async(req, res) => {
 
 // Select category by id
 export const getCategoryById = async(req, res) => {
-    const id = req.params.id
+    const { id } = req.params
     const { data, error } = await supabase
         .from('Category')
         .select('id, name')

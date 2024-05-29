@@ -1,5 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BadgeComponent } from '../badge/badge.component';
+import { UserApiService } from '../../../services/user-api.service';
+import { Content } from '../../../interfaces/contentResponse.interface';
+import { ContentAPIService } from '../../../services/content-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'shared-content-card',
@@ -11,17 +15,13 @@ import { BadgeComponent } from '../badge/badge.component';
   styleUrl: './content-card.component.css'
 })
 export class ContentCardComponent {
-  @Input()
-  image: string = ""
+
+  constructor(private userApiService: UserApiService,
+    private contentApiService: ContentAPIService,
+    private router: Router){}
 
   @Input()
-  name: string = ""
-
-  @Input()
-  type: string = ""
-
-  @Input()
-  categories: string [] = []
+  content!: Content
 
   @Input()
   favorite: boolean = false;
@@ -31,5 +31,39 @@ export class ContentCardComponent {
 
   @Input()
   buy: boolean = false;
-  // https://i.ebayimg.com/images/g/9HcAAOSwuiVgpIKd/s-l1600.webp
+
+  @Input()
+  detail: string = ""
+
+  categoryName: string = ""
+
+
+  @Output()
+  isChanged = new EventEmitter<boolean>();
+
+  addFavorite(){
+    this.userApiService.addFavorite(this.content.id.toString()).subscribe()
+    this.isChanged.emit(true)
+  }
+
+  addCart(){
+    console.log("adding to cart: " + this.content.id)
+  }
+
+  deleteContent(){
+    console.log("deleting content: " + this.content.id)
+  }
+
+  ngOnInit(){
+    this.contentApiService.getCategoryById(this.content.category.toString()).subscribe(
+      res => {
+        this.categoryName = res!.data[0].name
+      }
+    )
+  }
+
+  viewContent(){
+    this.router.navigate(['/selected-movie', this.content.id])
+}
+
 }

@@ -22,6 +22,7 @@ export const getPurchaseById = async (req, res) => {
     res.send({ data, error });
 };
 
+
 /*
     Esta funcion realiza una compra en base al carrito (BD)
     Todo lo del carrito pasa a ser comprado 'PurchaseContent'
@@ -29,34 +30,62 @@ export const getPurchaseById = async (req, res) => {
 */
 export const insertPurchase = async (req, res) => {
     const { paymentMethod } = req.body;
-    const userF = await actualUserId(); 
-
-    if (userF.data == null) {
-        return res.send({ data: null, error: userF.error });
-    }
-
-    const user = userF.data[0].id;
+    const id = await actualUserId();
+    if (id.error) return res.send(id);
+    console.log(id, paymentMethod)
 
     const { data, error } = await supabase // Agregar Purchase
         .from('Purchase')
-        .insert([{ user, paymentMethod }])
+        .insert([{ user: id, paymentMethod }])
         .select('id');
 
     if (data === null || data.length === 0) {
         return res.send({ data: [], error });
     }
 
-    const cart = await getAllCartContents(); 
+    const cart = await getAllCartContentsPurchase(); 
 
     for (const c of cart.data) {
-        await insertPurchaseContent({ purchase: data[0].id, content: c.content });
+        await insertPurchaseContentPurchase(data[0].id, c.content);
     }
 
     // Elimina el carrito 
-    await deleteAllCartContent();
+    await deleteAllCartContentPurchase();
 
     res.send({ data, error });
 };
+
+async function getAllCartContentsPurchase() {
+  // const u = await logIn({email:"omarzunigpii@gmail.com", password:"password"});
+  const id = await actualUserId();
+  if (id.error) return res.send(id);
+
+  const { data, error } = await supabase
+      .from('Cart')
+      .select('content')
+      .eq('user', id);
+  return { data, error };
+}
+
+async function deleteAllCartContentPurchase() {
+  const id = await actualUserId();
+  if (id.error) return res.send(id);
+
+  const { data, error } = await supabase
+      .from('Cart')
+      .delete()
+      .eq('user', id);
+  return{ data, error };
+}
+
+async function insertPurchaseContentPurchase(purchase, content) {
+  const { data, error } = await supabase
+      .from('PurchaseContent')
+      .insert([{ purchase, content }]);
+  return { data, error };
+};
+
+
 
 // Gets the purchase content 
 export const getPurchaseContent = async (req, res) => {

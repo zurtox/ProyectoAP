@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ActorBoxComponent } from '../../components/actor-box/actor-box.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { ContentAPIService } from '../../../content-api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ContentAPIService } from '../../../services/content-api.service';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { S3ApiService } from '../../../s3-api.service';
+import { S3ApiService } from '../../../services/s3-api.service';
 import { map } from 'rxjs';
+import { UserApiService } from '../../../services/user-api.service';
 
 @Component({
   selector: 'app-selected-movie-page',
@@ -16,6 +17,7 @@ import { map } from 'rxjs';
   styleUrl: './selected-movie-page.component.css'
 })
 export class SelectedMoviePageComponent {
+
   actorBox: ActorBoxComponent[]=[new ActorBoxComponent(), new ActorBoxComponent(), new ActorBoxComponent()]
   movieTitle: string = "";
   movieReleaseDate!: number;
@@ -30,7 +32,8 @@ export class SelectedMoviePageComponent {
   constructor(private contentAPIService: ContentAPIService,
       private actualRoute: ActivatedRoute,
       private sanitizer: DomSanitizer,
-      private s3ApiService: S3ApiService
+      private s3ApiService: S3ApiService,
+      private userApiService: UserApiService
   ) {}
 
   uploadPhoto(event: any){
@@ -47,13 +50,6 @@ export class SelectedMoviePageComponent {
         }
       );
     }
-    // const formData = new FormData();
-    // formData.append('file', event);
-    // this.contentAPIService.uploadImage(formData).subscribe(
-    //   res => {
-    //     console.log(res)
-    //   }
-    // )
   }
 
   updateImage(filename: string) {
@@ -69,23 +65,32 @@ export class SelectedMoviePageComponent {
     this.actualRoute.params.subscribe(
       params => {
         this.id = params["id"]
-        this.contentAPIService.getContentById(this.id).subscribe(
-          (response) => {
-            if(response) {
-              console.log(response)
-              this.movieTitle = response.data[0].title
-              this.movieReleaseDate = response.data[0].publishYear
-              // this.movieDuration = response.data[0].duration
-              this.filename = response.data[0].photo
-              console.log(this.filename); // Comprobar que se ha guardado la imagen correctamente
-              this.movieSynopsis = response.data[0].synopsis
-              const normalTrailer = response.data[0].trailer
-              const trailerId = this.getTrailerId(normalTrailer)
-              this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${trailerId}`)
-              console.log(this.trailer); // Comprobar la URL sanitizada
-            }
-          }
-        )
+        this.getContentById(this.id)
+      }
+    )
+  }
+
+  getContentById(contentId: string){
+    this.contentAPIService.getContentById(this.id).subscribe(
+      (response) => {
+        if(response) {
+          this.movieTitle = response.data[0].title
+          this.movieReleaseDate = response.data[0].publishYear
+          this.filename = response.data[0].photo
+          this.movieSynopsis = response.data[0].synopsis
+          const normalTrailer = response.data[0].trailer
+          const trailerId = this.getTrailerId(normalTrailer)
+          this.trailer = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${trailerId}`)
+          this.insertView(response.data[0].id.toString())
+        }
+      }
+    )
+  }
+
+  insertView(contentId: string){
+    this.contentAPIService.insertRecentlyViewed(contentId).subscribe(
+      (response) => {
+        console.log(response)
       }
     )
   }

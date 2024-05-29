@@ -16,6 +16,9 @@ export class DropdownNavbarComponent {
   @Input()
   options: string [][] = []
 
+  @Input()
+  userPhoto: string = ''
+
   ngOnInit(){
     console.log("options:")
     console.log(this.options)

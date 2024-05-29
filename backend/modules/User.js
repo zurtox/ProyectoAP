@@ -139,6 +139,7 @@ export const signUp = async (req, res) => {
 // Log In User
 export const logIn = async (req, res) => {
     const { email, password } = req.body;
+    console.log(email, password)
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -170,7 +171,7 @@ export const actualUser = async (req, res) => {
 
     const { data: data1, error: error1 } = await supabase
         .from('User')
-        .select('*')
+        .select('*')    
         .eq('user_auth', user.id);
 
     if (error1) {
@@ -183,23 +184,24 @@ export const actualUser = async (req, res) => {
 };
 
 // Get Actual User ID
-export const actualUserId = async (req, res) => {
+export const actualUserId = async () => {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-        return res.send({ data: null, error: "User data is missing" });
+        return "User data is missing";
     }
 
-    const { data: data1, error: error1 } = await supabase
+    const { data, error } = await supabase
         .from('User')
         .select('id')
-        .eq('user_auth', user.id);
+        .eq('user_auth', user.id)
+        .single();
 
-    if (error1) {
-        return res.send({ data: null, error: error1 });
+    if (error) {
+        return error.message;
     }
 
-    res.send({ data: data1, error: null });
+    return data.id;
 };
 
 // Log Out User

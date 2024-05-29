@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Content } from '../../../interfaces/contentResponse.interface';
+import { UserApiService } from '../../../services/user-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'shared-movie-box',
@@ -8,6 +11,11 @@ import { Component, Input } from '@angular/core';
   styleUrl: './movie-box.component.css'
 })
 export class MovieBoxComponent {
+
+  constructor(private userApiService: UserApiService,
+    private router: Router
+  ){}
+
   @Input()
   favorite: boolean = false;
 
@@ -18,11 +26,43 @@ export class MovieBoxComponent {
   buy: boolean = false;
 
   @Input()
-  name: string = ""
+  content!: Content
 
   @Input()
   description: string = ""
 
   @Input()
   image: string = ""
+
+  @Output()
+  isChanged = new EventEmitter<boolean>();
+
+  isStateChange(){
+    this.isChanged.emit(true)
+  }
+
+
+  addFavorite(){
+    this.userApiService.addFavorite(this.content.id.toString()).subscribe()
+    console.log("adding to favorites: " + this.content.id)
+  }
+
+  addCart(){
+    this.userApiService.addToCart(this.content.id.toString()).subscribe(
+      res => {
+        console.log(res)
+      }
+    )
+    console.log("adding to cart: " + this.content.id)
+  }
+
+  deleteContent(){
+    console.log("deleting content: " + this.content.id)
+  }
+
+  viewContent(){
+      this.router.navigate(['/selected-movie', this.content.id])
+  }
+
+
 }

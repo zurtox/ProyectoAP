@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { MovieBoxComponent } from '../../components/movie-box/movie-box.component';
+import { ContentAPIService } from '../../../services/content-api.service';
+import { Content, ContentResponse } from '../../../interfaces/contentResponse.interface';
+import { ContentByViews, ContentByViewsResponse } from '../../../interfaces/contentByViewsResponse.interface';
 
 @Component({
   selector: 'app-landing-page',
@@ -11,8 +14,35 @@ import { MovieBoxComponent } from '../../components/movie-box/movie-box.componen
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent {
-  iterator: any [] = Array(25).fill(0)
-  name: string = "Avengers"
-  description: string = "2012"
-  image: string = "https://i.ebayimg.com/images/g/YBwAAOSw9BRjQZyi/s-l1600.jpg"
+  contentByViews!: ContentByViewsResponse
+  contentList!: any[]
+  ready: boolean = false
+
+  constructor(private contentApiService: ContentAPIService){}
+
+  ngOnInit(){
+    this.contentApiService.getTopContentByViews().subscribe(
+      (contentByViewsRes) => {
+        if(contentByViewsRes){
+
+          this.contentByViews = contentByViewsRes
+          console.log(contentByViewsRes)
+          this.contentList = Array(contentByViewsRes.data.length).fill(null)
+
+          this.contentByViews.data.forEach(
+            (content, index) => {
+              this.contentApiService.getContentById(content.id.toString()).subscribe(
+                (contentRes) => {
+                  if(contentRes){
+                    this.contentList[index] = contentRes.data[0]
+                  }
+                }
+              )
+            }
+          )
+        }
+      }
+    )
+    // this.ready = true
+  }
 }

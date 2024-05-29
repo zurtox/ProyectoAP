@@ -6,38 +6,28 @@ import { logIn } from './User.js';
 
 export const getAllCartContents = async(req, res) => {
     // const u = await logIn({email:"omarzunigpii@gmail.com", password:"password"});
-    const userF = await actualUserId(); 
-
-    if (userF.data == null) {
-        res.send({ data: null, error: userF.error });
-    }
-
-    const user = userF.data[0].id;
+    const id = await actualUserId();
+    if (id.error) return res.send(id);
 
     const { data, error } = await supabase
         .from('Cart')
         .select('content')
-        .eq('user', user);
-    res.send({ data, error });
+        .eq('user', id);
+    return res.send({ data, error });
 }
 
 // Insert CartContent
 export const insertCartContent = async(req, res) => {
     // const u = await logIn({email:"omarzunigpii@gmail.com", password:"password"});
-    const userF = await actualUserId(); 
-
-    if (userF.data == null) {
-        res.send({ data: null, error: userF.error });
-    }
-
-    const user = userF.data[0].id;
-    const content = req.body.id
+    const { content } = req.body;
+    const id = await actualUserId();
+    if (id.error) return res.send(id);
 
     const { data: existingData, error: existingError } = await supabase
         .from('Cart')
         .select('id')
-        .eq('user', user)
-        .eq('content', req.body);
+        .eq('user', id)
+        .eq('content', content);
 
     if (existingData && existingData.length > 0) {
         return { data: existingData, error: existingError };
@@ -45,7 +35,7 @@ export const insertCartContent = async(req, res) => {
 
     const { data, error } = await supabase
         .from('Cart')
-        .insert([{ user, content }])
+        .insert([{ user: id, content }])
         .select('id');
     res.send({ data, error });
 }
@@ -71,17 +61,12 @@ export const deleteCartContent = async(req, res) => {
 
 // Delete all cart content by user
 export const deleteAllCartContent = async(req, res) => {
-    const userF = await actualUserId(); 
-
-    if (userF.data == null) {
-        return { data: null, error: userF.error };
-    }
-
-    const user = userF.data[0].id;
+    const id = await actualUserId();
+    if (id.error) return res.send(id);
 
     const { data, error } = await supabase
         .from('Cart')
         .delete()
-        .eq('user', user);
+        .eq('user', id);
     res.send({ data, error });
 }

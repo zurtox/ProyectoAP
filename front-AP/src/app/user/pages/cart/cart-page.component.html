@@ -1,1 +1,38 @@
-<p>cart-page works!</p>
+<div class="main-container">
+  <div class="header">
+    <h2>
+      <span class="highlight">
+        Shopping
+      </span>
+       Cart
+    </h2>
+
+  </div>
+  <div class="cart-container">
+    <div class="cards-container">
+      @if(contentList){
+        @for (content of contentList; track $index) {
+          <shared-content-card
+          [content]="content"
+          [favorite]="true"
+          [buy]="true"
+          [detail]="content.price.toString()">
+        </shared-content-card>
+        }
+      }
+    </div>
+    <div class="buy-container">
+      <div class="text-container">
+        <h2>Total</h2>
+        <p>${{totalSum}}</p>
+      </div>
+      <shared-button
+        class="button"
+        text="Buy"
+        (click)="buyContent()">
+      </shared-button>
+    </div>
+
+  </div>
+
+</div>
