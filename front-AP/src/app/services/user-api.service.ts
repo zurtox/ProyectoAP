@@ -6,6 +6,7 @@ import { ContentResponse } from '../interfaces/contentResponse.interface';
 import { FavoriteResponse } from '../interfaces/favoriteResponse.interface';
 import { UserResponse } from '../interfaces/userResponse.interface';
 import { CartResponse } from '../interfaces/cartResponse.interface';
+import { UserToPost } from '../interfaces/userToPost.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,26 @@ export class UserApiService {
     .pipe(
       catchError(error => of(undefined))
     )
+  }
+
+  signUp(newUser: UserToPost): Observable<any> {
+    return this.http.post<any>(`${this.baseURL}/signUp`, {
+      email: newUser.email,
+      password: newUser.password,
+      firstName: newUser.firstName,
+      firstLastname: newUser.firstLastName,
+      secondLastname: newUser.secondLastName,
+      secondName: newUser.secondName,
+      personalId: newUser.personalId,
+      birthDate: newUser.birthDate,
+      phone: newUser.phone,
+      photo: newUser.photo,
+      username: newUser.username,
+      nationality: newUser.nationality,
+      comunity: newUser.comunity,
+      gender: newUser.gender,
+      admin: false
+    });
   }
 
 }

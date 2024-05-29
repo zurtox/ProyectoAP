@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ContentAPIService } from '../../../content-api.service';
 import { Router } from '@angular/router';
 import { UserToPost } from '../../../interfaces/userToPost.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserApiService } from '../../../services/user-api.service';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -14,11 +14,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class SignUpPageComponent {
 
-  newUser!:UserToPost 
+  newUser!:UserToPost
 
   constructor (
     private fb: FormBuilder,
-    private contentAPIService: ContentAPIService,
+    private userApi: UserApiService,
     private router: Router
   ) {}
 
@@ -35,7 +35,7 @@ export class SignUpPageComponent {
     this.newUser.firstLastName = (target.querySelector('#firstLastName') as HTMLInputElement).value;
     this.newUser.secondLastName = (target.querySelector('#secondLastName') as HTMLInputElement).value;
     this.newUser.secondName = (target.querySelector('#secondName') as HTMLInputElement).value;
-    this.newUser.personalId = 123456789; 
+    this.newUser.personalId = 123456789;
     this.newUser.birthDate = (target.querySelector('#birthDate') as HTMLInputElement).value;
     this.newUser.phone = 12345678;
     this.newUser.photo = 1;
@@ -47,16 +47,16 @@ export class SignUpPageComponent {
 
     console.log(this.newUser);
 
-    
 
-    this.contentAPIService.signUp(this.newUser).subscribe((response: any) => {
+
+    this.userApi.signUp(this.newUser).subscribe((response: any) => {
       if (response.status == 200) {
         console.log("Usuario creado correctamente");
       }else{
         console.log("Error al crear usuario");
       }
 
-      
+
     });
   }
 
