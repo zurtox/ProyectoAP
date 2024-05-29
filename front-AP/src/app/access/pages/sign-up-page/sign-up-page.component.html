@@ -12,51 +12,73 @@
             <div class="inputs-container">
                 <div class="left-side">
                     <div class="input-container">
-                        <input id="username" required>
-                        <label for="username">Username</label>
+                        <input type="text" id="email" required>
+                        <label for="email">Email</label>
+                    </div>
+
+                    <div class="input-container">
+                        <input type="text" id="password" required>
+                        <label for="password">Password</label>
+                    </div>
+
+                    <div class="input-container">
+                        <input type="text" id="firstname" required>
+                        <label for="firstName">First Name</label>
+                    </div>
+
+                    <div class="input-container">
+                        <input type="text" id="secondName" required>
+                        <label for="secondName">Second Name</label>
                     </div>
         
                     <div class="input-container">
-                        <input id="name" required>
-                        <label for="name">First Name</label>
+                        <input type="text" id="firtLastName" required>
+                        <label for="firtLastName">First Lastname</label>
                     </div>
                     
                     <div class="input-container">
-                        <input id="lastname" required>
-                        <label for="lastname">Last Name</label>
+                        <input type="text" id="secondLastName" required>
+                        <label for="secondLastName">Second Lastname</label>
                     </div>
         
-                    <div class="input-container">
-                        <input id="email" required>
-                        <label for="email">E-mail</label>
-                    </div>
                 </div>
-        
+                
                 <div class="right-side">
+
                     <div class="input-container">
-                        <input id="identificationCard" required>
-                        <label for="identificationCard">ID</label>
+                        <input type="text" id="personalId" required>
+                        <label for="personalId">Identification Card</label>
+                    </div>
+
+                    <div class="input-container">
+                        <input type="text" id="username" required>
+                        <label for="username">Username</label>
+                    </div>
+                    
+                    <div class="input-container">
+                        <input  class="date-input" type="date" id="birthday" placeholder="none">
+                        <label for="birthday">Birthday</label>
+                    </div>
+
+                    <div class="input-container">
+                        <input type="text" id="nationality" required>
+                        <label for="nationality">Nationality</label>
                     </div>
                 
                     <div class="input-container">
-                        <input id="age" required>
-                        <label for="age">Age</label>
+                        <input type="text" id="comunity" required>
+                        <label for="comunity">Comunity</label>
                     </div>
-        
+
                     <div class="input-container">
-                        <input class="date-input" type="date" id="birthday" placeholder="none">
-                        <label for="birthday">Birthday</label>
-                    </div>
-        
-                    <div class="input-container">
-                        <input id="country" required>
-                        <label for="country">Country</label>
-                    </div>
+                        <input type="text" id="gender" required>
+                        <label for="gender">Gender</label>
+                    </div>    
                 </div>
             </div>
             <div class="btn-container">
                 <p class="font-poppins">You already have an account? <a class="font-poppins" href="/">Login</a></p>
-                <button class="lightblue-button cancel-btn" type="submit">Sign Up</button>
+                <button (click)="signUpAction($event)" class="lightblue-button cancel-btn" type="submit">Sign Up</button>
             </div>
         </form>
     </div>
