@@ -41,20 +41,20 @@
                         <label for="secondLastName">Second Lastname</label>
                     </div>
 
-                    <div class="input-container">
-                        <input [(ngModel)]="phoneInput" type="text" id="phone" required>
-                        <label for="phone">Phone</label>
-                    </div>
-        
+                    
                 </div>
                 
                 <div class="right-side">
-
                     <div class="input-container">
                         <input [(ngModel)]="identificationInput" type="text" id="personalId" required>
                         <label for="personalId">Identification Card</label>
                     </div>
 
+                    <div class="input-container">
+                        <input [(ngModel)]="phoneInput" type="text" id="phone" required>
+                        <label for="phone">Phone</label>
+                    </div>
+                    
                     <div class="input-container">
                         <input [(ngModel)]="usernameInput" type="text" id="username" required>
                         <label for="username">Username</label>
@@ -64,22 +64,16 @@
                         <input [(ngModel)]="birthdayInput" class="date-input" type="date" id="birthday" placeholder="none">
                         <label for="birthday">Birthday</label>
                     </div>
-
+                    
                     <div class="input-container">
-                        <input [(ngModel)]="nationalityInput" type="text" id="nationality" required>
-                        <label for="nationality">Nationality</label>
+                        <shared-dropdown-menu class="dropdown" header="Community" [options]="communityOptions" (selectedOption)="comunityInput"></shared-dropdown-menu>
+                        <shared-dropdown-menu class="dropdown" header="Gender" [options]="genderOptions" (selectedOption)="genderInput"></shared-dropdown-menu>
                     </div>
-                
                     <div class="input-container">
-                        <input [(ngModel)]="comunityInput" type="text" id="comunity" required>
-                        <label for="comunity">Comunity</label>
+                        <shared-dropdown-menu class="dropdown" header="Nationality" [options]="genderOptions" (selectedOption)="genderInput"></shared-dropdown-menu>
                     </div>
-
-                    <div class="input-container">
-                        <input [(ngModel)]="genderInput" type="text" id="gender" required>
-                        <label for="gender">Gender</label>
-                    </div>    
                 </div>
+                
             </div>
             <div class="btn-container">
                 <p class="font-poppins">You already have an account? <a class="font-poppins" href="/">Login</a></p>

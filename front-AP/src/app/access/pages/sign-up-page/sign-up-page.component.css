@@ -179,6 +179,13 @@ h2{
     flex-direction: column;
 }
 
+.left-side{
+    height: 700px;
+}
+.right-side{
+    height: 600px;
+}
+
 .inputs-container{
     max-height: 350px;
     overflow: auto;
@@ -276,3 +283,8 @@ h2{
 .input{
     width: 200px;
 }
+
+
+.dropdown{
+    margin-right: 10px;
+} 

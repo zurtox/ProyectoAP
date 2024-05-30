@@ -2,19 +2,23 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserToPost } from '../../../interfaces/userToPost.interface';
 import { UserApiService } from '../../../services/user-api.service';
+import { ContentAPIService } from '../../../services/content-api.service';
 import { FormsModule } from '@angular/forms';
 import { S3ApiService } from '../../../services/s3-api.service';
 import { map } from 'rxjs';
+import { DropdownMenuComponent } from '../../../shared/components/dropdown-menu/dropdown-menu.component';
 
 @Component({
   selector: 'app-sign-up-page',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, DropdownMenuComponent],
   templateUrl: './sign-up-page.component.html',
   styleUrl: './sign-up-page.component.css',
 })
 export class SignUpPageComponent {
-  filename: string = '';
+  filename: string = ''
+  genderOptions: string[] = [];
+  communityOptions: string[] = [];
 
   newUser: UserToPost = {
     email: '',
@@ -26,7 +30,7 @@ export class SignUpPageComponent {
     personalId: '',
     birthDate: '',
     phone: '',
-    photo: 0,
+    photo: '',
     username: '',
     nationality: 0,
     comunity: 0,
@@ -48,7 +52,40 @@ export class SignUpPageComponent {
   genderInput: string = '';
   phoneInput: string = '';
 
-  constructor(private s3ApiService: S3ApiService  ,private userApi: UserApiService, private router: Router) {}
+  constructor(private s3ApiService: S3ApiService, 
+    private contentAPIService: ContentAPIService,
+    private userApi: UserApiService,
+    private router: Router
+  ){}
+
+  ngOnInit() {
+    this.getGenders();
+    this.getCommunities();
+  }
+
+  getCommunities(){
+    this.contentAPIService.getCommunities().subscribe(
+      (response) => {
+        if (response){
+          for (let i = 0; i < response.data.length; i++) {
+            this.communityOptions.push(response.data[i].name);
+          }
+        }
+      }
+    )
+  }
+
+  getGenders(){
+    this.contentAPIService.getGenders().subscribe(
+      (response) => {
+        if (response){
+          for (let i = 0; i < response.data.length; i++) {
+            this.genderOptions.push(response.data[i].value);
+          }
+        }
+      }
+    )
+  }
 
   uploadPhoto(event: any){
     const file = event.target.files[0]
@@ -90,12 +127,15 @@ export class SignUpPageComponent {
     this.newUser.username = this.usernameInput;
     this.newUser.birthDate = this.birthdayInput;
     this.newUser.phone = this.phoneInput;
-    this.newUser.photo = 1;
+    this.newUser.photo = "this.filename";
     this.newUser.nationality = 1;
     this.newUser.comunity = 1;
     this.newUser.gender = 'Hombre';
     this.newUser.administrator = false;
 
+    console.log(this.newUser);
+
+    
     this.userApi.signUp(this.newUser).subscribe((response: any) => {
       if (response.status == 200) {
         console.log('Usuario creado correctamente');
@@ -103,6 +143,7 @@ export class SignUpPageComponent {
         console.log('Error al crear usuario');
       }
     });
+    
     
   }
 }

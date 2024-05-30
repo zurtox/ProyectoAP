@@ -8,7 +8,7 @@ export interface UserToPost {
     personalId:     string;
     birthDate:      string;
     phone:          string;
-    photo:          number;
+    photo:          string;
     username:       string;
     nationality:    number;
     comunity:       number;

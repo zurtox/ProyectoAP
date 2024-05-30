@@ -6,6 +6,8 @@ import { ContentResponse } from '../interfaces/contentResponse.interface';
 import { ContentByViewsResponse } from '../interfaces/contentByViewsResponse.interface';
 import { PersonResponse } from '../interfaces/personResponse.interface';
 import { PurchaseResponse } from '../interfaces/purchaseResponse.interface';
+import { GenderResponse } from '../interfaces/genderResponse.interface';
+import { CommunityResponse } from '../interfaces/communityResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -102,6 +104,21 @@ export class ContentAPIService {
       catchError(error => of(undefined))
     )
   }
+
+  getGenders(): Observable<GenderResponse | undefined>{
+    return this.http.get<GenderResponse>(`${this.baseURL}/enums/genders`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getCommunities(): Observable<CommunityResponse | undefined>{
+    return this.http.get<CommunityResponse>(`${this.baseURL}/getAllCommunities`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
 
   deletePerson(id: string): Observable<any>{
     return this.http.delete<any>(`${this.baseURL}/persons/${id}`)
