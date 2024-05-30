@@ -119,7 +119,6 @@ export class ContentAPIService {
     )
   }
 
-
   deletePerson(id: string): Observable<any>{
     return this.http.delete<any>(`${this.baseURL}/persons/${id}`)
     .pipe(
@@ -133,4 +132,6 @@ export class ContentAPIService {
       catchError(error => of(undefined))
     )
   }
+
+  
 }

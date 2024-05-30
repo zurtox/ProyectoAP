@@ -3,23 +3,23 @@
     <div class="flex-row">
         <div class="left-side">
             <div class="input-container">
-                <input id="title" required>
+                <input [(ngModel)]="titleInput" id="title" required>
                 <label for="title">Title</label>
             </div>
 
             <div class="input-container date">
-                <input type="date" id="Release Date" required>
+                <input [(ngModel)]="dateInput" type="date" id="Release Date" required>
                 <label for="Date">Release Date</label>
             </div>
 
             <div class="input-container">
-                <input id="duration" required>
+                <input [(ngModel)]="durationInput" id="duration" required>
                 <label for="duration">Duration</label>
             </div>
 
             <div class="input-container">
-                <input type="password" name="password" id="password" required>
-                <label for="password">Password</label>
+                <input [(ngModel)]="priceInput" id="price" required>
+                <label for="price">Price</label>
             </div>
         </div>
 
@@ -28,18 +28,19 @@
             <div class="dropdown-container">
                 <shared-dropdown-menu
                 header="Categories"
-                [options]="categories"></shared-dropdown-menu>
+                [options]="categories"
+                (selectedOptionsChange)="categoriesInput"></shared-dropdown-menu>
             </div>
             <h3>Actors</h3>
             <div class="dropdown-container">
-                <button (click)="openModal()" class="lightblue-button">Add Actors</button>
+                <shared-dropdown-menu
+                header="Actors"
+                [options]="actorsList"
+                (selectedOptionsChange)="actorsInput"></shared-dropdown-menu>
             </div>
         </div>
     </div>
     <button  class="addBtn lightblue-button">Add Content</button>
 </div>
 
-<div *ngIf="modalSwitch == true">
-    <admin-actors-modal (selectedActorsEvent)="getSelectedActors($event)"></admin-actors-modal>
-</div>
 
