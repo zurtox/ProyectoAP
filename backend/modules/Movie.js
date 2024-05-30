@@ -28,19 +28,18 @@ export const getAllMovies = async (req, res) => {
 
 // Select Movie by id
 export const getMovieById = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params
+    console.log(id)
     const { data, error } = await supabase
         .from('Movie')
         .select('id, content, duration')
-        .eq('id', id);
+        .eq('content', id);
 
     if (data === null || data.length === 0) {
         return res.send({ data: [], error });
     }
 
-    const { data: contentData, error: contentError } = await getContentById(data[0].content);
-
-    res.send({ data: contentData, movie: data, error: contentError });
+    res.send({ data, error });
 };
 
 // Insert Movie

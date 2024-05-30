@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { CSP_NONCE, Component } from '@angular/core';
 import { ActorBoxComponent } from '../../components/actor-box/actor-box.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ContentAPIService } from '../../../services/content-api.service';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, RouterModule, convertToParamMap } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { S3ApiService } from '../../../services/s3-api.service';
 import { map } from 'rxjs';
@@ -12,7 +12,8 @@ import { UserApiService } from '../../../services/user-api.service';
   selector: 'app-selected-movie-page',
   standalone: true,
   imports: [NavbarComponent,
-            ActorBoxComponent],
+            ActorBoxComponent,
+            RouterModule],
   templateUrl: './selected-movie-page.component.html',
   styleUrl: './selected-movie-page.component.css'
 })
@@ -21,13 +22,15 @@ export class SelectedMoviePageComponent {
   // actorBox: ActorBoxComponent[]=[new ActorBoxComponent(), new ActorBoxComponent(), new ActorBoxComponent()]
   movieTitle: string = "";
   movieReleaseDate!: number;
-  movieDuration: string = '2 horas 30 minutos';
+  movieDuration: number = 0;
   movieSynopsis: string = '';
   actor: string [] = ["Director", "Nolan", "https://pics.filmaffinity.com/christopher_nolan-055100338198118-nm_large.jpg"]
   iterator: any [] = Array(8).fill(0)
   id: string = ""
   trailer: SafeResourceUrl | null = null;
   filename: string = ""
+  starsCount: number[] = []
+  isMovie: boolean = false
 
   constructor(private contentAPIService: ContentAPIService,
       private actualRoute: ActivatedRoute,
@@ -36,36 +39,64 @@ export class SelectedMoviePageComponent {
       private userApiService: UserApiService
   ) {}
 
-  uploadPhoto(event: any){
-    const file = event.target.files[0]
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
-      this.s3ApiService.uploadFile(formData).subscribe(
-        (res) => {
-          this.updateImage(file.name).subscribe(() => {
-            console.log(res)
-            // this.uploadActivity();
-          });
-        }
-      );
-    }
-  }
+  // uploadPhoto(event: any){
+  //   const file = event.target.files[0]
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append('file', file);
+  //     this.s3ApiService.uploadFile(formData).subscribe(
+  //       (res) => {
+  //         this.updateImage(file.name).subscribe(() => {
+  //           console.log(res)
+  //           // this.uploadActivity();
+  //         });
+  //       }
+  //     );
+  //   }
+  // }
 
-  updateImage(filename: string) {
-    return this.s3ApiService.getFileByName(filename).pipe(
-      map(res => {
-        this.filename = res!.result;
-        console.log(this.filename);
-      })
-    );
-  }
+  // updateImage(filename: string) {
+  //   return this.s3ApiService.getFileByName(filename).pipe(
+  //     map(res => {
+  //       this.filename = res!.result;
+  //       console.log(this.filename);
+  //     })
+  //   );
+  // }
 
   ngOnInit(){
     this.actualRoute.params.subscribe(
       params => {
         this.id = params["id"]
         this.getContentById(this.id)
+        this.getContentStars(this.id)
+        this.getIsMovie()
+      }
+    )
+  }
+
+  getIsMovie(){
+    this.contentAPIService.isMovie(this.id).subscribe(
+      (response) => {
+        this.isMovie = response.flag
+        if(this.isMovie){
+          console.log(this.id)
+          this.contentAPIService.getMovie(this.id).subscribe(
+            (resMovie) => {
+              this.movieDuration = resMovie.data[0].duration
+            }
+          )
+        }
+      }
+    )
+  }
+
+  getContentStars(id: string){
+    this.contentAPIService.getContentStars(id).subscribe(
+      (response) => {
+        if(response) {
+          this.starsCount = Array(Math.round(response.data[0].rating)).fill(0)
+        }
       }
     )
   }

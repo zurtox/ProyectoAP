@@ -8,6 +8,8 @@ import { User, UserResponse } from '../interfaces/userResponse.interface';
 import { CartResponse } from '../interfaces/cartResponse.interface';
 import { UserToPost } from '../interfaces/userToPost.interface';
 import { HistoryResponse } from '../interfaces/historyResponse.interface';
+import { GenderResponse } from '../interfaces/genderStatisticsResponse.interface';
+import { AgeDistributionResponse } from '../interfaces/ageDistributionResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +50,13 @@ export class UserApiService {
 
   getUser(): Observable<UserResponse | undefined>{
     return this.http.get<UserResponse>(`${this.baseURL}/actualUser`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getUserById(id: string): Observable<UserResponse | undefined>{
+    return this.http.get<UserResponse>(`${this.baseURL}/users/${id}`)
     .pipe(
       catchError(error => of(undefined))
     )
@@ -105,6 +114,62 @@ export class UserApiService {
 
   getHistory1y() : Observable<HistoryResponse | undefined>{
     return this.http.get<HistoryResponse>(`${this.baseURL}/purchase/lastYear`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getFemaleCount(): Observable<GenderResponse | undefined>{
+    return this.http.get<GenderResponse>(`${this.baseURL}/countFemaleUsers`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getMaleCount(): Observable<GenderResponse | undefined>{
+    return this.http.get<GenderResponse>(`${this.baseURL}/countMaleUsers`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getOtherCount(): Observable<GenderResponse | undefined>{
+    return this.http.get<GenderResponse>(`${this.baseURL}/countOtherUsers`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getNotDefinedCount(): Observable<GenderResponse | undefined>{
+    return this.http.get<GenderResponse>(`${this.baseURL}/countNotDefinedUsers`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getDocumentalCount(): Observable<any>{
+    return this.http.get<any>(`${this.baseURL}/getAmountDocumentals`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getMoviesCount(): Observable<any | undefined>{
+    return this.http.get<any>(`${this.baseURL}/getAmountMovies`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getSeriesCount(): Observable<any | undefined>{
+    return this.http.get<any>(`${this.baseURL}/getAmountSeries`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getAgeDistribution(): Observable<AgeDistributionResponse | undefined>{
+    return this.http.get<AgeDistributionResponse>(`${this.baseURL}/ageDistribution`)
     .pipe(
       catchError(error => of(undefined))
     )

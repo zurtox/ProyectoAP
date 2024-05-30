@@ -8,6 +8,8 @@ import { PersonResponse } from '../interfaces/personResponse.interface';
 import { PurchaseResponse } from '../interfaces/purchaseResponse.interface';
 import { GenderResponse } from '../interfaces/genderResponse.interface';
 import { CommunityResponse } from '../interfaces/communityResponse.interface';
+import { MovieResponse } from '../interfaces/movieResponse.interface';
+import { CommentResponse } from '../interfaces/commentResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,10 @@ export class ContentAPIService {
   baseURL: string = 'http://localhost:3001'
 
   constructor(private http: HttpClient) {}
+
+  getContentStars(id: string) : Observable<any>{
+    return this.http.get<any>(`${this.baseURL}/getContentStarsId/${id}`)
+  }
 
   getAllCategories(): Observable<CategoryResponse | undefined>{
     return this.http.get<CategoryResponse>(`${this.baseURL}/getAllCategories`)
@@ -119,6 +125,10 @@ export class ContentAPIService {
     )
   }
 
+  getMovie(id: string): Observable<MovieResponse>{
+    return this.http.get<MovieResponse>(`${this.baseURL}/movies/${id}`)
+  }
+
   deletePerson(id: string): Observable<any>{
     return this.http.delete<any>(`${this.baseURL}/persons/${id}`)
     .pipe(
@@ -133,5 +143,27 @@ export class ContentAPIService {
     )
   }
 
-  
+
+  isMovie(id: string): Observable<any>{
+    return this.http.get<any>(`${this.baseURL}/isMovie/${id}`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getReviewByContent(id: string): Observable<CommentResponse | undefined>{
+    return this.http.get<CommentResponse>(`${this.baseURL}/reviews/${id}`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+
+  addReview(idContent: string, review: string, rating: number): Observable<any>{
+    return this.http.post<any>(`${this.baseURL}/reviews`, {content: idContent, review, rating})
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
 }

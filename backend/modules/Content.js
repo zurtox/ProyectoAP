@@ -19,6 +19,34 @@ export const getContentById = async(req, res) => {
     res.send({ data, error });
 }
 
+export const isMovie = async(req, res) => {
+    const { id } = req.params 
+    const { data, error } = await supabase
+        .from('Movie')
+        .select('*')
+        .eq('content', id);
+        console.log(data)
+    res.send({flag: data.length != 0});
+}
+
+export const isDocumental = async(req, res) => {
+    const { id } = req.params 
+    const { data, error } = await supabase
+        .from('Documental')
+        .select('*')
+        .eq('content', id);
+    res.send({flag: data.length != 0});
+}
+
+export const isSerie = async(req, res) => {
+    const { id } = req.params 
+    const { data, error } = await supabase
+        .from('Serie')
+        .select('*')
+        .eq('id', id);
+    res.send({flag: data.length != 0});
+}
+
 export const getContentByCategory = async(req, res) => {
     const { id } = req.params 
     const { data, error } = await supabase
@@ -200,6 +228,7 @@ export const getTop250ContentSerieCategory = async(req, res) => {
 
 // Get Stars by content id
 export const getContentStarsId = async(req, res) => {
+    const { id } = req.params
     const { data, error } = await supabase.rpc('get_average_stars_by_content_id', { content_id: id });
   
     res.send({ data, error });
@@ -227,7 +256,7 @@ export const getAmountDocumental = async(req, res) => {
 }
 
 // Get amount of Serie
-export const getAmountSerie = async(req, res) => {
+export const getAmountSeries = async(req, res) => {
     const { data, error } = await supabase.rpc('count_rows_in_table', {table_name: 'Serie'});
   
     res.send({ data, error });

@@ -20,13 +20,6 @@ export class DropdownMenuComponent {
   // selectedOptions: boolean[] = [];
   @Output() selectedOptionsChange = new EventEmitter<number>();
 
-  ngOnInit(){
-    console.log("options:")
-    console.log(this.options)
-    console.log(this.options.length)
-    // this.selectedOptions = Array(this.options.length).fill(false)
-  }
-
   toggleOption(index: number) {
     // this.selectedOptions = Array(this.options.length).fill(false)
     // this.selectedOptions[index] = !this.selectedOptions[index];

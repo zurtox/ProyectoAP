@@ -4,24 +4,22 @@
 <div class="main-container">
 
     <section style="display: flex; flex-direction: column; align-items: center;">
-        <div style=" width: 70%;display: flex; flex-direction: column; align-items: end;">
-            <div class="save-options-buttons">
-                <a><span><img src="assets/selected-movie-images/addToCart.png"></span></a>
-                <a><span><img src="assets/selected-movie-images/addToFavorite.png"></span></a>
-            </div>
-        </div>
 
         <div class="info-container">
             <div class="movie-image-container">
                 <div class="image-container">
                     <img [src]="filename">
                 </div>
-                <button class="lightblue-button">Check Reviews</button>
-                <a class="font-poppins">Review Content</a>
+                <button class="lightblue-button"
+                  [routerLink]='["/comments",id]'>
+                  Check Reviews
+                </button>
+                <a class="font-poppins"
+                  [routerLink]="['/review',id]">Review Content
+                </a>
             </div>
 
             <div class="movie-info-container">
-                <!-- <input type="file" (change)="uploadPhoto($event)"> -->
 
                 <div class="label-info-container">
                     <h3>Title</h3>
@@ -32,18 +30,18 @@
                     <h3>Release</h3>
                     <p>{{movieReleaseDate}}</p>
                 </div>
-                <div class="label-info-container">
+                @if(isMovie){
+                  <div class="label-info-container">
                     <h3>Duration</h3>
-                    <p>{{movieDuration}}</p>
+                    <p>{{movieDuration}}min</p>
                 </div>
+                }
                 <div class="label-info-container">
                     <h3>Rating</h3>
                     <div class="stars-container">
+                      @for (item of starsCount; track $index) {
                         <img src="assets/star.png" alt="">
-                        <img src="assets/star.png" alt="">
-                        <img src="assets/star.png" alt="">
-                        <img src="assets/star.png" alt="">
-                        <img src="assets/star.png" alt="">
+                      }
                     </div>
                 </div>
             </div>
@@ -62,26 +60,26 @@
         </div>
     </section>
 
-    <section class="footage-container">
-        <h3>Footage</h3>
-        <div class="footage-images">
-            <h2></h2>
-        </div>
-    </section>
+  <!-- <section class="footage-container">
+      <h3>Footage</h3>
+      <div class="footage-images">
+          <h2></h2>
+      </div>
+  </section>
 
-    <section class="team-container">
-        <h3>Team</h3>
-        <div class="actors-container">
-          @for (item of iterator; track $index) {
-            <shared-actor-box
-              [name]="actor[0]"
-              [role]="actor[1]"
-              [image]="actor[2]">
-            </shared-actor-box>
-          }
-        </div>
+  <section class="team-container">
+      <h3>Team</h3>
+      <div class="actors-container">
+        @for (item of iterator; track $index) {
+          <shared-actor-box
+            [name]="actor[0]"
+            [role]="actor[1]"
+            [image]="actor[2]">
+          </shared-actor-box>
+        }
+      </div>
+  </section> -->
 
-    </section>
 </div>
 
 

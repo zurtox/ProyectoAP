@@ -4,18 +4,9 @@
       <shared-dropdown-menu
       header=Type
       [options]="types"
-      [isLeft]="true">
+      [isLeft]="true"
+      (selectedOptionsChange)="getSelectedOptions($event)">
     </shared-dropdown-menu>
-      <div class="options-container">
-        <shared-dropdown-menu
-          header=Categories
-          [options]="categories">
-        </shared-dropdown-menu>
-        <shared-dropdown-menu
-          header=Content
-          [options]="options">
-        </shared-dropdown-menu>
-      </div>
     </div>
     <h2>
       <span class="highlight">
@@ -23,10 +14,12 @@
       </span>
     </h2>
   </div>
-  <apx-chart
-  class="chart"
-  [series]="chartOptions.series!"
-  [chart]="chartOptions.chart!"
-  [labels]="chartOptions.labels!"
-  [title]="chartOptions.title!"></apx-chart>
+  @if (chartOptions) {
+    <apx-chart
+    class="chart"
+    [series]="chartOptions.series!"
+    [chart]="chartOptions.chart!"
+    [labels]="chartOptions.labels!"
+    [title]="chartOptions.title!"></apx-chart>
+  }
 </div>

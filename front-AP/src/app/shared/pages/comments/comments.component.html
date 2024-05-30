@@ -2,13 +2,17 @@
 <img src="film-1" alt="" class="background-image">
 <div class="glass-container"></div>
 <div class="main-container">
-  
-  @for (item of iterator; track $index) {
-    <shared-comment-box class="comment-box"
-      [header]="comments[0]"
-      [user]="comments[1]"
-      [date]="comments[2]"
-      [body]="comments[3]">
-    </shared-comment-box>
+
+  @if (comments) {
+    @for (comment of comments.data; track $index) {
+      <shared-comment-box
+        class="comment-box"
+        [body]="comment.review"
+        [user]="usernames[$index]"
+        [starsCount]="comment.rating"
+        [commentDate]="comment.created_at">
+      </shared-comment-box>
+    }
   }
+
 </div>

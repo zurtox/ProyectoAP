@@ -30,7 +30,7 @@ export const routes: Routes = [
         component: SignUpPageComponent
     },
     {
-        path: 'comments',
+        path: 'comments/:id',
         component: CommentsComponent
     },
     {
@@ -66,7 +66,7 @@ export const routes: Routes = [
       component: StatisticsPageComponent
     },
     {
-      path: 'review',
+      path: 'review/:id',
       component: ReviewComponent
     },
     {

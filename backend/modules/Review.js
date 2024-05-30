@@ -15,24 +15,19 @@ export const getReviewById = async (req, res) => {
     const { data, error } = await supabase
         .from('Review')
         .select('*')
-        .eq('id', id);
+        .eq('content', id);
     res.send({ data, error });
 };
 
 // Insert Review
 export const insertReview = async (req, res) => {
     const { content, review, rating } = req.body;
-    const userF = await actualUserId(); 
-
-    if (userF.data == null) {
-        return res.send({ data: null, error: userF.error });
-    }
-
-    const user = userF.data[0].id;
+    const id = await actualUserId();
+    if (id.error) return res.send(id);
 
     const { data, error } = await supabase
         .from('Review')
-        .insert([{ user, content, review, rating }]);
+        .insert([{ user: id, content, review, rating }]);
     res.send({ data, error });
 };
 

@@ -17,9 +17,13 @@ import {
     getContentStarsId,
     getContentStars,
     getAmountMovies,
-    getAmountSerie,
+    getAmountSeries,
     isContentBought,
-    getContentByCategory
+    getContentByCategory,
+    getAmountDocumental,
+    isMovie,
+    isDocumental,
+    isSerie
      } from '../modules/Content.js';
 
 const router = express.Router();
@@ -40,11 +44,15 @@ router.get('/getTop250ContentByCategory', getTop250ContentByCategory)
 router.get('/getTop250ContentDocumentalCategory', getTop250ContentDocumentalCategory)
 router.get('/getTop250ContentMovieCategoryv', getTop250ContentMovieCategory)
 router.get('/getTop250ContentSerieCategory', getTop250ContentSerieCategory)
-router.get('/getContentStarsId', getContentStarsId)
+router.get('/getContentStarsId/:id', getContentStarsId)
 router.get('/getContentStars', getContentStars)
 router.get('/getAmountMovies', getAmountMovies)
-router.get('/getAmountSerie', getAmountSerie)
+router.get('/getAmountSeries', getAmountSeries)
+router.get('/getAmountDocumentals', getAmountDocumental)
 router.get('/isContentBought', isContentBought)
+router.get('/isMovie/:id', isMovie)
+router.get('/isDocumental/:id', isDocumental)
+router.get('/isSerie/:id', isSerie)
 
 
 

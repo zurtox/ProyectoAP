@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { CommentBoxComponent } from '../../components/comment-box/comment-box.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { ContentAPIService } from '../../../services/content-api.service';
+import { ActivatedRoute } from '@angular/router';
+import { CommentResponse } from '../../../interfaces/commentResponse.interface';
+import { UserApiService } from '../../../services/user-api.service';
 
 @Component({
   selector: 'app-comments',
@@ -10,10 +14,41 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
   styleUrl: './comments.component.css'
 })
 export class CommentsComponent {
-  comments: string [] = [
-    "Pelicula zzzz",
-    "Javi Diaz",
-    "05/21/2024",
-    "Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio.Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio.Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio. Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio.Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio. Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio.Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio. Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio.Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio. Lorem ipsum dolor sit amet consectetur. Sed consequat ornare varius mauris facilisi aliquam a vel arcu. Rutrum vestibulum venenatis viverra proin at massa odio"]
+  comments!: CommentResponse
   iterator: any [] = Array(4).fill(0)
+  id: string = ""
+  usernames: string [] = []
+
+  constructor(private contentService: ContentAPIService,
+    private route: ActivatedRoute,
+    private userApi: UserApiService
+  ){}
+
+  ngOnInit(){
+    this.route.params.subscribe(
+      params => {
+        this.id = params["id"]
+        this.getComments()
+      }
+    )
+  }
+
+  getComments(){
+    this.contentService.getReviewByContent(this.id).subscribe(
+      (res) => {
+        if(res!.data.length > 0){
+          res!.data.forEach(
+            element => {
+              this.userApi.getUserById(element.user.toString()).subscribe(
+                userRes => {
+                  this.usernames.push(userRes!.data[0].username)
+                }
+              )
+            }
+          )
+          this.comments = res!
+        }
+      }
+    )
+  }
 }
