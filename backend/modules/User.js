@@ -88,11 +88,14 @@ import supabase from '../config/supabaseClient.js';
 // };
 
 export const signUp = async (req, res) => {
+    
     const {
         email, password, firstName, secondName, firstLastName, secondLastName,
         personalId, birthDate, phone, username, photo, nationality, comunity,
         gender, administrator
     } = req.body;
+
+    console.log('Request Body: ', req.body);
 
     const { data: insertData, error: insertError } = await supabase
         .from('User')
@@ -105,6 +108,7 @@ export const signUp = async (req, res) => {
         
 
     if (insertError) {
+        console.log(insertData, insertError);
         return res.send({ data: null, error: insertError.message });
     }
 

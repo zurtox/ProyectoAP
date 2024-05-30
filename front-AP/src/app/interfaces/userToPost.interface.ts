@@ -5,9 +5,9 @@ export interface UserToPost {
     firstLastName:  string;
     secondLastName: string;
     secondName:     string;
-    personalId:     number;
+    personalId:     string;
     birthDate:      string;
-    phone:          number;
+    phone:          string;
     photo:          number;
     username:       string;
     nationality:    number;

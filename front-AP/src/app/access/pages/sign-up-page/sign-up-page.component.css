@@ -6,6 +6,7 @@
         height: auto!important;
         position: fixed;
         margin: 0!important;
+        margin-top: 200px!important;
         padding-top: 60vh;
         padding-bottom: 10vw;
         position: absolute;
@@ -179,11 +180,11 @@ h2{
 }
 
 .inputs-container{
-    
     max-height: 350px;
     overflow: auto;
     display: flex;
     flex-direction: row;
+    margin-bottom: 20px;
 }
 
 .input-container{
@@ -269,4 +270,9 @@ h2{
     color: #4CA9F9;
     font-weight: 200;
     font-size: 16px;
+}
+
+
+.input{
+    width: 200px;
 }

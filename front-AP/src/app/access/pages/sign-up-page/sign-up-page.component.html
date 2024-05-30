@@ -5,40 +5,45 @@
             <div class="image-box">
                 <img src="assets/film-1.jpg">
             </div>
-            <input type="file" id="pfp" accept="imag/png, image/jpeg, image/jpg">
+            <input (change)="uploadPhoto($event)" type="file" id="pfp" accept="imag/png, image/jpeg, image/jpg">
             <label class="font-poppins" for="pfp">Select File</label>
         </div>
-        <form class="info-container">
+        <div class="info-container">
             <div class="inputs-container">
                 <div class="left-side">
                     <div class="input-container">
-                        <input type="text" id="email" required>
+                        <input [(ngModel)]="emailInput" type="text" id="email" required>
                         <label for="email">Email</label>
                     </div>
 
                     <div class="input-container">
-                        <input type="text" id="password" required>
+                        <input [(ngModel)]="passwordInput" type="password" id="password" required>
                         <label for="password">Password</label>
                     </div>
 
                     <div class="input-container">
-                        <input type="text" id="firstname" required>
+                        <input [(ngModel)]="firstNameInput" type="text" id="firstname" required>
                         <label for="firstName">First Name</label>
                     </div>
 
                     <div class="input-container">
-                        <input type="text" id="secondName" required>
+                        <input [(ngModel)]="secondNameInput" type="text" id="secondName" required>
                         <label for="secondName">Second Name</label>
                     </div>
         
                     <div class="input-container">
-                        <input type="text" id="firtLastName" required>
+                        <input [(ngModel)]="firstLastNameInput" type="text" id="firtLastName" required>
                         <label for="firtLastName">First Lastname</label>
                     </div>
                     
                     <div class="input-container">
-                        <input type="text" id="secondLastName" required>
+                        <input [(ngModel)]="secondLastNameInput" type="text" id="secondLastName" required>
                         <label for="secondLastName">Second Lastname</label>
+                    </div>
+
+                    <div class="input-container">
+                        <input [(ngModel)]="phoneInput" type="text" id="phone" required>
+                        <label for="phone">Phone</label>
                     </div>
         
                 </div>
@@ -46,40 +51,40 @@
                 <div class="right-side">
 
                     <div class="input-container">
-                        <input type="text" id="personalId" required>
+                        <input [(ngModel)]="identificationInput" type="text" id="personalId" required>
                         <label for="personalId">Identification Card</label>
                     </div>
 
                     <div class="input-container">
-                        <input type="text" id="username" required>
+                        <input [(ngModel)]="usernameInput" type="text" id="username" required>
                         <label for="username">Username</label>
                     </div>
                     
                     <div class="input-container">
-                        <input  class="date-input" type="date" id="birthday" placeholder="none">
+                        <input [(ngModel)]="birthdayInput" class="date-input" type="date" id="birthday" placeholder="none">
                         <label for="birthday">Birthday</label>
                     </div>
 
                     <div class="input-container">
-                        <input type="text" id="nationality" required>
+                        <input [(ngModel)]="nationalityInput" type="text" id="nationality" required>
                         <label for="nationality">Nationality</label>
                     </div>
                 
                     <div class="input-container">
-                        <input type="text" id="comunity" required>
+                        <input [(ngModel)]="comunityInput" type="text" id="comunity" required>
                         <label for="comunity">Comunity</label>
                     </div>
 
                     <div class="input-container">
-                        <input type="text" id="gender" required>
+                        <input [(ngModel)]="genderInput" type="text" id="gender" required>
                         <label for="gender">Gender</label>
                     </div>    
                 </div>
             </div>
             <div class="btn-container">
                 <p class="font-poppins">You already have an account? <a class="font-poppins" href="/">Login</a></p>
-                <button (click)="signUpAction($event)" class="lightblue-button cancel-btn" type="submit">Sign Up</button>
+                <button (click)="signUpAction()" class="lightblue-button cancel-btn" type="submit">Sign Up</button>
             </div>
-        </form>
+        </div>
     </div>
 </div>

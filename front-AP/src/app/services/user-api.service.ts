@@ -71,8 +71,8 @@ export class UserApiService {
       email: newUser.email,
       password: newUser.password,
       firstName: newUser.firstName,
-      firstLastname: newUser.firstLastName,
-      secondLastname: newUser.secondLastName,
+      firstLastName: newUser.firstLastName,
+      secondLastName: newUser.secondLastName,
       secondName: newUser.secondName,
       personalId: newUser.personalId,
       birthDate: newUser.birthDate,
@@ -82,7 +82,7 @@ export class UserApiService {
       nationality: newUser.nationality,
       comunity: newUser.comunity,
       gender: newUser.gender,
-      admin: false
+      administrator: newUser.administrator
     });
   }
 
