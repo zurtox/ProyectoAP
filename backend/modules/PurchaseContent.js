@@ -14,7 +14,7 @@ export const getPurchaseContentById = async (req, res) => {
     const { data, error } = await supabase
         .from('PurchaseContent')
         .select('*')
-        .eq('id', id);
+        .eq('purchase', id);
     res.send({ data, error });
 };
 

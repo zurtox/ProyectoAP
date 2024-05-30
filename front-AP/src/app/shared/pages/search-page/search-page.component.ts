@@ -5,7 +5,9 @@ import { SearchBoxComponent } from '../../components/search-box/search-box.compo
 import { ContentAPIService } from '../../../services/content-api.service';
 import { CategoryResponse } from '../../../interfaces/categoryResponse.interface';
 import { Content, ContentResponse } from '../../../interfaces/contentResponse.interface';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { UserApiService } from '../../../services/user-api.service';
+import { User } from '../../../interfaces/userResponse.interface';
 
 @Component({
   selector: 'app-search-page',
@@ -13,7 +15,8 @@ import { Router } from '@angular/router';
   imports: [
     MovieBoxComponent,
     DropdownMenuComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
+    RouterModule
   ],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.css'
@@ -31,12 +34,15 @@ export class SearchPageComponent {
   image: string = "https://i.ebayimg.com/images/g/YBwAAOSw9BRjQZyi/s-l1600.jpg"
   categoryResponse!: CategoryResponse;
   contentResponse!: ContentResponse;
+  actualUser!: User;
 
   constructor(private contentAPIService: ContentAPIService,
-    private router: Router
+    private router: Router,
+    private userService: UserApiService
   ) {}
 
   ngOnInit() {
+    this.getUser()
     this.contentAPIService.getAllCategories().subscribe(
       (response) => {
         if(response) {
@@ -46,6 +52,14 @@ export class SearchPageComponent {
       }
     )
     this.getAllContent()
+  }
+
+  getUser(){
+    this.userService.getUser().subscribe(
+      user => {
+        this.actualUser = user!.data[0]
+      }
+    )
   }
 
   getAllContent(){

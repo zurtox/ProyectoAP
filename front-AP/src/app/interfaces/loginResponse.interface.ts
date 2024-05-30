@@ -1,5 +1,5 @@
 export interface LoginResponse {
-  data:  Login;
+  data:  Login[];
   error: null;
 }
 

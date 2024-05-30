@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginResponse } from '../interfaces/loginResponse.interface';
-import { Observable, catchError, of } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of } from 'rxjs';
 import { ContentResponse } from '../interfaces/contentResponse.interface';
 import { FavoriteResponse } from '../interfaces/favoriteResponse.interface';
-import { UserResponse } from '../interfaces/userResponse.interface';
+import { User, UserResponse } from '../interfaces/userResponse.interface';
 import { CartResponse } from '../interfaces/cartResponse.interface';
 import { UserToPost } from '../interfaces/userToPost.interface';
+import { HistoryResponse } from '../interfaces/historyResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -84,6 +85,29 @@ export class UserApiService {
       gender: newUser.gender,
       administrator: newUser.administrator
     });
+  }
+
+
+  getHistory3m(): Observable<HistoryResponse | undefined>{
+    return this.http.get<HistoryResponse>(`${this.baseURL}/purchase/last3Months`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getHistory6m(): Observable<HistoryResponse | undefined>{
+    return this.http.get<HistoryResponse>(`${this.baseURL}/purchase/last6Months`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+
+  getHistory1y() : Observable<HistoryResponse | undefined>{
+    return this.http.get<HistoryResponse>(`${this.baseURL}/purchase/lastYear`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
   }
 
 }

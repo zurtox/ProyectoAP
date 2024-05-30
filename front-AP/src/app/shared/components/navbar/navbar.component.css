@@ -4,6 +4,16 @@
   }
 }
 
+i {
+  font-size: 35px;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    transform: scale(1.2);
+    color: #4ca8f9;
+  }
+}
+
 .header{
   background-color: #45455e ;
   display: flex;
@@ -39,19 +49,16 @@
   transform: scale(1.1);
 }
 
-
 .mid-container{
   align-self: center;
   align-items: center;
 }
 
-.header .nav-links li{
-  display: inline-block;
-  padding: 0 25px;
-  transition: all 0.3s;
-}
-.header .nav-links li:hover{
-  transform: scale(1.1);
+.nav-options {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center
 }
 
 .header .btn button{
@@ -67,11 +74,6 @@
 .logo img{
   width: 40px;
   height: 40px;
-}
-.option img{
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
 }
 
 .right-container{

@@ -5,7 +5,8 @@
         placeholder="Search...">
       </shared-search-box>
       <div class="options-container">
-          <i class="material-icons add">
+          <i class="material-icons add"
+          routerLink="/add-actor">
             data_saver_on
           </i>
       </div>
@@ -17,12 +18,14 @@
       Actors
     </h2>
     <div class="movie-list">
-      @for (item of iterator; track $index) {
-        <shared-movie-box
-          [remove]="true"
-          [image]="image"
-          [description]="description">
-        </shared-movie-box>
+      @if(personResponse){
+        @for (person of personResponse.data; track $index) {
+          <shared-actor-box
+            [remove]="true"
+            [image]="image"
+            [person]="person">
+          </shared-actor-box>
+        }
       }
     </div>
   </div>
