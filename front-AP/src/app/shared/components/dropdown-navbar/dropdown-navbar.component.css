@@ -11,7 +11,8 @@
 
 .user-image {
   width: 45px;
-  border-radius: 50%;
+  height: 45px;
+  border-radius: 100%;
   cursor: pointer;
 }
 

@@ -30,20 +30,20 @@
                         <input [(ngModel)]="secondNameInput" type="text" id="secondName" required>
                         <label for="secondName">Second Name</label>
                     </div>
-        
+
                     <div class="input-container">
                         <input [(ngModel)]="firstLastNameInput" type="text" id="firtLastName" required>
                         <label for="firtLastName">First Lastname</label>
                     </div>
-                    
+
                     <div class="input-container">
                         <input [(ngModel)]="secondLastNameInput" type="text" id="secondLastName" required>
                         <label for="secondLastName">Second Lastname</label>
                     </div>
 
-                    
+
                 </div>
-                
+
                 <div class="right-side">
                     <div class="input-container">
                         <input [(ngModel)]="identificationInput" type="text" id="personalId" required>
@@ -54,26 +54,26 @@
                         <input [(ngModel)]="phoneInput" type="text" id="phone" required>
                         <label for="phone">Phone</label>
                     </div>
-                    
+
                     <div class="input-container">
                         <input [(ngModel)]="usernameInput" type="text" id="username" required>
                         <label for="username">Username</label>
                     </div>
-                    
+
                     <div class="input-container">
                         <input [(ngModel)]="birthdayInput" class="date-input" type="date" id="birthday" placeholder="none">
                         <label for="birthday">Birthday</label>
                     </div>
-                    
+
                     <div class="input-container">
                         <shared-dropdown-menu class="dropdown" header="Community" [options]="communityOptions" (selectedOption)="comunityInput"></shared-dropdown-menu>
                         <shared-dropdown-menu class="dropdown" header="Gender" [options]="genderOptions" (selectedOption)="genderInput"></shared-dropdown-menu>
                     </div>
                     <div class="input-container">
-                        <shared-dropdown-menu class="dropdown" header="Nationality" [options]="genderOptions" (selectedOption)="genderInput"></shared-dropdown-menu>
+                        <shared-dropdown-menu class="dropdown" header="Nationality" [options]="nationalityOptions" (selectedOption)="nationalityInput"></shared-dropdown-menu>
                     </div>
                 </div>
-                
+
             </div>
             <div class="btn-container">
                 <p class="font-poppins">You already have an account? <a class="font-poppins" href="/">Login</a></p>

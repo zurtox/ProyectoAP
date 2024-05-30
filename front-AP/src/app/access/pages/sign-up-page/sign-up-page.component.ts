@@ -19,6 +19,13 @@ export class SignUpPageComponent {
   filename: string = ''
   genderOptions: string[] = [];
   communityOptions: string[] = [];
+  nationalityOptions: string[] = [
+    "Costarricense",
+    "Mexicano",
+    "Estadounidense",
+    "Canadiense",
+    "Español"
+  ];
 
   newUser: UserToPost = {
     email: '',
@@ -47,26 +54,26 @@ export class SignUpPageComponent {
   identificationInput: string = '';
   usernameInput: string = '';
   birthdayInput: string = '';
-  nationalityInput: string = '';
-  comunityInput: string = '';
-  genderInput: string = '';
+  nationalityInput: number = 0;
+  comunityInput: number = 0;
+  genderInput: number = 0;
   phoneInput: string = '';
 
-  constructor(private s3ApiService: S3ApiService, 
+  constructor(private s3ApiService: S3ApiService,
     private contentAPIService: ContentAPIService,
     private userApi: UserApiService,
     private router: Router
-  ){}
+  ) { }
 
   ngOnInit() {
     this.getGenders();
     this.getCommunities();
   }
 
-  getCommunities(){
+  getCommunities() {
     this.contentAPIService.getCommunities().subscribe(
       (response) => {
-        if (response){
+        if (response) {
           for (let i = 0; i < response.data.length; i++) {
             this.communityOptions.push(response.data[i].name);
           }
@@ -75,10 +82,10 @@ export class SignUpPageComponent {
     )
   }
 
-  getGenders(){
+  getGenders() {
     this.contentAPIService.getGenders().subscribe(
       (response) => {
-        if (response){
+        if (response) {
           for (let i = 0; i < response.data.length; i++) {
             this.genderOptions.push(response.data[i].value);
           }
@@ -87,7 +94,7 @@ export class SignUpPageComponent {
     )
   }
 
-  uploadPhoto(event: any){
+  uploadPhoto(event: any) {
     const file = event.target.files[0]
     if (file) {
       const formData = new FormData();
@@ -112,11 +119,9 @@ export class SignUpPageComponent {
     );
   }
 
-  
+
 
   signUpAction() {
-
-    
     this.newUser.email = this.emailInput;
     this.newUser.password = this.passwordInput;
     this.newUser.firstName = this.firstNameInput;
@@ -127,23 +132,31 @@ export class SignUpPageComponent {
     this.newUser.username = this.usernameInput;
     this.newUser.birthDate = this.birthdayInput;
     this.newUser.phone = this.phoneInput;
-    this.newUser.photo = "this.filename";
-    this.newUser.nationality = 1;
+    this.newUser.photo = this.filename;
+    this.newUser.nationality = this.nationalityInput+1;
     this.newUser.comunity = 1;
-    this.newUser.gender = 'Hombre';
     this.newUser.administrator = false;
+    this.newUser.gender = this.getGendersByIndex(this.genderInput)
 
-    console.log(this.newUser);
-
-    
     this.userApi.signUp(this.newUser).subscribe((response: any) => {
+      console.log(response);
       if (response.status == 200) {
         console.log('Usuario creado correctamente');
       } else {
         console.log('Error al crear usuario');
       }
     });
-    
-    
+  }
+
+  getGendersByIndex(index: number) {
+    if (index == 0) {
+      return "Hombre"
+    } else if (index == 1) {
+      return "Mujer"
+    } else if (index == 2) {
+      return "Prefiero no decirlo"
+    } else {
+      return "Otro"
+    }
   }
 }

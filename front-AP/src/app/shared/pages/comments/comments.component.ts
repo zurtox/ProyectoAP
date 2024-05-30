@@ -37,16 +37,18 @@ export class CommentsComponent {
     this.contentService.getReviewByContent(this.id).subscribe(
       (res) => {
         if(res!.data.length > 0){
+          let userList: string [] = Array(res!.data.length).fill("")
           res!.data.forEach(
-            element => {
+            (element, index) => {
               this.userApi.getUserById(element.user.toString()).subscribe(
                 userRes => {
-                  this.usernames.push(userRes!.data[0].username)
+                  userList[index] = userRes!.data[0].username
                 }
               )
             }
           )
           this.comments = res!
+          this.usernames = userList
         }
       }
     )
