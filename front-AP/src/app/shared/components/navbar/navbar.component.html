@@ -1,40 +1,41 @@
 <header class="header">
-    <div class="logo" routerLink="/landing">
-        <img src="assets/navbar-images/navbar-logo.png" alt="">
-        <label class="font-poppins">IMDB</label>
+  <div class="logo" routerLink="/landing">
+    <img src="assets/navbar-images/navbar-logo.png" alt="">
+    <label class="font-poppins">IMDB</label>
+  </div>
+  <div class="mid-container">
+    <div class="nav-options">
+      @if(!isAdmin){
+      <i class="material-icons option" routerLink="/search">
+        search
+      </i>
+      <i class="material-icons option" routerLink="/favorites">
+        favorite
+      </i>
+      <i class="material-icons option" routerLink="/cart">
+        shopping_cart
+      </i>
+      }@else{
+      <i class="material-icons option" routerLink="/search">
+        movie
+      </i>
+      <i class="material-icons option" routerLink="/actors">
+        accessibility_new
+      </i>
+      <i class="material-icons option" routerLink="/statistics">
+        signal_cellular_alt
+      </i>
+      }
     </div>
-    <div class="mid-container">
-        <ul class="nav-links">
-            <li>
-                <a>
-                    <span class="option search" routerLink="/search">
-                        <img src="assets/navbar-images/navbar-search.png">
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span class="option favorite" routerLink="/favorites">
-                        <img src="assets/navbar-images/navbar-favorites.png" alt="">
-                    </span>
-                </a>
-            </li>
+  </div>
+  <div class="right-container">
+    @if(!isAdmin){
+      <shared-dropdown-navbar header="Settings" [options]="dropdownCategories" [userPhoto]="userPhoto">
+      </shared-dropdown-navbar>
+    }@else {
+      <shared-dropdown-navbar header="Settings" [options]="dropdownCategoriesAdmin" [userPhoto]="userPhoto">
+      </shared-dropdown-navbar>
+    }
 
-            <li>
-                <a>
-                    <span class="option cart" routerLink="/cart">
-                        <img src="assets/navbar-images/navbar-cart.png" alt="">
-                    </span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="right-container">
-        <shared-dropdown-navbar
-            header="Settings"
-            [options]="dropdownCategories"
-            [userPhoto]="userPhoto">
-        </shared-dropdown-navbar>
-    </div>
+  </div>
 </header>
-

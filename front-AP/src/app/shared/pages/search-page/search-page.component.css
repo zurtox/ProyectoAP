@@ -32,6 +32,20 @@ body {
   margin-top: 32px;
 }
 
+.material-icons {
+  color: white;
+  transition: 0.5s ease;
+  cursor: pointer;
+}
+
+.material-icons:hover {
+  color: #4ca8f9;
+}
+
+.add {
+  font-size: 38px;
+}
+
 .resize-container {
   display: flex;
   flex-direction: column;

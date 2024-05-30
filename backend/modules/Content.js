@@ -69,6 +69,7 @@ export async function updateContent(id, { title, publishYear, category, trailer,
 export const deleteContent = async(req, res) => {
 
     // const id = req
+    const { id } = req.params;
     const { data: contentData, error: contentError } = await supabase
         .from('Record')
         .delete()

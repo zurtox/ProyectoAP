@@ -24,10 +24,9 @@ export class LoginPageComponent {
     this.userApiService.login(this.emailInput, this.passwordInput).subscribe(
       response => {
         this.loginResponse = response!
-        console.log(response)
         if(response!.data){
-          if(this.loginResponse.data.administrator){
-            this.router.navigate(['/admin-landing'])
+          if(this.loginResponse.data[0].administrator){
+            this.router.navigate(['/search'])
           }else{
             this.router.navigate(['/landing'])
           }

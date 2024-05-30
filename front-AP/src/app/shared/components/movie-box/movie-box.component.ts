@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Content } from '../../../interfaces/contentResponse.interface';
 import { UserApiService } from '../../../services/user-api.service';
 import { Router } from '@angular/router';
+import { ContentAPIService } from '../../../services/content-api.service';
 
 @Component({
   selector: 'shared-movie-box',
@@ -13,7 +14,8 @@ import { Router } from '@angular/router';
 export class MovieBoxComponent {
 
   constructor(private userApiService: UserApiService,
-    private router: Router
+    private router: Router,
+    private contentApi: ContentAPIService
   ){}
 
   @Input()
@@ -57,7 +59,12 @@ export class MovieBoxComponent {
   }
 
   deleteContent(){
-    console.log("deleting content: " + this.content.id)
+    this.contentApi.deleteContent(this.content.id.toString()).subscribe(
+      res => {
+        console.log(res)
+        console.log("deleting content: " + this.content.id)
+      }
+    )
   }
 
   viewContent(){

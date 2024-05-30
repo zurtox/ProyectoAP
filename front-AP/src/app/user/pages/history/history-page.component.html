@@ -1,17 +1,19 @@
 <div class="main-container">
   <div class="header">
-    <h2>Recently Viewed</h2>
+    <h2>Shopping History</h2>
     <shared-dropdown-menu
       header="Range"
-      [options]="dropdownCategories">
+      [options]="dropdownCategories"
+      (selectedOptionsChange)="changeFilter($event)">
     </shared-dropdown-menu>
   </div>
+
   <div class="cards-grid">
-    @for (item of iterator; track $index) {
+    @for (content of contentList; track $index) {
       <shared-content-card
       [remove]="true"
       [favorite]="true"
-      >
+      [content]="content">
     </shared-content-card>
     }
   </div>

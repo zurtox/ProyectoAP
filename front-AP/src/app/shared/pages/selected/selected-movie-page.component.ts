@@ -18,7 +18,7 @@ import { UserApiService } from '../../../services/user-api.service';
 })
 export class SelectedMoviePageComponent {
 
-  actorBox: ActorBoxComponent[]=[new ActorBoxComponent(), new ActorBoxComponent(), new ActorBoxComponent()]
+  // actorBox: ActorBoxComponent[]=[new ActorBoxComponent(), new ActorBoxComponent(), new ActorBoxComponent()]
   movieTitle: string = "";
   movieReleaseDate!: number;
   movieDuration: string = '2 horas 30 minutos';

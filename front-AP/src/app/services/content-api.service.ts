@@ -4,6 +4,8 @@ import { Observable, catchError, of } from 'rxjs';
 import { CategoryResponse } from '../interfaces/categoryResponse.interface';
 import { ContentResponse } from '../interfaces/contentResponse.interface';
 import { ContentByViewsResponse } from '../interfaces/contentByViewsResponse.interface';
+import { PersonResponse } from '../interfaces/personResponse.interface';
+import { PurchaseResponse } from '../interfaces/purchaseResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +83,35 @@ export class ContentAPIService {
 
   getTopContentByViews(): Observable<ContentByViewsResponse | undefined>{
     return this.http.get<ContentByViewsResponse>(`${this.baseURL}/getTop250ContentByViews`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  getPurchaseContentById(id: string): Observable<PurchaseResponse | undefined>{
+    return this.http.get<PurchaseResponse>(`${this.baseURL}/purchaseContents/${id}`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+
+  }
+
+  getAllPersons(): Observable<PersonResponse | undefined>{
+    return this.http.get<PersonResponse>(`${this.baseURL}/persons`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  deletePerson(id: string): Observable<any>{
+    return this.http.delete<any>(`${this.baseURL}/persons/${id}`)
+    .pipe(
+      catchError(error => of(undefined))
+    )
+  }
+
+  deleteContent(id: string): Observable<any>{
+    return this.http.delete<any>(`${this.baseURL}/deleteContent/${id}`)
     .pipe(
       catchError(error => of(undefined))
     )

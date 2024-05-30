@@ -13,7 +13,7 @@ import { DropdownMenuComponent } from '../../components/dropdown-menu/dropdown-m
 })
 export class SelectedSerieComponent {
   episodeBox: EpisodeBoxComponent[]=[new EpisodeBoxComponent(), new EpisodeBoxComponent(), new EpisodeBoxComponent()]
-  actorBox: ActorBoxComponent[]=[new ActorBoxComponent(), new ActorBoxComponent(), new ActorBoxComponent()]
+  // actorBox: ActorBoxComponent[]=[new ActorBoxComponent(), new ActorBoxComponent(), new ActorBoxComponent()]
   movieTitle: string = 'Openheimer';
   movieReleaseDate: string = '24 Febrero 2024';
   movieDuration: string = '2 horas 30 minutos';

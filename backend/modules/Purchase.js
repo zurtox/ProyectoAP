@@ -131,10 +131,11 @@ export const getPurchasesLast3Months = async (req, res) => {
         .from('Purchase')
         .select('*')
         .gte('purchaseDate', formatDate(threeMonthsAgo))
-        .eq('user', id.data[0].id);
+        .eq('user', id);
 
     res.send({ data, error });
 };
+
 
 export const getPurchasesLast6Months = async (req, res) => {
     const id = await actualUserId();
@@ -148,7 +149,7 @@ export const getPurchasesLast6Months = async (req, res) => {
         .from('Purchase')
         .select('*')
         .gte('purchaseDate', formatDate(sixMonthsAgo))
-        .eq('user', id.data[0].id);
+        .eq('user', id);
   
     res.send({ data, error });
 }; 
@@ -165,7 +166,7 @@ export const getPurchasesLastYear = async (req, res) => {
         .from('Purchase')
         .select('*')
         .gte('purchaseDate', formatDate(oneYearAgo))
-        .eq('user', id.data[0].id);
+        .eq('user', id);
   
     res.send({ data, error });
 };

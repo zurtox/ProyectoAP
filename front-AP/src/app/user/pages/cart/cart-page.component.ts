@@ -38,7 +38,6 @@ export class CartPageComponent {
         )
       }
     )
-    console.log(this.contentList)
   }
 
   buyContent(){

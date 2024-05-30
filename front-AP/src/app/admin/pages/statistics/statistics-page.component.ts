@@ -54,7 +54,7 @@ export class StatisticsPageComponent {
 
   constructor() {
     this.chartOptions = {
-      series: [48, 52],
+      series: [],
       chart: {
         height: 350,
         type: "pie",
@@ -68,5 +68,7 @@ export class StatisticsPageComponent {
         }
       }
     };
+
+
   }
 }

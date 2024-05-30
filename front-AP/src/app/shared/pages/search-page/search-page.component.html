@@ -16,6 +16,14 @@
           [options]="options"
           (selectedOptionsChange)="changeContent($event)">
         </shared-dropdown-menu>
+        @if(actualUser){
+          @if(actualUser.administrator){
+            <i class="material-icons add"
+            routerLink="/add-content">
+              data_saver_on
+            </i>
+          }
+        }
       </div>
     </div>
     <h2>
@@ -27,11 +35,21 @@
     <div class="movie-list">
       @if(contentResponse){
         @for (content of contentResponse.data; track $index) {
-          <shared-movie-box
-            [buy]="true"
-            [favorite]="true"
-            [content]="content">
-          </shared-movie-box>
+          @if(actualUser){
+            @if(actualUser.administrator){
+              <shared-movie-box
+              [content]="content"
+              [remove]="true">
+            </shared-movie-box>
+            }@else {
+              <shared-movie-box
+              [buy]="true"
+              [favorite]="true"
+              [content]="content">
+            </shared-movie-box>
+            }
+          }
+
         }
       }
     </div>

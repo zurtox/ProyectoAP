@@ -22,19 +22,29 @@ export class NavbarComponent {
     ["Cart", "/cart"],
     ["Logout", ""]
   ]
+  dropdownCategoriesAdmin: string[][] = [
+    ["Search", "/search"],
+    ["Persons", "/actors"],
+    ["Statistics", "/statistics"],
+    ["Logout", ""]
+  ]
   userPhoto: string = '';
+  isAdmin: boolean = false
 
   constructor(private userApi: UserApiService, private router: Router) { }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        if (!['/', '/register'].includes(event.urlAfterRedirects)) {
-          this.userApi.getUser().subscribe(user => {
-            this.userPhoto = user?.data[0].photo || '';
-          })
-        }
-      }
+    this.userApi.getUser().subscribe(user => {
+      this.userPhoto = user?.data[0].photo || '';
+      this.isAdmin = user!.data[0].administrator;
     });
+  }
+
+  loadUserData() {
+    if (!['/', '/register'].includes(this.router.url)) {
+      this.userApi.getUser().subscribe(user => {
+        this.userPhoto = user?.data[0].photo || '';
+      });
+    }
   }
 }
