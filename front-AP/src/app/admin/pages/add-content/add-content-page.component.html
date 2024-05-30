@@ -1,1 +1,45 @@
-<p>add-content-page works!</p>
+<div class="main-container">
+    <h2>Add Content</h2>
+    <div class="flex-row">
+        <div class="left-side">
+            <div class="input-container">
+                <input id="title" required>
+                <label for="title">Title</label>
+            </div>
+
+            <div class="input-container date">
+                <input type="date" id="Release Date" required>
+                <label for="Date">Release Date</label>
+            </div>
+
+            <div class="input-container">
+                <input id="duration" required>
+                <label for="duration">Duration</label>
+            </div>
+
+            <div class="input-container">
+                <input type="password" name="password" id="password" required>
+                <label for="password">Password</label>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <h3>Categories</h3>
+            <div class="dropdown-container">
+                <shared-dropdown-menu
+                header="Categories"
+                [options]="categories"></shared-dropdown-menu>
+            </div>
+            <h3>Actors</h3>
+            <div class="dropdown-container">
+                <button (click)="openModal()" class="lightblue-button">Add Actors</button>
+            </div>
+        </div>
+    </div>
+    <button  class="addBtn lightblue-button">Add Content</button>
+</div>
+
+<div *ngIf="modalSwitch == true">
+    <admin-actors-modal (selectedActorsEvent)="getSelectedActors($event)"></admin-actors-modal>
+</div>
+
