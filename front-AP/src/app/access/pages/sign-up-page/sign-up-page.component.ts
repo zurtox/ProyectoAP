@@ -22,9 +22,9 @@ export class SignUpPageComponent {
   nationalityOptions: string[] = [
     "Costarricense",
     "Mexicano",
-    "Estadounidense",
-    "Canadiense",
-    "Español"
+    "Colombiano",
+    "Español",
+    "Argentino"
   ];
 
   newUser: UserToPost = {
@@ -74,6 +74,7 @@ export class SignUpPageComponent {
     this.contentAPIService.getCommunities().subscribe(
       (response) => {
         if (response) {
+          console.log(response)
           for (let i = 0; i < response.data.length; i++) {
             this.communityOptions.push(response.data[i].name);
           }
@@ -86,6 +87,7 @@ export class SignUpPageComponent {
     this.contentAPIService.getGenders().subscribe(
       (response) => {
         if (response) {
+          console.log(response)
           for (let i = 0; i < response.data.length; i++) {
             this.genderOptions.push(response.data[i].value);
           }
@@ -119,6 +121,19 @@ export class SignUpPageComponent {
     );
   }
 
+  getCommunityInput(index: number) {
+    this.comunityInput = index;
+    console.log(this.comunityInput);
+  }
+
+  getNationalityInput(index: number) {
+    this.nationalityInput = index;
+  }
+
+  getGenderInput(index: number) {
+    this.genderInput = index;
+  }
+
 
 
   signUpAction() {
@@ -138,8 +153,9 @@ export class SignUpPageComponent {
     this.newUser.administrator = false;
     this.newUser.gender = this.getGendersByIndex(this.genderInput)
 
+    console.log(this.newUser);
+
     this.userApi.signUp(this.newUser).subscribe((response: any) => {
-      console.log(response);
       if (response.status == 200) {
         console.log('Usuario creado correctamente');
       } else {

@@ -21,7 +21,7 @@ export const getAllMovies = async (req, res) => {
         contentData.push(data[0]);
     }
 
-    console.log(contentData)
+    // console.log(contentData)
 
     res.send({ data: contentData, error });
 };
@@ -52,7 +52,7 @@ export const insertMovie = async (req, res) => {
     }
 
     const contentId = data[0].id;
-
+    
     const { data: dataMovie, error: errorMovie } = await supabase
         .from('Movie')
         .insert([{ content: contentId, duration }])

@@ -47,8 +47,14 @@ export class ContentCardComponent {
   }
 
   addCart(){
+    this.userApiService.addToCart(this.content.id.toString()).subscribe(
+      res => {
+        console.log(res)
+      }
+    )
     console.log("adding to cart: " + this.content.id)
   }
+
 
   deleteContent(){
     console.log("deleting content: " + this.content.id)

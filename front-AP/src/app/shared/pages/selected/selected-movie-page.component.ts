@@ -39,31 +39,6 @@ export class SelectedMoviePageComponent {
       private userApiService: UserApiService
   ) {}
 
-  // uploadPhoto(event: any){
-  //   const file = event.target.files[0]
-  //   if (file) {
-  //     const formData = new FormData();
-  //     formData.append('file', file);
-  //     this.s3ApiService.uploadFile(formData).subscribe(
-  //       (res) => {
-  //         this.updateImage(file.name).subscribe(() => {
-  //           console.log(res)
-  //           // this.uploadActivity();
-  //         });
-  //       }
-  //     );
-  //   }
-  // }
-
-  // updateImage(filename: string) {
-  //   return this.s3ApiService.getFileByName(filename).pipe(
-  //     map(res => {
-  //       this.filename = res!.result;
-  //       console.log(this.filename);
-  //     })
-  //   );
-  // }
-
   ngOnInit(){
     this.actualRoute.params.subscribe(
       params => {

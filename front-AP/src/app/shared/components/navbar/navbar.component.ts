@@ -28,23 +28,26 @@ export class NavbarComponent {
     ["Statistics", "/statistics"],
     ["Logout", ""]
   ]
-  userPhoto: string = '';
+  userPhoto: string = '/assets/holderUser.jpg';
   isAdmin: boolean = false
 
   constructor(private userApi: UserApiService, private router: Router) { }
 
   ngOnInit() {
-    this.userApi.getUser().subscribe(user => {
-      this.userPhoto = user?.data[0].photo || '';
-      this.isAdmin = user!.data[0].administrator;
-    });
+    this.loadUserData();
+    // this.userApi.getUser().subscribe(user => {
+    //   this.userPhoto = user?.data[0].photo || '';
+    //   this.isAdmin = user!.data[0].administrator;
+    // });
   }
 
   loadUserData() {
     if (!['/', '/register'].includes(this.router.url)) {
       this.userApi.getUser().subscribe(user => {
-        this.userPhoto = user?.data[0].photo || '';
+        this.userPhoto = user?.data[0].photo
+        this.isAdmin = user!.data[0].administrator;
       });
     }
   }
 }
+// /assets/images/profileHolder.png

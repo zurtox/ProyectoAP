@@ -25,7 +25,7 @@ export const isMovie = async(req, res) => {
         .from('Movie')
         .select('*')
         .eq('content', id);
-        console.log(data)
+        // console.log(data)
     res.send({flag: data.length != 0});
 }
 

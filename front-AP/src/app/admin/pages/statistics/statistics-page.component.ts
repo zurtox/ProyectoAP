@@ -98,7 +98,7 @@ export class StatisticsPageComponent {
       (response) => {
         this.notDefinedCount = response!.count
         this.chartOptions = {
-          series: [this.femaleCount, this.maleCount, this.otherCount, this.notDefinedCount],
+          series: [this.maleCount, this.femaleCount, this.otherCount, this.notDefinedCount],
           chart: {
             height: 350,
             type: "pie",

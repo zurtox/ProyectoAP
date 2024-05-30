@@ -48,8 +48,8 @@ export class UserApiService {
     )
   }
 
-  getUser(): Observable<UserResponse | undefined>{
-    return this.http.get<UserResponse>(`${this.baseURL}/actualUser`)
+  getUser(): Observable<any | undefined>{
+    return this.http.get<any>(`${this.baseURL}/actualUser`)
     .pipe(
       catchError(error => of(undefined))
     )

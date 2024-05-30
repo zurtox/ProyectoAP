@@ -42,22 +42,22 @@ export class SearchPageComponent {
   ) {}
 
   ngOnInit() {
-    this.getUser()
     this.contentAPIService.getAllCategories().subscribe(
       (response) => {
         if(response) {
           this.categoryResponse = response
           this.categoryNames = this.categoryResponse.data.map(category => category.name)
+          this.getUser()
         }
       }
     )
-    this.getAllContent()
   }
 
   getUser(){
     this.userService.getUser().subscribe(
       user => {
         this.actualUser = user!.data[0]
+        this.getAllContent()
       }
     )
   }

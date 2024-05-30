@@ -66,11 +66,11 @@
                     </div>
 
                     <div class="input-container">
-                        <shared-dropdown-menu class="dropdown" header="Community" [options]="communityOptions" (selectedOption)="comunityInput"></shared-dropdown-menu>
-                        <shared-dropdown-menu class="dropdown" header="Gender" [options]="genderOptions" (selectedOption)="genderInput"></shared-dropdown-menu>
+                        <shared-dropdown-menu class="dropdown" header="Community" [options]="communityOptions" (selectedOptionsChange)="getCommunityInput($event)"></shared-dropdown-menu>
+                        <shared-dropdown-menu class="dropdown" header="Gender" [options]="genderOptions" (selectedOptionsChange)="getGenderInput($event)"></shared-dropdown-menu>
                     </div>
                     <div class="input-container">
-                        <shared-dropdown-menu class="dropdown" header="Nationality" [options]="nationalityOptions" (selectedOption)="nationalityInput"></shared-dropdown-menu>
+                        <shared-dropdown-menu class="dropdown" header="Nationality" [options]="nationalityOptions" (selectedOptionsChange)="getNationalityInput($event)"></shared-dropdown-menu>
                     </div>
                 </div>
 
